@@ -3,7 +3,7 @@ import { ValidaCadastroProvider } from './../../providers/valida-cadastro/valida
 import { TravelPlan } from './../../models/travelPlan';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { TravelTrade } from '../../models/travelTrade';
 
 /**
@@ -19,18 +19,19 @@ import { TravelTrade } from '../../models/travelTrade';
   templateUrl: 'plan-step1.html',
 })
 export class PlanStep1Page {
+  tp: TravelPlan;
+  step1Form: FormGroup;
+
   minDate: any;
   minEndDate: any;
-  tp: TravelPlan;
-  fgPlanStep1: FormGroup;
-  startDate = DateTime;
-  endDate = DateTime;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    private validaCadastro: ValidaCadastroProvider) {
+    private validaCadastro: ValidaCadastroProvider,
+    private formBuilder: FormBuilder) {
     this.tp = new TravelPlan();
     this.tp.trades = new Array<TravelTrade>();
+    this.createForm();
   }
 
   ionViewDidLoad() {
@@ -39,16 +40,24 @@ export class PlanStep1Page {
   }
 
   dtInicioChange(){
-    this.minEndDate = this.tp.startDateTrip;
+    this.minEndDate = this.step1Form.controls["startDateTrip"].value;
   }
 
   submitStep1(){
+    this.tp = this.step1Form.value;
     this.validaCadastro.setEnableStep1(false);
     this.validaCadastro.setEnableStep2(true);
     localStorage.setItem("travelplan", JSON.stringify(this.tp));
     this.navCtrl.parent.select(1);
   }
 
-
+  createForm(){
+    this.step1Form = this.formBuilder.group({
+      title: ['', Validators.required],
+      startDateTrip: ['', Validators.required],
+      endDateTrip: ['', Validators.required],
+    });
+  }
+  
 
 }
