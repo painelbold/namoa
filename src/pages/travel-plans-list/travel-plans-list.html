@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      <img src="assets/imgs/logo.png" class="logo"/>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <h4>Meus Planos</h4>
+    <ion-item-group *ngIf="travelPlans">
+      <ion-item *ngFor="let t of travelPlans" text-wrap>
+        <ion-label>
+          <h3 item-left>{{t.title}}</h3>
+          <p>Período :{{t.startDateTrip | date:'dd/MM'}} até {{t.endDateTrip | date:'dd/MM'}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+    <ion-item *ngIf="!travelPlans">
+      <p>Sem planos cadastrados.</p>
+    </ion-item>
+    <ion-fab 
+  bottom right 
+  (click)="newTravelPlan()"
+  >
+    <button 
+    ion-fab
+    class="btn-add">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

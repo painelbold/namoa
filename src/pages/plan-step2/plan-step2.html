@@ -1,0 +1,121 @@
+<!--
+  Generated template for the PlanStep2Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>PlanStep2</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <h4>Novo Plano</h4>
+    <form (ngSubmit)="submitStep2()" #registerForm="ngForm">
+    <ion-item-group inset>
+      <ion-item>
+        <ion-label>Cidade</ion-label>
+        <ion-select
+        [(ngModel)]="travelTrade.city"
+        id="cidade"
+        name="cidade">
+        <ion-option
+        *ngFor="let c of cidades"
+        value="{{c.descricao}}"
+        required>
+          {{c.descricao}}
+        </ion-option>
+        </ion-select>
+      </ion-item>
+        <ion-item>
+            <ion-label>Tipo de Categoria</ion-label>
+            <ion-select
+        [(ngModel)]="travelTrade.categoryType"
+        id="tpCategoria"
+        name="tpCategoria">
+        <ion-option
+        *ngFor="let t of tpCategoria"
+        value="{{t.descricao}}"
+        required>
+          {{t.descricao}}
+        </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label>Categoria</ion-label>
+          <ion-select
+        [(ngModel)]="travelTrade.category"
+        id="categoria"
+        name="categoria">
+        <ion-option
+        *ngFor="let c of categoria"
+        value="{{c.descricao}}"
+        required>
+          {{c.descricao}}
+        </ion-option>
+        </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Trade</ion-label>
+            <ion-select
+          [(ngModel)]="travelTrade.trade"
+          id="trade"
+          name="trade"
+          required>
+          <ion-option
+          *ngFor="let t of trade"
+          value="{{t.descricao}}"
+          required>
+            {{t.descricao}}
+          </ion-option>
+          </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data de Início</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" 
+            [min]="minDate"
+            [max]="tp.endDateTrip"
+            (ionChange)="dtInicioChange()"
+            [(ngModel)]="travelTrade.startDateTrader"
+            [ngModelOptions]="{standalone: true}"
+            required
+            ></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data Final</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" 
+            [min]="minEndDate"
+            [max]="tp.endDateTrip"
+            [(ngModel)]="travelTrade.endDateTrader"
+            [ngModelOptions]="{standalone: true}"
+            required
+            ></ion-datetime>
+          </ion-item>
+          <ion-buttons end>
+              <button 
+                ion-button 
+                id="addTrade"
+                type="button"
+                (click)="addTrade()"
+                 > Adicionar Trade
+                </button>
+            <button 
+            ion-button 
+            icon-end 
+            bottom
+            type="submit" 
+            class="submit-btn"
+            id="proximo"
+            [disabled]="!registerForm.form.valid" > Próximo
+                <ion-icon name="arrow-dropright"></ion-icon>
+            </button>
+          </ion-buttons>
+    </ion-item-group>
+    </form>
+  
+  </ion-content>
+  

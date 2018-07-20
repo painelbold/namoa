@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-navbar>
+        <img src="assets/imgs/logo.png" class="logo"/>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="register-content" padding>
+    <h4>Registrar</h4>
+    <div class="register-box">
+        <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+            <ion-item-group inset>
+                <ion-item>
+                    <ion-label floating>Nome Completo</ion-label>
+                    <ion-input 
+                    type="text" 
+                    name="fullName" 
+                    [(ngModel)]="usuario.fullName"
+                    #fullName="ngModel"
+                    required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>E-mail</ion-label>
+                    <ion-input 
+                    type="email" 
+                    name="email" 
+                    [(ngModel)]="registerCredentials.email"
+                    #email="ngModel"
+                    required></ion-input>
+                </ion-item>
+                <!-- <ion-item *ngIf="email.errors && (email.dirty || email.touched)" class="text-danger">
+                    O campo é obrigatório
+                </ion-item> -->
+                <ion-item>
+                    <ion-label floating>Senha</ion-label>
+                    <ion-input 
+                    type="password" 
+                    name="password" 
+                    [(ngModel)]="registerCredentials.password"
+                    #password="ngModel"
+                    required></ion-input>
+                </ion-item>
+                <!-- <ion-item *ngIf="password.errors && (password.dirty || password.touched)" class="text-danger">
+                    O campo é obrigatório
+                </ion-item> -->
+                <ion-item>
+                    <ion-label floating>Confirmar Senha</ion-label>
+                    <ion-input 
+                    type="password" 
+                    name="confirm-password" 
+                    [(ngModel)]="registerCredentials.confirmPassword"
+                    #confirmPassword="ngModel"
+                    required></ion-input>
+                </ion-item>
+            </ion-item-group>
+            <button 
+            ion-button 
+            class="submit-btn" 
+            full 
+            type="submit"
+            [disabled]="!registerForm.valid">Registrar</button>
+        </form>
+    </div>
+</ion-content>

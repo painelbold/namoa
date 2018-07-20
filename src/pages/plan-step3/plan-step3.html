@@ -1,0 +1,39 @@
+<!--
+  Generated template for the PlanStep3Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>PlanStep3</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h4>Meu plano</h4>
+  <p>Título: {{tp.title}}</p>
+    <ion-list>
+        <ion-item *ngFor="let item of items">
+          <ion-label>
+            <p>Trade: {{item.trade}}<p>
+            <p>Categoria: {{item.category}}</p>
+            <p>Período: {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-buttons end>
+        <button 
+        ion-button 
+        icon-end 
+        bottom
+        type="button" 
+        (click)="confirm()"
+        id="proximo" > Confirmar
+            <ion-icon name="arrow-dropright"></ion-icon>
+        </button>
+      </ion-buttons>
+</ion-content>

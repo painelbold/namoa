@@ -1,0 +1,36 @@
+<ion-content class="login-content" padding>
+    <ion-row class="logo-row">
+        <img src="assets/imgs/logo.png" class="logo"/>
+    </ion-row>
+    <div class="login-box">
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)"> 
+            <ion-list inset>
+                <ion-item>
+                    <ion-label floating>E-mail</ion-label>
+                    <ion-input 
+                    type="email" 
+                    name="email" 
+                    [(ngModel)]="loginFields.email"
+                    #email="ngModel"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Senha</ion-label>
+                    <ion-input 
+                    type="password" 
+                    name="password" 
+                    [(ngModel)]="loginFields.password"
+                    #password="ngModel"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Continuar conectado</ion-label>
+                    <ion-checkbox 
+                    name="stayConnected" 
+                    [(ngModel)]="loginFields.stayConnected"></ion-checkbox>
+                </ion-item>
+            </ion-list>
+            <button ion-button class="submit-btn" full type="submit">Login</button>
+        </form>
+        <button ion-button class="other-btn" block clear type="button" (click)="createAccount()">Criar nova conta</button>
+        <button ion-button class="other-btn" block clear type="button" (click)="resetPassword()">Esqueci minha senha</button>
+    </div>
+</ion-content>

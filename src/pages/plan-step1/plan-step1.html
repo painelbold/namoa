@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>PlanStep1</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <h4>Novo Plano</h4>
+    <form (ngSubmit)="submitStep1()" #registerForm="ngForm">
+    <ion-item-group inset>
+        <ion-item>
+            <ion-label floating>Titulo</ion-label>
+            <ion-input 
+            type="text" 
+            name="title"
+            [(ngModel)]="tp.title"
+            [ngModelOptions]="{standalone: true}"
+            required
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data de Início</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" 
+            [min]="minDate"
+            (ionChange)="dtInicioChange()"
+            [(ngModel)]="tp.startDateTrip"
+            [ngModelOptions]="{standalone: true}"
+            required
+            ></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data Final</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" 
+            [min]="minEndDate"
+            [(ngModel)]="tp.endDateTrip"
+            [ngModelOptions]="{standalone: true}"
+            required
+            ></ion-datetime>
+          </ion-item>
+          <ion-buttons end>
+            <button 
+            ion-button 
+            icon-end 
+            type="submit" 
+            class="submit-btn"
+            id="proximo"
+            [disabled]="!registerForm.form.valid" > Próximo
+                <ion-icon name="arrow-dropright"></ion-icon>
+            </button>
+          </ion-buttons>
+    </ion-item-group>
+    </form>
+  
+  </ion-content>
+  
