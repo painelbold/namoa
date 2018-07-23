@@ -14,15 +14,15 @@
 
 
 <ion-content padding>
-    <h4>Novo Plano</h4>
-    <form (ngSubmit)="submitStep2()" #registerForm="ngForm">
+    <h4>Plano</h4>
+    <form 
+    (ngSubmit)="addTrade()" 
+    [formGroup]="step2Form">
     <ion-item-group inset>
       <ion-item>
         <ion-label>Cidade</ion-label>
         <ion-select
-        [(ngModel)]="travelTrade.city"
-        id="cidade"
-        name="cidade">
+        formControlName="city">
         <ion-option
         *ngFor="let c of cidades"
         value="{{c.descricao}}"
@@ -34,21 +34,21 @@
         <ion-item>
             <ion-label>Tipo de Categoria</ion-label>
             <ion-select
-        [(ngModel)]="travelTrade.categoryType"
-        id="tpCategoria"
-        name="tpCategoria">
-        <ion-option
-        *ngFor="let t of tpCategoria"
-        value="{{t.descricao}}"
-        required>
-          {{t.descricao}}
-        </ion-option>
+            formControlName="categoryType"
+            id="tpCategoria"
+            name="tpCategoria">
+            <ion-option
+            *ngFor="let t of tpCategoria"
+            value="{{t.descricao}}"
+            required>
+              {{t.descricao}}
+          </ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
           <ion-label>Categoria</ion-label>
           <ion-select
-        [(ngModel)]="travelTrade.category"
+          formControlName="category"
         id="categoria"
         name="categoria">
         <ion-option
@@ -62,7 +62,7 @@
         <ion-item>
             <ion-label>Trade</ion-label>
             <ion-select
-          [(ngModel)]="travelTrade.trade"
+            formControlName="trade"
           id="trade"
           name="trade"
           required>
@@ -80,8 +80,7 @@
             [min]="minDate"
             [max]="tp.endDateTrip"
             (ionChange)="dtInicioChange()"
-            [(ngModel)]="travelTrade.startDateTrader"
-            [ngModelOptions]="{standalone: true}"
+            formControlName="startDateTrader"
             required
             ></ion-datetime>
           </ion-item>
@@ -90,32 +89,64 @@
             <ion-datetime displayFormat="DD/MM/YYYY" 
             [min]="minEndDate"
             [max]="tp.endDateTrip"
-            [(ngModel)]="travelTrade.endDateTrader"
-            [ngModelOptions]="{standalone: true}"
+            formControlName="endDateTrader"
             required
+            [disabled]="!step2Form.get('startDateTrader').value"
             ></ion-datetime>
           </ion-item>
-          <ion-buttons end>
-              <button 
-                ion-button 
-                id="addTrade"
-                type="button"
-                (click)="addTrade()"
-                 > Adicionar Trade
-                </button>
-            <button 
-            ion-button 
-            icon-end 
-            bottom
-            type="submit" 
-            class="submit-btn"
-            id="proximo"
-            [disabled]="!registerForm.form.valid" > Próximo
-                <ion-icon name="arrow-dropright"></ion-icon>
-            </button>
-          </ion-buttons>
-    </ion-item-group>
+          <button 
+          ion-button 
+          id="addTrade"
+          type="submit" 
+          class="submit-btn"
+          bottom
+          outline
+          end
+          icon-start
+          [disabled]="!step2Form.valid"
+          > 
+          <ion-icon name="add-circle"></ion-icon>
+          Adicionar Trade
+        </button>
+      </ion-item-group>
     </form>
-  
+  <hr>
+    <h4>Trades</h4>
+    <ng-template [ngIf]="tp.trades.length > 0">
+      <ion-item
+      *ngFor="let item of tp.trades"
+      >
+        <ion-label>
+          <ion-row>
+            <p>Trade: {{item.trade}}</p>
+          </ion-row>
+          <ion-row>
+            <ion-col col-md-6>
+              <p>Categoria: {{item.category}}</p>
+            </ion-col>
+            <ion-col col-md6>
+              <p>Período: {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+      <ion-buttons end>
+        <button 
+        ion-button 
+        icon-end 
+        bottom
+        id="proximo"
+        (click)="submitStep2()"
+        outline
+        class="submit-btn"
+        type="button"
+        > Próximo
+          <ion-icon name="arrow-dropright"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ng-template>
+      <ng-template #noTrades [ngIf]="tp.trades.length == 0">
+          <p>Sem trades cadastrados.</p>
+      </ng-template>
   </ion-content>
   

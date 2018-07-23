@@ -3,6 +3,7 @@ import { TravelPlan } from './../../models/travelPlan';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { ValidaCadastroProvider } from '../../providers/valida-cadastro/valida-cadastro';
+import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 
 /**
  * Generated class for the PlanStep2Page page.
@@ -17,9 +18,11 @@ import { ValidaCadastroProvider } from '../../providers/valida-cadastro/valida-c
 })
 export class PlanStep2Page {
   tp: TravelPlan;
+  travelTrade: TravelTrade;
+  step2Form: FormGroup;
+  
   minDate: any;
   minEndDate: any;
-  travelTrade: TravelTrade;
   
   cidades: Array<{ id: number, descricao: string, }>;
   tpCategoria: Array<{ id: number, descricao: string, }>;
@@ -29,10 +32,18 @@ export class PlanStep2Page {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private validaCadastro: ValidaCadastroProvider,
-    private toast: ToastController) {
-    this.tp = JSON.parse(localStorage.getItem("travelplan"));
-    this.travelTrade = new TravelTrade();
+    private toast: ToastController,
+    private formBuilder: FormBuilder) {
 
+    this.tp = JSON.parse(localStorage.getItem("travelplan"));
+    this.tp.trades = new Array<TravelTrade>();
+    this.travelTrade = new TravelTrade();
+    this.createForm();
+
+    this.populateDropdowns();
+  }
+  
+  private populateDropdowns() {
     this.cidades = [
       { id: 1, descricao: "Salvador" },
       { id: 2, descricao: "Itacaré" },
@@ -40,59 +51,64 @@ export class PlanStep2Page {
       { id: 4, descricao: "Ilhéus" },
       { id: 5, descricao: "Itabuna" },
       { id: 6, descricao: "Itaparica" },
-    ]
-
+    ];
     this.tpCategoria = [
-      { id:1, descricao: "Alimentação" },
-      { id:2, descricao: "Cultura" },
-      { id:3, descricao: "Hospedagem" },
-      { id:4, descricao: "Lazer" },
-      { id:5, descricao: "Transporte" },      
-    ]
-
+      { id: 1, descricao: "Alimentação" },
+      { id: 2, descricao: "Cultura" },
+      { id: 3, descricao: "Hospedagem" },
+      { id: 4, descricao: "Lazer" },
+      { id: 5, descricao: "Transporte" },
+    ];
     this.categoria = [
-      { id:1, descricao: "Cinema" },
-      { id:2, descricao: "Praia" },
-      { id:3, descricao: "Restaurante" },
-      { id:4, descricao: "Esportes Radicais" },
-      { id:5, descricao: "Museus" }, 
-    ]
-
+      { id: 1, descricao: "Cinema" },
+      { id: 2, descricao: "Praia" },
+      { id: 3, descricao: "Restaurante" },
+      { id: 4, descricao: "Esportes Radicais" },
+      { id: 5, descricao: "Museus" },
+    ];
     this.trade = [
-      { id:1, descricao: "Trade 1" },
-      { id:2, descricao: "Trade 2" },
-      { id:3, descricao: "Trade 3" },
-      { id:4, descricao: "Trade 4" },
-      { id:5, descricao: "Trade 5" }, 
-    ]
+      { id: 1, descricao: "Trade 1" },
+      { id: 2, descricao: "Trade 2" },
+      { id: 3, descricao: "Trade 3" },
+      { id: 4, descricao: "Trade 4" },
+      { id: 5, descricao: "Trade 5" },
+    ];
   }
-  
+
   ionViewDidLoad() {
-    this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.minDate = this.tp.startDateTrip;
     this.minEndDate = this.minDate;
+    this.tp.trades = new Array<TravelTrade>();
   }
 
-  submitStep2(){
-    if(this.tp.trades.length == 0){
-      this.toast.create({message:"Pelo menos um trade deverá ser adicionado.", duration:2000, position:"bottom"}).present();
-    }
-    else{
-      this.validaCadastro.setEnableStep2(false);
-      this.validaCadastro.setEnableStep3(true);
-      localStorage.setItem("travelplan", JSON.stringify(this.tp));
-      this.navCtrl.parent.select(2);
-    }
+  submitStep2(){   
+    this.validaCadastro.setEnableStep2(false);
+    this.validaCadastro.setEnableStep3(true);
+    localStorage.setItem("travelplan", JSON.stringify(this.tp));
+    this.navCtrl.parent.select(2);
   }
 
   dtInicioChange(){
-    this.minEndDate = this.travelTrade.startDateTrader;
+    this.minEndDate = this.step2Form.controls["startDateTrader"].value;
   }
 
   addTrade(){
+    this.travelTrade = this.step2Form.value;
     this.tp.trades.push(this.travelTrade);
     this.travelTrade = new TravelTrade();
+    this.createForm();
     this.toast.create({message:"Trade adicionado com sucesso", duration:2000, position:"bottom"}).present();
+  }
+
+  createForm(){
+    this.step2Form = this.formBuilder.group({
+      city: ['', Validators.required],
+      categoryType: ['', Validators.required],
+      category: ['', Validators.required],
+      trade: ['', Validators.required],
+      startDateTrader: ['', Validators.required],
+      endDateTrader: ['', Validators.required],
+    });
   }
 
 }

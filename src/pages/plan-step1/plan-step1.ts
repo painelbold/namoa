@@ -29,14 +29,12 @@ export class PlanStep1Page {
     public navParams: NavParams,
     private validaCadastro: ValidaCadastroProvider,
     private formBuilder: FormBuilder) {
-    this.tp = new TravelPlan();
-    this.tp.trades = new Array<TravelTrade>();
-    this.createForm();
-  }
-
-  ionViewDidLoad() {
-    this.minDate = new Date().toISOString();
-    this.minEndDate = this.minDate;
+      this.createForm();
+    }
+    
+    ionViewDidLoad() {
+      this.minDate = new Date().toISOString();
+      this.tp = new TravelPlan();
   }
 
   dtInicioChange(){
