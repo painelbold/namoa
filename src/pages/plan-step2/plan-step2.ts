@@ -1,7 +1,7 @@
 import { TravelTrade } from './../../models/travelTrade';
 import { TravelPlan } from './../../models/travelPlan';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ValidaCadastroProvider } from '../../providers/valida-cadastro/valida-cadastro';
 import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 
@@ -33,7 +33,8 @@ export class PlanStep2Page {
     public navParams: NavParams,
     private validaCadastro: ValidaCadastroProvider,
     private toast: ToastController,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private alertCtrl: AlertController) {
 
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tp.trades = new Array<TravelTrade>();
@@ -109,6 +110,30 @@ export class PlanStep2Page {
       startDateTrader: ['', Validators.required],
       endDateTrader: ['', Validators.required],
     });
+  }
+
+  removeTrade(event, i){
+    let alert = this.alertCtrl.create({
+      title: 'Confirmar exclusão',
+      message: 'Tem certeza que deseja excluir o trade?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.tp.trades.splice(i, 1);
+            this.toast.create({message: "Trade removido.", duration: 2000, position:"bottom"}).present();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

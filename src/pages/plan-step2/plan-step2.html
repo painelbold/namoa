@@ -114,20 +114,37 @@
     <h4>Trades</h4>
     <ng-template [ngIf]="tp.trades.length > 0">
       <ion-item
-      *ngFor="let item of tp.trades"
+      *ngFor="let item of tp.trades; let i = index" 
+      [attr.data-index]="i"
       >
         <ion-label>
-          <ion-row>
-            <p>Trade: {{item.trade}}</p>
-          </ion-row>
-          <ion-row>
-            <ion-col col-md-6>
-              <p>Categoria: {{item.category}}</p>
-            </ion-col>
-            <ion-col col-md6>
-              <p>Período: {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
-            </ion-col>
-          </ion-row>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-10>
+                <h4>{{item.trade}}</h4>
+              </ion-col>
+              <ion-col col-2>
+                  <button 
+                  ion-button 
+                  outline 
+                  color="danger" 
+                  small
+                  class="trash-icon">
+                    <ion-icon 
+                    name="trash"
+                    (click)="removeTrade($event, i)"></ion-icon>
+                  </button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-md-6>
+                <p>{{item.category}}</p>
+              </ion-col>
+              <ion-col col-md-6>
+                <p>De {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-label>
       </ion-item>
       <ion-buttons end>
