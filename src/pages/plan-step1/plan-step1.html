@@ -27,6 +27,7 @@
             <ion-datetime 
             displayFormat="DD/MM/YYYY" 
             [min]="minDate"
+            [max]="maxCalDate"
             (ionChange)="dtInicioChange()"
             formControlName="startDateTrip"
             required
@@ -37,6 +38,7 @@
             <ion-datetime 
             displayFormat="DD/MM/YYYY" 
             [min]="minEndDate"
+            [max]="maxCalDate"
             formControlName="endDateTrip"
             required
             [disabled]="!step1Form.get('startDateTrip').value"

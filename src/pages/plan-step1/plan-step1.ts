@@ -24,6 +24,7 @@ export class PlanStep1Page {
 
   minDate: any;
   minEndDate: any;
+  maxCalDate: any;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -35,6 +36,7 @@ export class PlanStep1Page {
     ionViewDidLoad() {
       this.minDate = new Date().toISOString();
       this.tp = new TravelPlan();
+      this.maxCalDate = "2030-12-31"
   }
 
   dtInicioChange(){
