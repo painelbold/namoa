@@ -5,7 +5,28 @@ page-travel-plans-list {
         margin: auto;
     }
 
-    .btn-add{
-        background-color: #2a3542;
+    .card-header{
+        font-weight: bold;
+    }
+
+    .btn-new-plan{
+        border-radius: 20px;
+    }
+
+
+    
+    ion-card{
+        width:100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+   }
+
+   ion-grid{
+       margin-top: 0% !important;
+    white-space:normal;
+   }
+   
+   ion-col{
+    margin:5%;
     }
 }
