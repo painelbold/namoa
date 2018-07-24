@@ -1,3 +1,5 @@
+import { UserDataProvider } from './../providers/user-data/user-data';
+import { Usuario } from './../models/usuario';
 import { AuthService } from './../providers/auth/auth-service';
 import { TravelPlansListPage } from './../pages/travel-plans-list/travel-plans-list';
 
@@ -19,6 +21,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any;
+  loggedUser: any;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -26,8 +29,10 @@ export class MyApp {
     public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
     private afAuth: AngularFireAuth,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private udProvider: UserDataProvider) {
     this.initializeApp();
+    this.loggedUser = { fullName: '' };
 
     const authObserver = afAuth.authState.subscribe(user =>{
       if(user){
@@ -37,6 +42,14 @@ export class MyApp {
       }
       else{
         this.rootPage = LoginPage;
+      }
+    });
+
+    const udObserver = udProvider.getUserData(localStorage.getItem('loggedUserKey'))
+    .subscribe(user =>{
+      if(user){
+        this.loggedUser = user;
+        udObserver.unsubscribe();
       }
     });
 
@@ -73,4 +86,6 @@ export class MyApp {
       console.error(error);
     });
   }
+
+  
 }

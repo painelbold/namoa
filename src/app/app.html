@@ -9,6 +9,12 @@
 
   <ion-content class="menu-items">
     <ion-list>
+      <ion-item 
+      class="menu-items"
+      no-lines>
+        <p class="hello-user">Olá, {{loggedUser.fullName.split(' ')[0]}}!</p>
+      </ion-item>
+      <hr>
       <button 
       class="menu-items" 
       menuClose ion-item *ngFor="let p of pages" 

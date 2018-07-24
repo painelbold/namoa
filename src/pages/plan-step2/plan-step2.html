@@ -20,6 +20,26 @@
     [formGroup]="step2Form">
     <ion-item-group inset>
       <ion-item>
+        <ion-label>Data de Início</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" 
+        [min]="minDate"
+        [max]="tp.endDateTrip"
+        (ionChange)="dtInicioChange()"
+        formControlName="startDateTrader"
+        required
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Data Final</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" 
+        [min]="minEndDate"
+        [max]="tp.endDateTrip"
+        formControlName="endDateTrader"
+        required
+        [disabled]="!step2Form.get('startDateTrader').value"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
         <ion-label>Cidade</ion-label>
         <ion-select
         formControlName="city">
@@ -73,26 +93,6 @@
             {{t.descricao}}
           </ion-option>
           </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>Data de Início</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" 
-            [min]="minDate"
-            [max]="tp.endDateTrip"
-            (ionChange)="dtInicioChange()"
-            formControlName="startDateTrader"
-            required
-            ></ion-datetime>
-          </ion-item>
-          <ion-item>
-            <ion-label>Data Final</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" 
-            [min]="minEndDate"
-            [max]="tp.endDateTrip"
-            formControlName="endDateTrader"
-            required
-            [disabled]="!step2Form.get('startDateTrader').value"
-            ></ion-datetime>
           </ion-item>
           <button 
           ion-button 
