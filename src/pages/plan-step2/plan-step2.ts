@@ -41,6 +41,7 @@ export class PlanStep2Page {
     this.travelTrade = new TravelTrade();
     this.createForm();
 
+
     this.populateDropdowns();
   }
 
@@ -78,6 +79,9 @@ export class PlanStep2Page {
 
   ionViewDidLoad() {
     this.minDate = this.tp.startDateTrip;
+    this.step2Form.patchValue({
+      startDateTrader: this.minDate
+    });
     this.minEndDate = this.minDate;
     this.tp.trades = new Array<TravelTrade>();
   }

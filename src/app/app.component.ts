@@ -6,13 +6,13 @@ import { Nav, Platform } from 'ionic-angular';
 import { AngularFireAuth } from '../../node_modules/angularfire2/auth';
 import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
 import { TravelPlanPage } from '../pages/travel-plan/travel-plan';
+import { TravelTipsPage } from '../pages/travel-tips/travel-tips';
 import { LoginPage } from './../pages/login/login';
 import { MyProfilePage } from './../pages/my-profile/my-profile';
 import { PrivacyPage } from './../pages/privacy/privacy';
 import { TravelPlansListPage } from './../pages/travel-plans-list/travel-plans-list';
 import { AuthService } from './../providers/auth/auth-service';
 import { UserDataProvider } from './../providers/user-data/user-data';
-import { TravelTipsPage } from '../pages/travel-tips/travel-tips';
 
 @Component({
   templateUrl: 'app.html'

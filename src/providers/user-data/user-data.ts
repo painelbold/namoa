@@ -1,8 +1,10 @@
-import { Usuario } from './../../models/usuario';
-import { Injectable, ViewChild } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AuthService } from '../auth/auth-service';
 import 'rxjs/Rx';
+
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+
+import { AuthService } from '../auth/auth-service';
+import { Usuario } from './../../models/usuario';
 
 @Injectable()
 export class UserDataProvider {
@@ -12,7 +14,7 @@ export class UserDataProvider {
               private authService: AuthService) {
 
     }
-  
+
   saveUserData(usuario: Usuario, key: string){
     return new Promise((resolve, reject) => {
       if(key){

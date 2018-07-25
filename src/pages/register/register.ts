@@ -1,11 +1,11 @@
-import { UserDataProvider } from './../../providers/user-data/user-data';
-import { ListPage } from './../list/list';
-import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../../providers/auth/auth-service';
+import { MenuController, NavController, NavParams, ToastController } from 'ionic-angular';
+
 import { Usuario } from '../../models/usuario';
+import { AuthService } from '../../providers/auth/auth-service';
 import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
+import { UserDataProvider } from './../../providers/user-data/user-data';
 
 @Component({
   selector: 'page-register',
@@ -16,7 +16,7 @@ export class RegisterPage {
   usuario: Usuario = new Usuario();
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     private toastController: ToastController,
     private authService: AuthService,
@@ -33,7 +33,7 @@ export class RegisterPage {
   }
 
   ionViewWillEnter(){
-    this.menu.enable(false, 'sideMenu');   
+    this.menu.enable(false, 'sideMenu');
   }
 
   onRegister(form: NgForm) {
@@ -44,7 +44,7 @@ export class RegisterPage {
           this.usuario.email = this.registerCredentials.email;
 
           this.userProvider.saveUserData(this.usuario, '');
-  
+
           this.toastController.create({message: "Usuário criado com sucesso", duration: 2000, position: "bottom"}).present();
           this.navCtrl.setRoot(TravelPlansListPage);
         })
