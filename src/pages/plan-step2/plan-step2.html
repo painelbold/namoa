@@ -149,7 +149,25 @@
           </ion-grid>
         </ion-label>
       </ion-item>
+    </ng-template>
+    <ng-template #noTrades [ngIf]="tp.trades.length == 0">
+      <p>Sem trades cadastrados.</p>
+    </ng-template>
+    <div class="buttons">
       <ion-buttons end>
+          <button
+          ion-button
+          icon-start
+          bottom
+          id="anterior"
+          (click)="returnStep1()"
+          outline
+          class="submit-btn"
+          type="button"
+          >
+          <ion-icon name="arrow-dropleft"></ion-icon>
+          Anterior
+      </button>
         <button
         ion-button
         icon-end
@@ -159,12 +177,10 @@
         outline
         class="submit-btn"
         type="button"
+        [disabled]="tp.trades.length == 0"
         > Próximo
           <ion-icon name="arrow-dropright"></ion-icon>
         </button>
         </ion-buttons>
-    </ng-template>
-      <ng-template #noTrades [ngIf]="tp.trades.length == 0">
-          <p>Sem trades cadastrados.</p>
-      </ng-template>
+    </div>
   </ion-content>

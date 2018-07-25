@@ -26,12 +26,26 @@
         </ion-item>
       </ion-list>
       <ion-buttons end>
-        <button 
-        ion-button 
-        icon-end 
+          <button
+          ion-button
+          icon-start
+          bottom
+          id="anterior"
+          (click)="returnStep2()"
+          outline
+          class="submit-btn"
+          type="button"
+          >
+          <ion-icon name="arrow-dropleft"></ion-icon>
+          Anterior
+      </button>
+        <button
+        ion-button
+        outline
+        icon-end
         bottom
         class="submit-btn"
-        type="button" 
+        type="button"
         (click)="confirm()"
         id="proximo" > Confirmar
             <ion-icon name="arrow-dropright"></ion-icon>

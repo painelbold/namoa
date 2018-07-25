@@ -26,13 +26,13 @@ export class PlanStep1Page {
   minEndDate: any;
   maxCalDate: any;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private validaCadastro: ValidaCadastroProvider,
     private formBuilder: FormBuilder) {
       this.createForm();
     }
-    
+
     ionViewDidLoad() {
       this.minDate = new Date().toISOString();
       this.tp = new TravelPlan();
@@ -58,6 +58,6 @@ export class PlanStep1Page {
       endDateTrip: ['', Validators.required],
     });
   }
-  
+
 
 }

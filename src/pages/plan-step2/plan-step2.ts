@@ -20,16 +20,16 @@ export class PlanStep2Page {
   tp: TravelPlan;
   travelTrade: TravelTrade;
   step2Form: FormGroup;
-  
+
   minDate: any;
   minEndDate: any;
-  
+
   cidades: Array<{ id: number, descricao: string, }>;
   tpCategoria: Array<{ id: number, descricao: string, }>;
   categoria: Array<{ id: number, descricao: string, }>;
   trade: Array<{ id: number, descricao: string, }>;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private validaCadastro: ValidaCadastroProvider,
     private toast: ToastController,
@@ -43,7 +43,7 @@ export class PlanStep2Page {
 
     this.populateDropdowns();
   }
-  
+
   private populateDropdowns() {
     this.cidades = [
       { id: 1, descricao: "Salvador" },
@@ -82,7 +82,7 @@ export class PlanStep2Page {
     this.tp.trades = new Array<TravelTrade>();
   }
 
-  submitStep2(){   
+  submitStep2(){
     this.validaCadastro.setEnableStep2(false);
     this.validaCadastro.setEnableStep3(true);
     localStorage.setItem("travelplan", JSON.stringify(this.tp));
@@ -134,6 +134,13 @@ export class PlanStep2Page {
       ]
     });
     alert.present();
+  }
+
+  returnStep1(){
+    this.validaCadastro.setEnableStep1(true);
+    this.validaCadastro.setEnableStep2(false);
+    localStorage.setItem("travelplan", JSON.stringify(this.tp));
+    this.navCtrl.parent.select(0);
   }
 
 }

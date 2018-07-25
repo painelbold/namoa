@@ -34,7 +34,7 @@ export class TravelPlansListPage {
   }
 
   newTravelPlan(){
-    this.navCtrl.push(TravelPlanPage, {previousNav: this.navCtrl});
+    this.navCtrl.setRoot(TravelPlanPage);
   }
 
 }
