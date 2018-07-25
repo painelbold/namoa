@@ -15,13 +15,13 @@
 
 <ion-content padding>
     <h4>Plano</h4>
-    <form 
-    (ngSubmit)="addTrade()" 
+    <form
+    (ngSubmit)="addTrade()"
     [formGroup]="step2Form">
     <ion-item-group inset>
       <ion-item>
         <ion-label>Data de Início</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" 
+        <ion-datetime displayFormat="DD/MM/YYYY"
         [min]="minDate"
         [max]="tp.endDateTrip"
         (ionChange)="dtInicioChange()"
@@ -31,7 +31,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Data Final</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" 
+        <ion-datetime displayFormat="DD/MM/YYYY"
         [min]="minEndDate"
         [max]="tp.endDateTrip"
         formControlName="endDateTrader"
@@ -65,7 +65,8 @@
           </ion-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item
+      *ngIf="step2Form.controls['categoryType'].valid">
           <ion-label>Categoria</ion-label>
           <ion-select
           formControlName="category"
@@ -79,7 +80,8 @@
         </ion-option>
         </ion-select>
         </ion-item>
-        <ion-item>
+        <ion-item
+        *ngIf="step2Form.controls['category'].valid">
             <ion-label>Trade</ion-label>
             <ion-select
             formControlName="trade"
@@ -94,17 +96,17 @@
           </ion-option>
           </ion-select>
           </ion-item>
-          <button 
-          ion-button 
+          <button
+          ion-button
           id="addTrade"
-          type="submit" 
+          type="submit"
           class="submit-btn"
           bottom
           outline
           end
           icon-start
           [disabled]="!step2Form.valid"
-          > 
+          >
           <ion-icon name="add-circle"></ion-icon>
           Adicionar Trade
         </button>
@@ -114,7 +116,7 @@
     <h4>Trades</h4>
     <ng-template [ngIf]="tp.trades.length > 0">
       <ion-item
-      *ngFor="let item of tp.trades; let i = index" 
+      *ngFor="let item of tp.trades; let i = index"
       [attr.data-index]="i"
       >
         <ion-label>
@@ -124,13 +126,13 @@
                 <h4>{{item.trade}}</h4>
               </ion-col>
               <ion-col col-2>
-                  <button 
-                  ion-button 
-                  outline 
-                  color="danger" 
+                  <button
+                  ion-button
+                  outline
+                  color="danger"
                   small
                   class="trash-icon">
-                    <ion-icon 
+                    <ion-icon
                     name="trash"
                     (click)="removeTrade($event, i)"></ion-icon>
                   </button>
@@ -148,9 +150,9 @@
         </ion-label>
       </ion-item>
       <ion-buttons end>
-        <button 
-        ion-button 
-        icon-end 
+        <button
+        ion-button
+        icon-end
         bottom
         id="proximo"
         (click)="submitStep2()"
@@ -166,4 +168,3 @@
           <p>Sem trades cadastrados.</p>
       </ng-template>
   </ion-content>
-  

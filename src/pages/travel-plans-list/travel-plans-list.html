@@ -1,4 +1,4 @@
-s<ion-header>
+<ion-header>
   <ion-navbar>
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
@@ -10,16 +10,16 @@ s<ion-header>
 
 <ion-content padding>
     <h4>Meus Planos</h4>
-    <button 
-    ion-button 
+    <button
+    ion-button
     outline
     class="btn-new-plan"
-    (click)="newTravelPlan()" 
+    (click)="newTravelPlan()"
     block >
       Criar Novo Plano
-    </button>       
-    <ng-template [ngIf]="travelPlans">     
-      <ion-card 
+    </button>
+    <ng-template [ngIf]="travelPlans">
+      <ion-card
       *ngFor="let tp of travelPlans" text-wrap>
       <ion-card-header class="card-header">
         Plano {{tp.title}}
