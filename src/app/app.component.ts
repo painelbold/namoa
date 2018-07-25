@@ -1,18 +1,18 @@
-import { UserDataProvider } from './../providers/user-data/user-data';
-import { Usuario } from './../models/usuario';
-import { AuthService } from './../providers/auth/auth-service';
-import { TravelPlansListPage } from './../pages/travel-plans-list/travel-plans-list';
-
-import { PrivacyPage } from './../pages/privacy/privacy';
-import { LoginPage } from './../pages/login/login';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Nav, Platform } from 'ionic-angular';
 
-import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
 import { AngularFireAuth } from '../../node_modules/angularfire2/auth';
+import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
 import { TravelPlanPage } from '../pages/travel-plan/travel-plan';
+import { LoginPage } from './../pages/login/login';
+import { MyProfilePage } from './../pages/my-profile/my-profile';
+import { PrivacyPage } from './../pages/privacy/privacy';
+import { TravelPlansListPage } from './../pages/travel-plans-list/travel-plans-list';
+import { AuthService } from './../providers/auth/auth-service';
+import { UserDataProvider } from './../providers/user-data/user-data';
+import { TravelTipsPage } from '../pages/travel-tips/travel-tips';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,8 +25,8 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, 
-    public statusBar: StatusBar, 
+  constructor(public platform: Platform,
+    public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private afAuth: AngularFireAuth,
     private authService: AuthService,
@@ -57,6 +57,8 @@ export class MyApp {
     this.pages = [
       { title: 'Meus Planos', component: TravelPlansListPage, icon: 'list-box' },
       { title: 'Adicionar Plano', component: TravelPlanPage , icon: 'add-circle' },
+      { title: 'Minha Conta', component: MyProfilePage, icon: 'person'},
+      { title: 'Dicas Sustentáveis', component: TravelTipsPage, icon: 'water'},
       { title: 'Termos de Uso', component: TermsOfServicePage, icon: 'book' },
       { title: 'Política de Privacidade', component: PrivacyPage, icon: 'information-circle' }
     ];
@@ -87,5 +89,5 @@ export class MyApp {
     });
   }
 
-  
+
 }

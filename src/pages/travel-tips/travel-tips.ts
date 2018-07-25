@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the MyProfilePage page.
+ * Generated class for the TravelTipsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,18 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-my-profile',
-  templateUrl: 'my-profile.html',
+  selector: 'page-travel-tips',
+  templateUrl: 'travel-tips.html',
 })
-export class MyProfilePage {
-  maxDate: any;
+export class TravelTipsPage {
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    this.maxDate = new Date().toISOString()
+    console.log('ionViewDidLoad TravelTipsPage');
   }
 
 }

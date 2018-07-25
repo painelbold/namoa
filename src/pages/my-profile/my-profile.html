@@ -3,7 +3,7 @@
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
-      <img src="assets/imgs/logo.png" class="logo"/>
+      <img src="assets/imgs/logo.png" class="logo-namoa"/>
   </ion-navbar>
 </ion-header>
 
@@ -20,12 +20,39 @@
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Telefone</ion-label>
+      <ion-label>Telefone</ion-label>
       <ion-input
       type="tel"
       name="phone"
       >
       </ion-input>
     </ion-item>
+    <ion-item>
+        <ion-label>Data de Nascimento</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY"
+        [max]="maxDate"
+        required
+        ></ion-datetime>
+      </ion-item>
+      <hr>
+      <p>Alterar senha</p>
+      <ion-item>
+        <ion-label>Senha Atual</ion-label>
+        <ion-input
+        type="text"
+        name="currentPassword"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Nova Senha</ion-label>
+          <ion-input
+          type="text"
+          name="newPassword"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Confirmar Senha</ion-label>
+            <ion-input
+            type="text"
+            name="confirmNewPassword"></ion-input>
+          </ion-item>
   </ion-item-group>
 </ion-content>

@@ -1,3 +1,6 @@
+import { TravelTipsPageModule } from './../pages/travel-tips/travel-tips.module';
+import { TravelTipsPage } from './../pages/travel-tips/travel-tips';
+import { MyProfilePageModule } from './../pages/my-profile/my-profile.module';
 import { PlanStep3PageModule } from './../pages/plan-step3/plan-step3.module';
 import { PlanStep2PageModule } from './../pages/plan-step2/plan-step2.module';
 import { PlanStep1PageModule } from './../pages/plan-step1/plan-step1.module';
@@ -35,6 +38,7 @@ import { TravelPlanProvider } from '../providers/travel-plan/travel-plan';
 import { PrivacyPage } from '../pages/privacy/privacy';
 import { ValidaCadastroProvider } from '../providers/valida-cadastro/valida-cadastro';
 import { PlanStep3Page } from '../pages/plan-step3/plan-step3';
+import { MyProfilePage } from '../pages/my-profile/my-profile';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBFfhTAKdhYWSJQC_3DypjKKSG7umW6DEs",
@@ -67,7 +71,9 @@ export const firebaseConfig = {
     TravelPlanPageModule,
     PlanStep1PageModule,
     PlanStep2PageModule,
-    PlanStep3PageModule
+    PlanStep3PageModule,
+    MyProfilePageModule,
+    TravelTipsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -83,7 +89,9 @@ export const firebaseConfig = {
     TravelPlanPage,
     PlanStep1Page,
     PlanStep2Page,
-    PlanStep3Page
+    PlanStep3Page,
+    MyProfilePage,
+    TravelTipsPage
   ],
   providers: [
     StatusBar,
