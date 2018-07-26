@@ -38,6 +38,14 @@ export class MyApp {
       if(user){
         localStorage.setItem('loggedUserKey',user.uid)
         this.rootPage = TravelPlansListPage;
+        const udObserver = udProvider.getUserData()
+                            .subscribe(user =>{
+                              if(user){
+                                this.loggedUser = user;
+                                udObserver.unsubscribe();
+                              }
+                            });
+
         authObserver.unsubscribe();
       }
       else{
@@ -45,13 +53,7 @@ export class MyApp {
       }
     });
 
-    const udObserver = udProvider.getUserData(localStorage.getItem('loggedUserKey'))
-    .subscribe(user =>{
-      if(user){
-        this.loggedUser = user;
-        udObserver.unsubscribe();
-      }
-    });
+
 
     // used for an example of ngFor and navigation
     this.pages = [

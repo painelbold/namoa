@@ -33,12 +33,12 @@ export class UserDataProvider {
     });
   }
 
-  getUserData(key: string){
-      return this.db.object(this.PATH + key)
-      .snapshotChanges()
-      .map(u =>{
-        return { key: u.key, ...u.payload.val()};
-      });
-    }
+  getUserData(){
+    return this.db.object(this.PATH + this.authService.getLoggedUser().uid)
+    .snapshotChanges()
+    .map(u =>{
+      return { key: u.key, ...u.payload.val()};
+    });
+  }
 
 }

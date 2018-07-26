@@ -10,13 +10,18 @@
 
 <ion-content padding>
   <h4>Minha Conta</h4>
-  <ion-item-group inset>
-    <ion-item>
-      <ion-label floating>Nome Completo</ion-label>
-      <ion-input
-      type="text"
-      name="fullName"
-      >
+  <form
+  (ngSubmit)="updateProfile()"
+  [formGroup]="myProfileForm">
+    <ion-item-group inset>
+      <ion-item>
+        <ion-label floating>Nome Completo</ion-label>
+        <ion-input
+        type="text"
+        name="fullName"
+        formControlName="fullName"
+        required
+        >
       </ion-input>
     </ion-item>
     <ion-item>
@@ -24,35 +29,47 @@
       <ion-input
       type="tel"
       name="phone"
+      formControlName="phone"
+      required
+      text-right
       >
-      </ion-input>
-    </ion-item>
-    <ion-item>
+    </ion-input>
+  </ion-item>
+  <ion-item>
         <ion-label>Data de Nascimento</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY"
         [max]="maxDate"
         required
+        formControlName="dateOfBirth"
         ></ion-datetime>
       </ion-item>
-      <hr>
+      <hr class="divider">
       <p>Alterar senha</p>
       <ion-item>
         <ion-label>Senha Atual</ion-label>
         <ion-input
-        type="text"
+        type="password"
         name="currentPassword"></ion-input>
       </ion-item>
       <ion-item>
-          <ion-label>Nova Senha</ion-label>
-          <ion-input
-          type="text"
-          name="newPassword"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Confirmar Senha</ion-label>
-            <ion-input
-            type="text"
-            name="confirmNewPassword"></ion-input>
-          </ion-item>
-  </ion-item-group>
-</ion-content>
+        <ion-label>Nova Senha</ion-label>
+        <ion-input
+        type="password"
+        name="newPassword"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Confirmar Senha</ion-label>
+        <ion-input
+        type="password"
+        name="confirmNewPassword"></ion-input>
+      </ion-item>
+      <button
+      ion-button
+      class="submit-btn"
+      outline
+      block
+      type="submit"
+      [disabled]="!myProfileForm.valid">Confirmar Alterações</button>
+    </ion-item-group>
+  </form>
+  </ion-content>

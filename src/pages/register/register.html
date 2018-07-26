@@ -11,18 +11,18 @@
             <ion-item-group inset>
                 <ion-item>
                     <ion-label floating>Nome Completo</ion-label>
-                    <ion-input 
-                    type="text" 
-                    name="fullName" 
+                    <ion-input
+                    type="text"
+                    name="fullName"
                     [(ngModel)]="usuario.fullName"
                     #fullName="ngModel"
                     required></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label floating>E-mail</ion-label>
-                    <ion-input 
-                    type="email" 
-                    name="email" 
+                    <ion-input
+                    type="email"
+                    name="email"
                     [(ngModel)]="registerCredentials.email"
                     #email="ngModel"
                     required></ion-input>
@@ -32,9 +32,9 @@
                 </ion-item> -->
                 <ion-item>
                     <ion-label floating>Senha</ion-label>
-                    <ion-input 
-                    type="password" 
-                    name="password" 
+                    <ion-input
+                    type="password"
+                    name="password"
                     [(ngModel)]="registerCredentials.password"
                     #password="ngModel"
                     required></ion-input>
@@ -44,18 +44,19 @@
                 </ion-item> -->
                 <ion-item>
                     <ion-label floating>Confirmar Senha</ion-label>
-                    <ion-input 
-                    type="password" 
-                    name="confirm-password" 
+                    <ion-input
+                    type="password"
+                    name="confirm-password"
                     [(ngModel)]="registerCredentials.confirmPassword"
                     #confirmPassword="ngModel"
                     required></ion-input>
                 </ion-item>
             </ion-item-group>
-            <button 
-            ion-button 
-            class="submit-btn" 
-            full 
+            <button
+            ion-button
+            class="submit-btn"
+            full
+            outline
             type="submit"
             [disabled]="!registerForm.valid">Registrar</button>
         </form>

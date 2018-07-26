@@ -6,4 +6,5 @@ export class TravelTrade{
     categoryType: string;
     category: string;
     trade: string;
+    avgPrice: number;
 }
