@@ -69,7 +69,7 @@
       outline
       block
       type="submit"
-      [disabled]="!myProfileForm.valid">Confirmar Alterações</button>
+      [disabled]="(!myProfileForm.valid || myProfileForm.pristine)">Confirmar Alterações</button>
     </ion-item-group>
   </form>
   </ion-content>

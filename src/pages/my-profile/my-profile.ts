@@ -51,14 +51,14 @@ export class MyProfilePage {
   }
 
   updateProfile(){
-    this.udProvider.saveUserData(this.myProfileForm.value, this.user.key)
-    .then(()=>{
-      this.toastController.create({message: "Dados pessoais atualizados com sucesso.", duration: 2000, position: "bottom"}).present();
-      this.navCtrl.setRoot(TravelPlansListPage);
-    })
-    .catch((error)=>{
-      this.toastController.create({message: "Erro na atualização dos dados pessoais.", duration: 2000, position: "bottom"}).present();
-      console.log("Erro na atualização dos dados pessoais:" + error);
-    })
-  }
+      this.udProvider.saveUserData(this.myProfileForm.value, this.user.key)
+      .then(()=>{
+        this.toastController.create({message: "Dados pessoais atualizados com sucesso.", duration: 2000, position: "bottom"}).present();
+        this.navCtrl.setRoot(TravelPlansListPage);
+      })
+      .catch((error)=>{
+        this.toastController.create({message: "Erro na atualização dos dados pessoais.", duration: 2000, position: "bottom"}).present();
+        console.log("Erro na atualização dos dados pessoais:" + error);
+      })
+    }
 }
