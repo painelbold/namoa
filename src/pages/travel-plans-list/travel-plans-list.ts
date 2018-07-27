@@ -19,10 +19,13 @@ import { TravelPlanProvider } from './../../providers/travel-plan/travel-plan';
 })
 export class TravelPlansListPage {
   travelPlans: Array<TravelPlan>;
+  cities: Array<string>;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private tpProvider: TravelPlanProvider) {
+      this.travelPlans = new Array<TravelPlan>();
+      this.cities = new Array<string>();
   }
 
   ionViewDidLoad() {

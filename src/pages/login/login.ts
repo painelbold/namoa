@@ -1,3 +1,4 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MenuController, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -6,6 +7,7 @@ import { RegisterPage } from '../register/register';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
 import { AuthService } from './../../providers/auth/auth-service';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'page-login',
@@ -15,7 +17,7 @@ export class LoginPage {
 
   selectedItem: any;
 
-  loginFields = { email: '', password: '', stayConnected: '' };
+  loginFields = { email: '', password: '', stayConnected: true };
 
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
@@ -25,6 +27,7 @@ export class LoginPage {
     public navParams: NavParams,
     private authService: AuthService,
     private toastController: ToastController,
+    private afAuth: AngularFireAuth,
     private menu: MenuController) {
   }
 
@@ -32,6 +35,12 @@ export class LoginPage {
     if(form.valid){
       this.authService.signIn(this.loginFields)
       .then(()=> {
+        if(this.loginFields.stayConnected){
+          this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        }
+        else{
+          this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        }
         this.navCtrl.setRoot(TravelPlansListPage)
       })
       .catch((error)=>{

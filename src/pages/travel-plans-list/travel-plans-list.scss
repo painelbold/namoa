@@ -7,14 +7,35 @@ page-travel-plans-list {
 
     .card-header{
         font-weight: bold;
+        padding: 10px
     }
 
-    .btn-new-plan{
+    .btn-list{
         border-radius: 20px;
     }
 
+    .card-content{
+      padding: 0px 15px;
+      line-height: 1.5;
+    }
 
-    
+    .travel-span{
+      font-size: 1.25rem !important;
+    }
+
+    .card-item{
+      margin-top: 0px;
+      padding: 0px;
+    }
+
+    .divider{
+      margin: 0px;
+    }
+
+    .no-plans{
+      text-align: center;
+    }
+
     ion-card{
         width:100% !important;
         margin-left: 0 !important;
@@ -25,7 +46,7 @@ page-travel-plans-list {
        margin-top: 0% !important;
     white-space:normal;
    }
-   
+
    ion-col{
     margin:5%;
     }

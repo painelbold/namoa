@@ -39,6 +39,7 @@ import { PrivacyPage } from '../pages/privacy/privacy';
 import { ValidaCadastroProvider } from '../providers/valida-cadastro/valida-cadastro';
 import { PlanStep3Page } from '../pages/plan-step3/plan-step3';
 import { MyProfilePage } from '../pages/my-profile/my-profile';
+import { TravelPlanTradesProvider } from '../providers/travel-plan-trades/travel-plan-trades';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBFfhTAKdhYWSJQC_3DypjKKSG7umW6DEs",
@@ -100,7 +101,8 @@ export const firebaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserDataProvider,
     TravelPlanProvider,
-    ValidaCadastroProvider
+    ValidaCadastroProvider,
+    TravelPlanTradesProvider
   ]
 })
 export class AppModule {}

@@ -146,6 +146,11 @@
                 <p>De {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col>
+                <p>Orçamento (por dia): {{item.avgPrice | currency}}</p>
+              </ion-col>
+            </ion-row>
           </ion-grid>
         </ion-label>
       </ion-item>

@@ -13,36 +13,42 @@
     <button
     ion-button
     outline
-    class="btn-new-plan"
+    class="btn-list"
     (click)="newTravelPlan()"
     block >
       Criar Novo Plano
     </button>
-    <ng-template [ngIf]="travelPlans">
+    <ng-template [ngIf]="travelPlans.length > 0">
       <ion-card
       *ngFor="let tp of travelPlans" text-wrap>
       <ion-card-header class="card-header">
         Plano {{tp.title}}
       </ion-card-header>
-      <ion-card-content>
-          <p>Período da viagem: {{tp.startDateTrip | date:'dd/MM'}} a {{tp.endDateTrip | date:'dd/MM'}}</p>
-          <p>Trades:</p>
-        <ion-item *ngFor="let t of tp.trades">
-          <ion-grid no-padding>
-            <ion-row>
-              <ion-col col-8>
-                <p>{{t.category}}</p>
-              </ion-col>
-              <ion-col col-4>
-                <p>{{t.startDateTrader | date:'dd/MM'}} - {{t.endDateTrader | date:'dd/MM'}}</p>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+      <hr class="divider">
+      <ion-card-content class="card-content">
+        <ion-item class="card-item">
+          <ion-label
+          item-start
+          class="travel-span">Período da viagem:<br>{{tp.startDateTrip | date:'dd/MM'}} a {{tp.endDateTrip | date:'dd/MM'}}</ion-label>
+          <ion-buttons
+          end
+          item-end>
+            <button
+            ion-button
+            bottom
+            small
+            type="button"
+            id="details"
+            class="btn-list"
+            outline>
+            Detalhes
+          </button>
+        </ion-buttons>
         </ion-item>
       </ion-card-content>
       </ion-card>
     </ng-template>
-    <ng-template [ngIf]="!travelPlans">
-      <p>Sem planos cadastrados.</p>
+    <ng-template [ngIf]="travelPlans.length == 0">
+      <p class="no-plans">Sem planos cadastrados.</p>
     </ng-template>
 </ion-content>

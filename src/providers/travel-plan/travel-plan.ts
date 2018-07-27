@@ -1,12 +1,12 @@
-import { TravelPlan } from './../../models/travelPlan';
-import { AngularFireDatabase } from "../../../node_modules/angularfire2/database";
-import { Injectable } from "../../../node_modules/@angular/core";
-import { resolveDefinition } from '../../../node_modules/@angular/core/src/view/util';
 import 'rxjs/Rx';
+
+import { Injectable } from '../../../node_modules/@angular/core';
+import { AngularFireDatabase } from '../../../node_modules/angularfire2/database';
+import { TravelPlan } from './../../models/travelPlan';
 
 @Injectable()
 export class TravelPlanProvider {
-  private PATH='announcements/';
+  private PATH='travel-plans/';
   constructor(private db: AngularFireDatabase,) {
   }
 

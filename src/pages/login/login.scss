@@ -1,12 +1,16 @@
 page-login {
     .login-content {
-      background: url("../assets/imgs/background.jpg") no-repeat center fixed; 
+      background: url("../assets/imgs/background.jpg") no-repeat center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;
-    
+
+      .ion-checkbox{
+        color: #41CAC0;
+      }
+
       .logo{
           width: 50%;
           height: 50%;
@@ -23,12 +27,12 @@ page-login {
         padding: 0px 10px 10px 10px;
         border-radius: 20px;
       }
-   
+
       ion-row {
          align-items: center;
          text-align: center;
        }
-   
+
        ion-item {
            font-size: 0.9em;
            background: transparent;
@@ -40,12 +44,12 @@ page-login {
          margin: 0px 16px 0px 16px;
          padding-bottom: 20px;
        }
-   
+
        .item-inner {
          border-bottom-color: #000 !important;
          box-shadow: none !important;
        }
-   
+
        .submit-btn {
          border-radius: 20px !important;
          background-color:#41CAC0;
@@ -56,5 +60,5 @@ page-login {
        }
 
     }
-   
+
   }

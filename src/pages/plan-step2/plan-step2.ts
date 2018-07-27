@@ -28,6 +28,7 @@ export class PlanStep2Page {
   tpCategoria: Array<{ id: number, descricao: string, }>;
   categoria: Array<{ id: number, descricao: string, }>;
   trade: Array<{ id: number, descricao: string, }>;
+  tradePrice: Array<number>;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -75,6 +76,9 @@ export class PlanStep2Page {
       { id: 4, descricao: "Trade 4" },
       { id: 5, descricao: "Trade 5" },
     ];
+    this.tradePrice = [
+      100, 50, 20, 60, 200, 300, 40, 15
+    ];
   }
 
   ionViewDidLoad() {
@@ -99,6 +103,7 @@ export class PlanStep2Page {
 
   addTrade(){
     this.travelTrade = this.step2Form.value;
+    this.travelTrade.avgPrice = this.tradePrice[Math.floor(Math.random() * this.tradePrice.length)];
     this.tp.trades.push(this.travelTrade);
     this.travelTrade = new TravelTrade();
     this.createForm();
