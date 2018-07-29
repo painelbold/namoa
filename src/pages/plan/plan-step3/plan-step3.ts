@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { TravelPlan } from '../../../models/travelPlan';
+import { TravelPlanProvider } from '../../../providers/travel-plan/travel-plan';
+import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
+import { MyApp } from '../../../app/app.component';
+import { TravelPlansListPage } from '../../travel-plans-list/travel-plans-list';
 
-import { ValidaCadastroProvider } from '../../providers/valida-cadastro/valida-cadastro';
-import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
-import { MyApp } from './../../app/app.component';
-import { TravelPlan } from './../../models/travelPlan';
-import { TravelPlanProvider } from './../../providers/travel-plan/travel-plan';
 
 /**
  * Generated class for the PlanStep3Page page.

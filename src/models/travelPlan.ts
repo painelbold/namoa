@@ -6,4 +6,5 @@ export class TravelPlan {
     startDateTrip: Date;
     endDateTrip: Date;
     trades: Array<TravelTrade>;
+    publishDate: any;
 }

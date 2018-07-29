@@ -1,9 +1,9 @@
-import { TravelTrade } from './../../models/travelTrade';
-import { TravelPlan } from './../../models/travelPlan';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { ValidaCadastroProvider } from '../../providers/valida-cadastro/valida-cadastro';
-import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
+import { TravelPlan } from '../../../models/travelPlan';
+import { TravelTrade } from '../../../models/travelTrade';
+import { FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
+import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
 
 /**
  * Generated class for the PlanStep2Page page.

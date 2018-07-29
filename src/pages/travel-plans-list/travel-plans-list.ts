@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { TravelPlanPage } from '../travel-plan/travel-plan';
+import { TravelPlanPage } from '../plan/travel-plan/travel-plan';
 import { TravelPlan } from './../../models/travelPlan';
 import { TravelPlanProvider } from './../../providers/travel-plan/travel-plan';
-
-/**
- * Generated class for the TravelPlansListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

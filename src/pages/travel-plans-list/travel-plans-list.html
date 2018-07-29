@@ -20,7 +20,7 @@
     </button>
     <ng-template [ngIf]="travelPlans.length > 0">
       <ion-card
-      *ngFor="let tp of travelPlans" text-wrap>
+      *ngFor="let tp of travelPlans | reverse" text-wrap>
       <ion-card-header class="card-header">
         Plano {{tp.title}}
       </ion-card-header>
@@ -39,8 +39,7 @@
             small
             type="button"
             id="details"
-            class="btn-list"
-            outline>
+            clear>
             Detalhes
           </button>
         </ion-buttons>

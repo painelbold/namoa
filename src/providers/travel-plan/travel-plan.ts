@@ -3,6 +3,7 @@ import 'rxjs/Rx';
 import { Injectable } from '../../../node_modules/@angular/core';
 import { AngularFireDatabase } from '../../../node_modules/angularfire2/database';
 import { TravelPlan } from './../../models/travelPlan';
+import firebase from '../../../node_modules/firebase';
 
 @Injectable()
 export class TravelPlanProvider {
@@ -20,6 +21,8 @@ export class TravelPlanProvider {
       }
       else
       {
+        tp.publishDate = firebase.database.ServerValue.TIMESTAMP;
+
         this.db.list(this.PATH + key)
         .push(tp)
         .then((result: any) => resolve(result.key))
@@ -29,7 +32,8 @@ export class TravelPlanProvider {
   }
 
   getAll(key: string){
-    return this.db.list(this.PATH + key)
+    return this.db.list(this.PATH + key, ref=>
+      ref.orderByChild("publishDate"))
     .snapshotChanges()
     .map(changes => {
       return changes.map(e=>({key:e.key,...e.payload.val()}));

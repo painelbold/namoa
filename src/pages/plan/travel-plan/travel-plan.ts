@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ValidaCadastroProvider } from './../../providers/valida-cadastro/valida-cadastro';
 import { PlanStep1Page } from './../plan-step1/plan-step1';
 import { PlanStep2Page } from './../plan-step2/plan-step2';
 import { PlanStep3Page } from './../plan-step3/plan-step3';
+import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
 
 @IonicPage()
 @Component({
@@ -22,10 +22,6 @@ export class TravelPlanPage {
       this.cadastro.setEnableStep1(true);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TravelPlanPage');
-  }
-
   getEnableStep1(){
     return this.cadastro.getEnableStep1();
   }
@@ -41,10 +37,6 @@ export class TravelPlanPage {
     this.cadastro.setEnableStep1(true);
     this.cadastro.setEnableStep2(false);
     this.cadastro.setEnableStep3(false);
-  }
-
-  cadastroInfracao(){
-
   }
 
 }
