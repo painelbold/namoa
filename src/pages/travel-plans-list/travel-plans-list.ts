@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TravelPlanPage } from '../plan/travel-plan/travel-plan';
 import { TravelPlan } from './../../models/travelPlan';
 import { TravelPlanProvider } from './../../providers/travel-plan/travel-plan';
+import { TravelPlanDetailPage } from '../travel-plan-detail/travel-plan-detail';
 
 @IonicPage()
 @Component({
@@ -31,6 +32,12 @@ export class TravelPlansListPage {
 
   newTravelPlan(){
     this.navCtrl.setRoot(TravelPlanPage);
+  }
+
+  openDetails(tp){
+    this.navCtrl.push(TravelPlanDetailPage, {
+      travelPlan: tp
+    });
   }
 
 }

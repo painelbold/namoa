@@ -1,3 +1,4 @@
+import { TravelPlanDetailPageModule } from './../pages/travel-plan-detail/travel-plan-detail.module';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,6 +40,7 @@ import { TravelPlansListPageModule } from './../pages/travel-plans-list/travel-p
 import { TravelTipsPage } from './../pages/travel-tips/travel-tips';
 import { TravelTipsPageModule } from './../pages/travel-tips/travel-tips.module';
 import { MyApp } from './app.component';
+import { TravelPlanDetailPage } from '../pages/travel-plan-detail/travel-plan-detail';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBFfhTAKdhYWSJQC_3DypjKKSG7umW6DEs",
@@ -73,7 +75,8 @@ export const firebaseConfig = {
     PlanStep2PageModule,
     PlanStep3PageModule,
     MyProfilePageModule,
-    TravelTipsPageModule
+    TravelTipsPageModule,
+    TravelPlanDetailPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -91,7 +94,8 @@ export const firebaseConfig = {
     PlanStep2Page,
     PlanStep3Page,
     MyProfilePage,
-    TravelTipsPage
+    TravelTipsPage,
+    TravelPlanDetailPage
   ],
   providers: [
     StatusBar,

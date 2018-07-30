@@ -19,6 +19,7 @@ import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valid
 export class PlanStep2Page {
   tp: TravelPlan;
   travelTrade: TravelTrade;
+  tradesList: Array<TravelTrade>;
   step2Form: FormGroup;
 
   minDate: any;
@@ -38,7 +39,7 @@ export class PlanStep2Page {
     private alertCtrl: AlertController) {
 
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
-    this.tp.trades = new Array<TravelTrade>();
+    this.tradesList = new Array<TravelTrade>();
     this.travelTrade = new TravelTrade();
     this.createForm();
 
@@ -87,13 +88,14 @@ export class PlanStep2Page {
       startDateTrader: this.minDate
     });
     this.minEndDate = this.minDate;
-    this.tp.trades = new Array<TravelTrade>();
+    this.tradesList = new Array<TravelTrade>();
   }
 
   submitStep2(){
     this.validaCadastro.setEnableStep2(false);
     this.validaCadastro.setEnableStep3(true);
     localStorage.setItem("travelplan", JSON.stringify(this.tp));
+    localStorage.setItem("traveltrades", JSON.stringify(this.tradesList));
     this.navCtrl.parent.select(2);
   }
 
@@ -104,7 +106,7 @@ export class PlanStep2Page {
   addTrade(){
     this.travelTrade = this.step2Form.value;
     this.travelTrade.avgPrice = this.tradePrice[Math.floor(Math.random() * this.tradePrice.length)];
-    this.tp.trades.push(this.travelTrade);
+    this.tradesList.push(this.travelTrade);
     this.travelTrade = new TravelTrade();
     this.createForm();
     this.toast.create({message:"Trade adicionado com sucesso", duration:2000, position:"bottom"}).present();
@@ -136,7 +138,7 @@ export class PlanStep2Page {
         {
           text: 'Confirmar',
           handler: () => {
-            this.tp.trades.splice(i, 1);
+            this.tradesList.splice(i, 1);
             this.toast.create({message: "Trade removido.", duration: 2000, position:"bottom"}).present();
           }
         }

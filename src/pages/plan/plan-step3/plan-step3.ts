@@ -5,6 +5,8 @@ import { TravelPlanProvider } from '../../../providers/travel-plan/travel-plan';
 import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
 import { MyApp } from '../../../app/app.component';
 import { TravelPlansListPage } from '../../travel-plans-list/travel-plans-list';
+import { TravelTrade } from '../../../models/travelTrade';
+import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/travel-plan-trades';
 
 
 /**
@@ -21,25 +23,26 @@ import { TravelPlansListPage } from '../../travel-plans-list/travel-plans-list';
 })
 export class PlanStep3Page {
   tp: TravelPlan;
-  items: any;
+  tradesList: Array<TravelTrade>;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private tpProvider: TravelPlanProvider,
     private validaCadastro: ValidaCadastroProvider,
     private toastController: ToastController,
+    private tptProvider: TravelPlanTradesProvider,
    public app: MyApp) {
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
-    this.items = this.tp.trades;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PlanStep3Page');
+    this.tradesList = JSON.parse(localStorage.getItem("traveltrades"));
   }
 
   confirm(){
     this.tpProvider.save(this.tp, localStorage.getItem('loggedUserKey'))
     .then((result:any)=>{
+      this.tradesList.forEach(element => {
+        this.tptProvider.save(element, result);
+      });
+
       this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
       this.app.nav.setRoot(TravelPlansListPage);
     })

@@ -5,6 +5,5 @@ export class TravelPlan {
     title: string;
     startDateTrip: Date;
     endDateTrip: Date;
-    trades: Array<TravelTrade>;
     publishDate: any;
 }

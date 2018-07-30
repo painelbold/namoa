@@ -114,9 +114,9 @@
     </form>
   <hr>
     <h4>Trades</h4>
-    <ng-template [ngIf]="tp.trades.length > 0">
+    <ng-template [ngIf]="tradesList.length > 0">
       <ion-item
-      *ngFor="let item of tp.trades; let i = index"
+      *ngFor="let item of tradesList; let i = index"
       [attr.data-index]="i"
       >
         <ion-label>
@@ -155,7 +155,7 @@
         </ion-label>
       </ion-item>
     </ng-template>
-    <ng-template #noTrades [ngIf]="tp.trades.length == 0">
+    <ng-template #noTrades [ngIf]="tradesList.length == 0">
       <p>Sem trades cadastrados.</p>
     </ng-template>
     <div class="buttons">
@@ -182,7 +182,7 @@
         outline
         class="submit-btn"
         type="button"
-        [disabled]="tp.trades.length == 0"
+        [disabled]="tradesList.length == 0"
         > Próximo
           <ion-icon name="arrow-dropright"></ion-icon>
         </button>
