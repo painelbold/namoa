@@ -55,4 +55,16 @@ export class TravelPlanDetailPage {
 
   }
 
+  getOrcamento(tt: TravelTrade[]){
+    var sum = 0;
+
+    if(tt){
+      tt.forEach(element => {
+        sum += element.avgPrice
+      });
+
+      return sum;
+    }
+  }
+
 }

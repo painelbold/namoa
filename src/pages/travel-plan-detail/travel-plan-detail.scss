@@ -1,3 +1,55 @@
 page-travel-plan-detail {
+  .trade-item{
+    padding: 0px 5px;
+  }
 
+  .card-header{
+    padding: 5px 10px;
+    font-weight: bold;
+    background-color: #2a3542;
+    color: white;
+  }
+
+  .date-name{
+    margin: 0px;
+    font-size: 120%;
+  }
+
+  .card .list .item {
+    border-bottom: 1px solid #2a3542;
+}
+
+  ion-card{
+    width:100% !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+  .label{
+    margin-right: 5px;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .divider{
+    margin: 0px 0px 5px 0px;
+    background-color: #2a3542;
+  }
+
+  .orcamento-dia{
+    padding: 0px 15px;
+    float: right;
+  }
+
+  .city-trade{
+    float: left;
+  }
+
+  ion-item{
+    border-top: none;
+    border-bottom: none;
+  }
 }

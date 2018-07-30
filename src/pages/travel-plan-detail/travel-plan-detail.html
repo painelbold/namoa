@@ -11,10 +11,31 @@
   <ion-list>
       <h4>{{travelPlan.title}}</h4>
       <p>Programação</p>
-      <ion-item-group>
-        <ion-item>
-          Dia
-        </ion-item>
-      </ion-item-group>
+      <ion-card
+      *ngFor="let item of tradesPlan"
+      class="day-item">
+      <ion-card-header class="card-header">
+        Dia {{item.date | date:"dd/MM"}}
+      </ion-card-header>
+      <ion-list>
+        <ion-item
+        inset
+        *ngFor="let trade of item.tt"
+        class="trade-item"
+        text-wrap
+        >
+          <p>Cidade: {{trade.city}}</p>
+          <p>Trade: {{trade.trade}}</p>
+          <p>Categoria: {{trade.category}}</p>
+          <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency}}</p>
+      </ion-item>
+      </ion-list>
+      <hr
+      class="divider">
+      <p
+      item-end
+      class="orcamento-dia">
+      Orçamento do dia: {{getOrcamento(item.tt) | currency}}</p>
+      </ion-card>
   </ion-list>
 </ion-content>
