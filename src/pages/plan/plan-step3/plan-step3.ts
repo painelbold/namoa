@@ -39,13 +39,11 @@ export class PlanStep3Page {
   confirm(){
     this.tpProvider.save(this.tp, localStorage.getItem('loggedUserKey'))
     .then((result:any)=>{
-      this.tradesList.forEach(element => {
-        this.tptProvider.save(element, result);
-      });
-    })
-    .then(()=>{
-      this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
-      this.app.nav.setRoot(TravelPlansListPage);
+      this.tptProvider.save(this.tradesList, result)
+      .then(()=>{
+        this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
+        this.app.nav.setRoot(TravelPlansListPage);
+      })
     })
     .catch(() => {
       this.toastController.create({message: "Erro na criação do plano.", duration: 2000, position: "bottom"}).present();
@@ -55,7 +53,6 @@ export class PlanStep3Page {
   returnStep2(){
     this.validaCadastro.setEnableStep2(true);
     this.validaCadastro.setEnableStep3(false);
-    localStorage.setItem("travelplan", JSON.stringify(this.tp));
     this.navCtrl.parent.select(1);
   }
 }

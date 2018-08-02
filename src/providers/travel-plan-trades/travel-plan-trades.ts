@@ -11,22 +11,24 @@ export class TravelPlanTradesProvider {
   constructor(private db: AngularFireDatabase,) {
   }
 
-  async save(tt: TravelTrade, key: string){
+  save(tt: Array<TravelTrade>, tpKey: string){
     return new Promise((resolve, reject) => {
-      if(tt.key){
-        this.db.list(this.PATH + key)
-        .update(tt.key, tt)
-        .then(()=> resolve)
-        .catch((e)=>reject(e))
-      }
-      else
-      {
-        tt.publishDate = firebase.database.ServerValue.TIMESTAMP;
+      tt.forEach(element => {
+        if(element.key){
+          this.db.list(this.PATH + tpKey)
+          .update(element.key, tt)
+          .then(()=> resolve)
+          .catch((e)=>reject(e))
+        }
+        else
+        {
+          element.publishDate = firebase.database.ServerValue.TIMESTAMP;
 
-        this.db.list(this.PATH + key)
-        .push(tt)
-        .then((result: any) => resolve(result.key))
-      }
+          this.db.list(this.PATH + tpKey)
+          .push(tt)
+          .then((result: any) => resolve(result.key))
+        }
+      });
     });
   }
 
