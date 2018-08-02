@@ -40,4 +40,8 @@ export class TravelPlanProvider {
     })
   }
 
+  delete(uid: string, key: string){
+    return this.db.object(this.PATH + uid + '/' + key).remove();
+  }
+
 }

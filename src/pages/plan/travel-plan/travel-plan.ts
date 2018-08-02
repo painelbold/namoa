@@ -5,6 +5,7 @@ import { PlanStep1Page } from './../plan-step1/plan-step1';
 import { PlanStep2Page } from './../plan-step2/plan-step2';
 import { PlanStep3Page } from './../plan-step3/plan-step3';
 import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
+import { TravelPlan } from '../../../models/travelPlan';
 
 @IonicPage()
 @Component({
@@ -15,10 +16,12 @@ export class TravelPlanPage {
   step1TAB = PlanStep1Page;
   step2TAB = PlanStep2Page;
   step3TAB = PlanStep3Page;
+  editTravelPlan: TravelPlan;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private cadastro: ValidaCadastroProvider) {
+      this.editTravelPlan = this.navParams.get("editTravelPlan");
       this.cadastro.setEnableStep1(true);
   }
 

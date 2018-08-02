@@ -9,8 +9,30 @@
 
 <ion-content padding>
   <ion-list>
-      <h4>{{travelPlan.title}}</h4>
-      <p>Programação</p>
+    <ion-grid class="title-grid">
+      <ion-row>
+        <ion-col col-10
+        class="col-plan-title">
+          <h5 class="plan-title">{{travelPlan.title}} - Programação</h5>
+        </ion-col>
+        <ion-col col-1 class="col-plan-btn">
+          <button
+          ion-button
+          clear
+          (click)="editPlan()">
+            <ion-icon name="create"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-1 class="col-plan-btn">
+          <button
+          ion-button
+          clear
+          (click)="deletePlan()">
+              <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
       <ion-card
       *ngFor="let item of tradesPlan"
       class="day-item">
@@ -19,7 +41,6 @@
       </ion-card-header>
       <ion-list>
         <ion-item
-        inset
         *ngFor="let trade of item.tt"
         class="trade-item"
         text-wrap

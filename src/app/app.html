@@ -9,32 +9,36 @@
 
   <ion-content class="menu-items">
     <ion-list>
-      <ion-item 
+      <ion-item
       class="menu-items"
       no-lines>
         <p class="hello-user">Olá, {{loggedUser.fullName.split(' ')[0]}}!</p>
       </ion-item>
       <hr>
-      <button 
-      class="menu-items" 
-      menuClose ion-item *ngFor="let p of pages" 
+      <button
+      class="menu-items"
+      menuClose ion-item *ngFor="let p of pages"
       (click)="openPage(p)"
       no-lines
       icon-start
       >
-      <ion-icon name={{p.icon}}></ion-icon>
-        {{p.title}}
+      <ion-icon
+      name={{p.icon}}
+      class="item-title"></ion-icon>
+        <span class="item-title">{{p.title}}</span>
       </button>
       <button
       class="menu-items"
-      menuClose 
+      menuClose
       ion-item
       (click)="logout()"
       no-lines
       icon-start
       >
-      <ion-icon name="log-out"></ion-icon>
-      Logout
+      <ion-icon
+      name="log-out"
+      class="item-title"></ion-icon>
+      <span class="item-title">Logout</span>
     </button>
     </ion-list>
   </ion-content>

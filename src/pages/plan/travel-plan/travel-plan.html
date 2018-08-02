@@ -9,7 +9,7 @@
 
 
   <ion-tabs tabsPlacement ="top">
-      <ion-tab [root]="step1TAB" tabTitle="Passo 1" tabIcon="copy" [enabled]="getEnableStep1()"></ion-tab>
+      <ion-tab [root]="step1TAB" tabTitle="Passo 1" tabIcon="copy" [enabled]="getEnableStep1()" [rootParams]="editTravelPlan"></ion-tab>
       <ion-tab [root]="step2TAB" tabTitle="Passo 2" tabIcon="person" [enabled]="getEnableStep2()"></ion-tab>
       <ion-tab [root]="step3TAB" tabTitle="Passo 3" tabIcon="list-box" [enabled]="getEnableStep3()"></ion-tab>
     </ion-tabs>

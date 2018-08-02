@@ -42,10 +42,14 @@ export class PlanStep3Page {
       this.tradesList.forEach(element => {
         this.tptProvider.save(element, result);
       });
-
+    })
+    .then(()=>{
       this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
       this.app.nav.setRoot(TravelPlansListPage);
     })
+    .catch(() => {
+      this.toastController.create({message: "Erro na criação do plano.", duration: 2000, position: "bottom"}).present();
+    });
   }
 
   returnStep2(){
