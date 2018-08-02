@@ -54,7 +54,7 @@ export class PlanStep1Page {
     this.step1Form.value.key = this.tp.key;
     this.validaCadastro.setEnableStep1(false);
     this.validaCadastro.setEnableStep2(true);
-    localStorage.setItem("travelplan", JSON.stringify(this.tp));
+    localStorage.setItem("travelplan", JSON.stringify(this.step1Form.value));
     this.navCtrl.parent.select(1);
   }
 

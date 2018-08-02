@@ -4,7 +4,9 @@ import {
   NavController,
   NavParams,
   ToastController,
-  AlertController
+  AlertController,
+  Loading,
+  LoadingController
 } from "ionic-angular";
 import { TravelPlan } from "../../../models/travelPlan";
 import { TravelTrade } from "../../../models/travelTrade";
@@ -14,6 +16,7 @@ import {
   Validators
 } from "../../../../node_modules/@angular/forms";
 import { ValidaCadastroProvider } from "../../../providers/valida-cadastro/valida-cadastro";
+import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/travel-plan-trades';
 
 /**
  * Generated class for the PlanStep2Page page.
@@ -30,8 +33,11 @@ export class PlanStep2Page {
   tp: TravelPlan;
   travelTrade: TravelTrade;
   tradesList: Array<TravelTrade>;
+  addTradesList: Array<TravelTrade>;
+  removeTradesList: Array<TravelTrade>;
   step2Form: FormGroup;
   formTitle: string;
+  loading: Loading;
 
   minDate: any;
   minEndDate: any;
@@ -48,7 +54,9 @@ export class PlanStep2Page {
     private validaCadastro: ValidaCadastroProvider,
     private toast: ToastController,
     private formBuilder: FormBuilder,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private tptProvider: TravelPlanTradesProvider,
+    private loadingCtrl: LoadingController
   ) {
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tradesList = new Array<TravelTrade>();
@@ -56,7 +64,29 @@ export class PlanStep2Page {
     this.createForm();
     this.setupPageTitle();
 
+    this.loadTrades();
+
     this.populateDropdowns();
+  }
+
+  createLoading(){
+    this.loading = this.loadingCtrl.create({
+      content: "Carregando trades..."
+    });
+    this.loading.present();
+  }
+
+
+  private loadTrades(){
+    if(this.tp.key){
+      this.createLoading();
+      const subscribe = this.tptProvider.getAllByStartDate(this.tp.key)
+      .subscribe((tList: any)=>{
+        this.tradesList = tList;
+        this.loading.dismiss();
+        subscribe.unsubscribe();
+      });
+    }
   }
 
   private populateDropdowns() {
@@ -103,6 +133,8 @@ export class PlanStep2Page {
     });
     this.minEndDate = this.minDate;
     this.tradesList = new Array<TravelTrade>();
+    this.addTradesList = new Array<TravelTrade>();
+    this.removeTradesList = new Array<TravelTrade>();
   }
 
   submitStep2() {
@@ -110,6 +142,8 @@ export class PlanStep2Page {
     this.validaCadastro.setEnableStep3(true);
     localStorage.setItem("travelplan", JSON.stringify(this.tp));
     localStorage.setItem("traveltrades", JSON.stringify(this.tradesList));
+    localStorage.setItem("addTradesList", JSON.stringify(this.addTradesList));
+    localStorage.setItem("removeTradesList", JSON.stringify(this.removeTradesList));
     this.navCtrl.parent.select(2);
   }
 
@@ -127,6 +161,7 @@ export class PlanStep2Page {
     this.travelTrade.avgPrice = this.tradePrice[
       Math.floor(Math.random() * this.tradePrice.length)
     ];
+    this.addTradesList.push(this.travelTrade);
     this.tradesList.push(this.travelTrade);
     this.travelTrade = new TravelTrade();
     this.createForm();
@@ -165,6 +200,7 @@ export class PlanStep2Page {
         {
           text: "Confirmar",
           handler: () => {
+            this.removeTradesList.push(this.tradesList[i]);
             this.tradesList.splice(i, 1);
             this.toast
               .create({

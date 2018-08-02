@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Loading, LoadingController } from 'ionic-angular';
 import { TravelPlan } from '../../../models/travelPlan';
 import { TravelPlanProvider } from '../../../providers/travel-plan/travel-plan';
 import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
@@ -7,6 +7,7 @@ import { MyApp } from '../../../app/app.component';
 import { TravelPlansListPage } from '../../travel-plans-list/travel-plans-list';
 import { TravelTrade } from '../../../models/travelTrade';
 import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/travel-plan-trades';
+import { resolveDefinition } from '../../../../node_modules/@angular/core/src/view/util';
 
 
 /**
@@ -24,6 +25,9 @@ import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/
 export class PlanStep3Page {
   tp: TravelPlan;
   tradesList: Array<TravelTrade>;
+  addTradesList: Array<TravelTrade>;
+  removeTradesList: Array<TravelTrade>;
+  loading: Loading;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,21 +35,38 @@ export class PlanStep3Page {
     private validaCadastro: ValidaCadastroProvider,
     private toastController: ToastController,
     private tptProvider: TravelPlanTradesProvider,
+    private loadingCtrl: LoadingController,
    public app: MyApp) {
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tradesList = JSON.parse(localStorage.getItem("traveltrades"));
+    this.addTradesList = JSON.parse(localStorage.getItem("addTradesList"));
+    this.removeTradesList = JSON.parse(localStorage.getItem("removeTradesList"));
+  }
+
+  createLoading(){
+    this.loading = this.loadingCtrl.create({
+      content: "Salvando plano..."
+    });
+    this.loading.present();
   }
 
   confirm(){
+    this.createLoading();
     this.tpProvider.save(this.tp, localStorage.getItem('loggedUserKey'))
     .then((result:any)=>{
-      this.tptProvider.save(this.tradesList, result)
+      if(this.removeTradesList.length > 0){
+        this.tptProvider.deleteList(this.removeTradesList, result);
+      }
+      this.tptProvider.save(this.addTradesList, result)
       .then(()=>{
+        this.loading.dismiss();
         this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
         this.app.nav.setRoot(TravelPlansListPage);
       })
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
+      this.loading.dismiss();
       this.toastController.create({message: "Erro na criação do plano.", duration: 2000, position: "bottom"}).present();
     });
   }

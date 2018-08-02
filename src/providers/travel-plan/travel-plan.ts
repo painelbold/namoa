@@ -16,7 +16,7 @@ export class TravelPlanProvider {
       if(tp.key){
         this.db.list(this.PATH + key)
         .update(tp.key, tp)
-        .then(()=> resolve)
+        .then((result: any) => resolve(tp.key))
         .catch((e)=> reject(e))
       }
       else

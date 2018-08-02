@@ -25,7 +25,7 @@ export class TravelPlanTradesProvider {
           element.publishDate = firebase.database.ServerValue.TIMESTAMP;
 
           this.db.list(this.PATH + tpKey)
-          .push(tt)
+          .push(element)
           .then((result: any) => resolve(result.key))
         }
       });
@@ -45,6 +45,12 @@ export class TravelPlanTradesProvider {
 
   delete(key: string){
     return this.db.list(this.PATH + key).remove();
+  }
+
+  deleteList(tt: Array<TravelTrade>, tpKey: string){
+    tt.forEach(element => {
+      this.db.list(this.PATH + tpKey + '/' + element.key).remove();
+    });
   }
 
 }
