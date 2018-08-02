@@ -43,6 +43,11 @@ export class PlanStep1Page {
 
   dtInicioChange() {
     this.minEndDate = this.step1Form.controls["startDateTrip"].value;
+    if(this.minEndDate > this.step1Form.controls["endDateTrip"].value){
+      this.step1Form.patchValue({
+        endDateTrip: ''
+      });
+    }
   }
 
   submitStep1() {

@@ -115,6 +115,11 @@ export class PlanStep2Page {
 
   dtInicioChange() {
     this.minEndDate = this.step2Form.controls["startDateTrader"].value;
+    if(this.minEndDate > this.step2Form.controls["endDateTrader"].value){
+      this.step2Form.patchValue({
+        endDateTrader: ''
+      });
+    }
   }
 
   addTrade() {
