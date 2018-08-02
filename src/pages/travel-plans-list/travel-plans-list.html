@@ -48,7 +48,7 @@
       </ion-card-content>
       </ion-card>
     </ng-template>
-    <ng-template [ngIf]="travelPlans.length == 0">
+    <ng-template [ngIf]="!travelPlans">
       <p class="no-plans">Sem planos cadastrados.</p>
     </ng-template>
 </ion-content>
