@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MenuController, NavController, NavParams, ToastController } from 'ionic-angular';
+import { MenuController, NavController, NavParams, ToastController, Loading, LoadingController } from 'ionic-angular';
 
 import { Usuario } from '../../models/usuario';
 import { AuthService } from '../../providers/auth/auth-service';
@@ -14,6 +14,7 @@ import { UserDataProvider } from './../../providers/user-data/user-data';
 export class RegisterPage {
   registerCredentials = { email: '', password: '', confirmPassword: ''};
   usuario: Usuario = new Usuario();
+  loading: Loading;
 
   constructor(
     public navCtrl: NavController,
@@ -21,7 +22,8 @@ export class RegisterPage {
     private toastController: ToastController,
     private authService: AuthService,
     private userProvider: UserDataProvider,
-    private menu: MenuController) {
+    private menu: MenuController,
+  private loadingCtrl: LoadingController) {
   }
 
   goBack(event) {
@@ -36,19 +38,31 @@ export class RegisterPage {
     this.menu.enable(false, 'sideMenu');
   }
 
+  createLoading(){
+    this.loading = this.loadingCtrl.create({
+      content: "Registrando conta..."
+    });
+    this.loading.present();
+  }
+
+
   onRegister(form: NgForm) {
     if (form.valid){
       if(this.registerCredentials.password == this.registerCredentials.confirmPassword){
+        this.createLoading();
         this.authService.createUser(this.registerCredentials)
         .then((result: any)=> {
           this.usuario.email = this.registerCredentials.email;
 
           this.userProvider.saveUserData(this.usuario, '');
 
+          this.loading.dismiss();
+
           this.toastController.create({message: "Usuário criado com sucesso", duration: 2000, position: "bottom"}).present();
           this.navCtrl.setRoot(TravelPlansListPage);
         })
         .catch((error:any)=>{
+          this.loading.dismiss();
           switch (error.code){
             case "auth/email-already-in-use":
             this.toastController.create({message: "O e-mail inserido já está em uso.", duration: 2000, position: "bottom"}).present();

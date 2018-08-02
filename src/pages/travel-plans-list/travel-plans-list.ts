@@ -37,8 +37,7 @@ export class TravelPlansListPage {
   createLoading(){
     this.loading = this.loadingCtrl.create({
       content: "Carregando planos..."
-    }
-    );
+    });
     this.loading.present();
   }
 

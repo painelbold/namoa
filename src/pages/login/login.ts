@@ -1,7 +1,7 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MenuController, NavController, NavParams, ToastController } from 'ionic-angular';
+import { MenuController, NavController, NavParams, ToastController, Loading, LoadingController } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
 import { ResetPasswordPage } from '../reset-password/reset-password';
@@ -19,6 +19,8 @@ export class LoginPage {
 
   loginFields = { email: '', password: '', stayConnected: true };
 
+  loading: Loading;
+
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
@@ -28,11 +30,21 @@ export class LoginPage {
     private authService: AuthService,
     private toastController: ToastController,
     private afAuth: AngularFireAuth,
-    private menu: MenuController) {
+    private menu: MenuController,
+  private loadingCtrl: LoadingController) {
   }
+
+  createLoading(){
+    this.loading = this.loadingCtrl.create({
+      content: "Entrando na conta..."
+    });
+    this.loading.present();
+  }
+
 
   login(form: NgForm) {
     if(form.valid){
+      this.createLoading();
       this.authService.signIn(this.loginFields)
       .then(()=> {
         if(this.loginFields.stayConnected){
@@ -41,9 +53,11 @@ export class LoginPage {
         else{
           this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
         }
+        this.loading.dismiss();
         this.navCtrl.setRoot(TravelPlansListPage)
       })
       .catch((error)=>{
+        this.loading.dismiss();
         let toast = this.toastController.create({duration: 2000, position: "bottom"});
 
         switch(error.code){

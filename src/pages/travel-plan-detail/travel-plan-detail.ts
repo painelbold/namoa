@@ -14,6 +14,7 @@ import { TravelPlanProvider } from "../../providers/travel-plan/travel-plan";
 import { TravelPlanTradesProvider } from "./../../providers/travel-plan-trades/travel-plan-trades";
 import { TravelPlanPage } from "./../plan/travel-plan/travel-plan";
 import { TravelPlansListPage } from "./../travel-plans-list/travel-plans-list";
+import { Loading, LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -27,6 +28,7 @@ export class TravelPlanDetailPage {
   lastDay: Date;
   travelLength: Array<Date>;
   tradesPlan: Array<{ date: Date; tt: Array<TravelTrade> }>;
+  loading: Loading;
 
   constructor(
     public navCtrl: NavController,
@@ -34,13 +36,18 @@ export class TravelPlanDetailPage {
     private tptProvider: TravelPlanTradesProvider,
     private alertCtrl: AlertController,
     private toast: ToastController,
-    private tpProvider: TravelPlanProvider
+    private tpProvider: TravelPlanProvider,
+    private loadingCtrl: LoadingController,
   ) {
+    this.createLoading();
     this.travelPlan = this.navParams.get("travelPlan");
     const subscribe = this.tptProvider
       .getAllByStartDate(this.travelPlan.key)
       .subscribe((tList: any) => {
         this.tradeList = tList;
+        this.tradesPlan = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+        this.populaTrades();
+        this.loading.dismiss();
         subscribe.unsubscribe();
       });
   }
@@ -48,12 +55,16 @@ export class TravelPlanDetailPage {
   ionViewDidEnter() {
     this.today = new Date();
     this.lastDay = this.travelPlan.endDateTrip;
-    this.tradesPlan = new Array<{ date: Date; tt: Array<TravelTrade> }>();
-
-    this.newMethod();
   }
 
-  private newMethod() {
+  createLoading(){
+    this.loading = this.loadingCtrl.create({
+      content: "Carregando detalhes do plano..."
+    });
+    this.loading.present();
+  }
+
+  private populaTrades() {
     this.tradeList.forEach((trade: TravelTrade) => {
       for (let d = moment(trade.startDateTrader); d.diff(trade.endDateTrader, "days") <= 0; d.add(1, "days")) {
         if (!this.tradesPlan.find(item => item.date.toISOString() == d.toDate().toISOString())) {
