@@ -13,6 +13,7 @@
     <button
     ion-button
     outline
+    color="namoa-color"
     class="btn-list"
     (click)="newTravelPlan()"
     block >
@@ -26,24 +27,24 @@
       </ion-card-header>
       <hr class="divider">
       <ion-card-content class="card-content">
-        <ion-item class="card-item">
+        <ion-item class="card-item container">
           <ion-label
-          item-start
-          class="travel-span">Período da viagem:<br>{{tp.startDateTrip | date:'dd/MM'}} a {{tp.endDateTrip | date:'dd/MM'}}</ion-label>
-          <ion-buttons
-          end
-          item-end>
+          item-content
+          class="travel-span">Período da viagem: {{tp.startDateTrip | date:'dd/MM'}} a {{tp.endDateTrip | date:'dd/MM'}}</ion-label>
+
             <button
             ion-button
             bottom
             small
+            item-end
+            class="btn-list"
+            color="namoa-color"
             type="button"
             id="details"
-            clear
+            outline
             (click)="openDetails(tp)">
-            Detalhes
+            <ion-icon name="arrow-forward"></ion-icon>
           </button>
-        </ion-buttons>
         </ion-item>
       </ion-card-content>
       </ion-card>

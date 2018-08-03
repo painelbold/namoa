@@ -11,17 +11,16 @@ page-travel-plans-list {
     }
 
     .card-content{
-      padding: 0px 15px;
       line-height: 1.5;
+    }
+
+    .card-md{
+      border-radius: 8px;
     }
 
     .travel-span{
       font-size: 1.25rem !important;
-    }
 
-    .card-item{
-      margin-top: 0px;
-      padding: 0px;
     }
 
     .divider{
@@ -40,8 +39,12 @@ page-travel-plans-list {
         padding-right: 0px !important;
    }
 
+   ion-card-content{
+     display: contents;
+   }
+
    ion-grid{
-       margin-top: 0% !important;
+    margin-top: 0% !important;
     white-space:normal;
    }
 
@@ -50,7 +53,5 @@ page-travel-plans-list {
      padding-right: 0px !important;
    }
 
-   ion-col{
-    margin:5%;
-    }
+
 }

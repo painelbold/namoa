@@ -9,23 +9,23 @@
 
 <ion-content padding>
     <h4>Novo Plano</h4>
-    <form 
+    <form
     [formGroup]="step1Form"
-    (ngSubmit)="submitStep1()" 
+    (ngSubmit)="submitStep1()"
     >
     <ion-item-group inset>
         <ion-item>
             <ion-label floating>Titulo</ion-label>
-            <ion-input 
-            type="text" 
+            <ion-input
+            type="text"
             formControlName="title"
             required
             ></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Data de Início</ion-label>
-            <ion-datetime 
-            displayFormat="DD/MM/YYYY" 
+            <ion-datetime
+            displayFormat="DD/MM/YYYY"
             [min]="minDate"
             [max]="maxCalDate"
             (ionChange)="dtInicioChange()"
@@ -35,8 +35,8 @@
           </ion-item>
           <ion-item>
             <ion-label>Data Final</ion-label>
-            <ion-datetime 
-            displayFormat="DD/MM/YYYY" 
+            <ion-datetime
+            displayFormat="DD/MM/YYYY"
             [min]="minEndDate"
             [max]="maxCalDate"
             formControlName="endDateTrip"
@@ -45,12 +45,13 @@
             ></ion-datetime>
           </ion-item>
           <ion-buttons end>
-            <button 
-            ion-button 
-            icon-end 
-            type="submit" 
+            <button
+            ion-button
+            icon-end
+            type="submit"
             class="submit-btn"
             id="proximo"
+            color="namoa-color"
             outline
             [disabled]="!step1Form.valid"> Próximo
                 <ion-icon name="arrow-dropright"></ion-icon>
@@ -58,6 +59,5 @@
           </ion-buttons>
     </ion-item-group>
     </form>
-  
+
   </ion-content>
-  
