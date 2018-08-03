@@ -71,12 +71,16 @@ page-travel-plan-detail {
     float: right;
   }
 
-  .city-trade{
-    float: left;
-  }
-
   ion-item{
     border-top: none;
     border-bottom: none;
+  }
+
+  .btn-side{
+    display: block;
+  }
+
+  .btn-container{
+    margin: 9px 0px !important;
   }
 }
