@@ -4,7 +4,8 @@ page-plan-step1 {
         border-radius: 20px;
     }
 
-    ion-item {
-        font-size: 0.9em;
-    }
+    .item-inner {
+      font-size: 0.9em;
+      box-shadow: none !important;
+  }
 }

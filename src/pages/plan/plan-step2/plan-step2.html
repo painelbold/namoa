@@ -18,7 +18,7 @@
     <form
     (ngSubmit)="addTrade()"
     [formGroup]="step2Form">
-    <ion-item-group inset>
+    <ion-item-group inset class="trade-info">
       <ion-item>
         <ion-label>Data de Início</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY"
@@ -102,6 +102,7 @@
           type="submit"
           class="submit-btn"
           bottom
+          color="namoa-color"
           outline
           end
           icon-start
@@ -129,7 +130,7 @@
                   <button
                   ion-button
                   clear
-                  color="danger"
+                  color="namoa-color"
                   small
                   class="trash-icon">
                     <ion-icon
