@@ -11,6 +11,36 @@ page-plan-step2 {
 
     .row{
         align-items: center;
+        vertical-align: middle;
+    }
+
+    .trade-title{
+      font-weight: 500;
+    }
+
+    .ion-item-trades{
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .ion-grid{
+      padding: 0px !important;
+    }
+
+    .label-md{
+      margin: 0px;
+    }
+
+    .col{
+      padding: 2px 0px 2px 0px;
+    }
+
+    .text-right{
+      text-align: right;
+    }
+
+    .item-md.item-block .item-inner{
+      padding-right: 0px;
     }
 
     .trash-icon{

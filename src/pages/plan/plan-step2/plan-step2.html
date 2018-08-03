@@ -119,14 +119,14 @@
       <ion-item
       *ngFor="let item of tradesList; let i = index"
       [attr.data-index]="i"
+      class="ion-item-trades"
       >
-        <ion-label>
           <ion-grid>
             <ion-row>
-              <ion-col col-10>
-                <h4>{{item.trade}}</h4>
+              <ion-col col-11>
+                <h4 class="trade-title">{{item.trade}}</h4>
               </ion-col>
-              <ion-col col-2>
+              <ion-col col-1>
                   <button
                   ion-button
                   clear
@@ -141,19 +141,18 @@
             </ion-row>
             <ion-row>
               <ion-col col-md-6>
-                <p>{{item.category}}</p>
+                <p>Categoria: {{item.category}}</p>
               </ion-col>
               <ion-col col-md-6>
-                <p>De {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
+                <p class="text-right">{{item.startDateTrader | date:'dd/MM'}} a {{item.endDateTrader | date:'dd/MM'}}</p>
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
-                <p>Orçamento (por dia): {{(item.avgPrice | currency: "BRL").toString().replace('.',',')}}</p>
+                <p class="text-right">Orçamento (dia): {{(item.avgPrice | currency: "BRL").toString().replace('.',',')}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-label>
       </ion-item>
     </ng-template>
     <ng-template #noTrades [ngIf]="tradesList.length == 0">
