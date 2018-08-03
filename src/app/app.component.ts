@@ -13,6 +13,7 @@ import { TravelPlansListPage } from './../pages/travel-plans-list/travel-plans-l
 import { AuthService } from './../providers/auth/auth-service';
 import { UserDataProvider } from './../providers/user-data/user-data';
 import { TravelPlanPage } from '../pages/plan/travel-plan/travel-plan';
+import { AboutPage } from '../pages/about/about';
 
 @Component({
   templateUrl: 'app.html'
@@ -62,7 +63,8 @@ export class MyApp {
       { title: 'Minha Conta', component: MyProfilePage, icon: 'person'},
       { title: 'Dicas Sustentáveis', component: TravelTipsPage, icon: 'water'},
       { title: 'Termos de Uso', component: TermsOfServicePage, icon: 'book' },
-      { title: 'Política de Privacidade', component: PrivacyPage, icon: 'information-circle' }
+      { title: 'Política de Privacidade', component: PrivacyPage, icon: 'information' },
+      { title: 'Sobre o Namoa', component: AboutPage, icon: 'information-circle' },
     ];
 
   }

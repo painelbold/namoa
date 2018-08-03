@@ -41,6 +41,8 @@ import { TravelTipsPage } from './../pages/travel-tips/travel-tips';
 import { TravelTipsPageModule } from './../pages/travel-tips/travel-tips.module';
 import { MyApp } from './app.component';
 import { TravelPlanDetailPage } from '../pages/travel-plan-detail/travel-plan-detail';
+import { AboutPage } from '../pages/about/about';
+import { AboutPageModule } from '../pages/about/about.module';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBFfhTAKdhYWSJQC_3DypjKKSG7umW6DEs",
@@ -76,7 +78,8 @@ export const firebaseConfig = {
     PlanStep3PageModule,
     MyProfilePageModule,
     TravelTipsPageModule,
-    TravelPlanDetailPageModule
+    TravelPlanDetailPageModule,
+    AboutPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -95,7 +98,8 @@ export const firebaseConfig = {
     PlanStep3Page,
     MyProfilePage,
     TravelTipsPage,
-    TravelPlanDetailPage
+    TravelPlanDetailPage,
+    AboutPage
   ],
   providers: [
     StatusBar,
