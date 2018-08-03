@@ -148,7 +148,7 @@
             </ion-row>
             <ion-row>
               <ion-col>
-                <p>Orçamento (por dia): {{item.avgPrice | currency}}</p>
+                <p>Orçamento (por dia): {{(item.avgPrice | currency: "BRL").toString().replace('.',',')}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
