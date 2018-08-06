@@ -28,6 +28,10 @@ export class TravelPlanDetailPage {
   lastDay: Date;
   travelLength: Array<Date>;
   tradesPlan: Array<{ date: Date; tt: Array<TravelTrade> }>;
+  tradesPlanToday: Array<{ date: Date; tt: Array<TravelTrade> }>;
+  tradesPlanNextDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
+  tradesPlanPrevDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
+  orcamentoTotal: number;
   loading: Loading;
 
   constructor(
@@ -39,6 +43,7 @@ export class TravelPlanDetailPage {
     private tpProvider: TravelPlanProvider,
     private loadingCtrl: LoadingController,
   ) {
+    this.orcamentoTotal = 0;
     this.createLoading();
     this.travelPlan = this.navParams.get("travelPlan");
     const subscribe = this.tptProvider
@@ -46,6 +51,9 @@ export class TravelPlanDetailPage {
       .subscribe((tList: any) => {
         this.tradeList = tList;
         this.tradesPlan = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+        this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+        this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+        this.tradesPlanPrevDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
         this.populaTrades();
         this.loading.dismiss();
         subscribe.unsubscribe();
@@ -68,6 +76,7 @@ export class TravelPlanDetailPage {
     this.tradeList.forEach((trade: TravelTrade) => {
       for (let d = moment(trade.startDateTrader); d.diff(trade.endDateTrader, "days") <= 0; d.add(1, "days")) {
         if (!this.tradesPlan.find(item => item.date.toISOString() == d.toDate().toISOString())) {
+
           this.tradesPlan.push({
             date: d.toDate(),
             tt: [trade]

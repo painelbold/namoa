@@ -1,9 +1,10 @@
 import { UserDataProvider } from './../../providers/user-data/user-data';
 import { Usuario } from './../../models/usuario';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
+import { IonicPage, NavController, NavParams, ToastController, Loading, LoadingController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angular/forms';
 import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
+import { AuthService } from '../../providers/auth/auth-service';
 
 /**
  * Generated class for the MyProfilePage page.
@@ -20,15 +21,21 @@ import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
 export class MyProfilePage {
   maxDate: any;
   myProfileForm: FormGroup;
+  passwordForm: FormGroup;
   user: Usuario;
+  password: any;
+  loading: Loading;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     private udProvider: UserDataProvider,
-    private toastController: ToastController) {
+    private toastController: ToastController,
+    private authService: AuthService,
+    private loadingCtrl: LoadingController) {
       this.user = new Usuario();
       this.createForm();
+      this.createPasswordForm();
 
       const subscribe = this.udProvider.getUserData()
       .subscribe((u: any) =>{
@@ -36,6 +43,7 @@ export class MyProfilePage {
         this.createForm();
         subscribe.unsubscribe();
       });
+      this.password = { old: '', new: '', confirm: ''};
   }
 
   ionViewDidLoad() {
@@ -50,15 +58,72 @@ export class MyProfilePage {
     });
   }
 
+  createPasswordForm(){
+    this.passwordForm = this.formBuilder.group({
+      new: ['', Validators.required],
+      old: ['', Validators.required],
+      confirm: ['', Validators.required]
+    })
+  }
+
+  createLoading(){
+    this.loading = this.loadingCtrl.create({
+      content: "Salvando alterações..."
+    });
+    this.loading.present();
+  }
+
   updateProfile(){
+    this.createLoading();
+
       this.udProvider.saveUserData(this.myProfileForm.value, this.user.key)
       .then(()=>{
+        this.loading.dismiss();
         this.toastController.create({message: "Dados pessoais atualizados com sucesso.", duration: 2000, position: "bottom"}).present();
         this.navCtrl.setRoot(TravelPlansListPage);
       })
       .catch((error)=>{
+        this.loading.dismiss();
         this.toastController.create({message: "Erro na atualização dos dados pessoais.", duration: 2000, position: "bottom"}).present();
         console.log("Erro na atualização dos dados pessoais:" + error);
       })
     }
+
+    changePassword(){
+      this.createLoading();
+
+      if(this.validatePassword()){
+        this.authService.changePassword(this.password)
+        .then(() => {
+          this.loading.dismiss();
+          this.createPasswordForm();
+          this.toastController.create({message: "Senha alterada com sucesso.", duration: 2000, position: "bottom"}).present();
+        })
+        .catch((error: any) => {
+          this.loading.dismiss();
+          switch(error.code){
+            case "auth/wrong-password":
+          this.toastController.create({message: "A senha digitada está incorreta.", duration: 2000, position: "bottom"}).present();
+            break;
+            default:
+            this.toastController.create({message: "Erro na alteração da senha.", duration: 2000, position: "bottom"}).present();
+            break;
+          }
+        })
+      }
+    }
+
+  validatePassword(){
+    this.password = this.passwordForm.value;
+
+    if(this.password.old == this.password.new){
+      this.toastController.create({message: "Escolha uma senha diferente.", duration: 2000, position: "bottom"}).present();
+      return false;
+    }
+    if(this.password.new != this.password.confirm){
+      this.toastController.create({message: "As senhas digitadas não conferem.", duration: 2000, position: "bottom"}).present();
+      return false;
+    }
+    return true;
+  }
 }

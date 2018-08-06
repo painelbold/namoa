@@ -58,4 +58,5 @@
         Orçamento do dia: {{(getOrcamento(item.tt) | currency: "BRL").toString().replace('.',',')}}</p>
     </ion-card>
   </ion-list>
+  <p>Orçamento total: {{(orcamentoTotal | currency: "BRL").toString().replace('.',',')}}</p>
 </ion-content>

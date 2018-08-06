@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
+import { Usuario } from '../../models/usuario';
 
 @Injectable()
 export class AuthService {
@@ -31,5 +32,14 @@ export class AuthService {
 
     getLoggedUser(){
         return this.angularFireAuth.auth.currentUser;
+    }
+
+    changePassword(passwords: any){
+      var credential = firebase.auth.EmailAuthProvider.credential(this.angularFireAuth.auth.currentUser.email, passwords.old);
+      return this.angularFireAuth.auth.currentUser.reauthenticateWithCredential(credential)
+      .then(() => {
+        this.angularFireAuth.auth.currentUser.updatePassword(passwords.new)
+      }
+      )
     }
 }

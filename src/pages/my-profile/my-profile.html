@@ -43,25 +43,41 @@
         formControlName="dateOfBirth"
         ></ion-datetime>
       </ion-item>
-      <hr class="divider">
-      <p>Alterar senha</p>
+        <button
+        ion-button
+        class="submit-btn"
+        outline
+        block
+        type="submit"
+        [disabled]="(!myProfileForm.valid || myProfileForm.pristine)">Confirmar Alterações</button>
+      </ion-item-group>
+  </form>
+  <hr class="divider">
+  <ion-item-group class="divider">
+    <h5>Alterar senha</h5>
+    <form
+    (ngSubmit)="changePassword()"
+    [formGroup]="passwordForm">
       <ion-item>
         <ion-label>Senha Atual</ion-label>
         <ion-input
         type="password"
-        name="currentPassword"></ion-input>
+        name="currentPassword"
+        formControlName="old"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Nova Senha</ion-label>
         <ion-input
         type="password"
-        name="newPassword"></ion-input>
+        name="newPassword"
+        formControlName="new"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Confirmar Senha</ion-label>
         <ion-input
         type="password"
-        name="confirmNewPassword"></ion-input>
+        name="confirmNewPassword"
+        formControlName="confirm"></ion-input>
       </ion-item>
       <button
       ion-button
@@ -69,7 +85,7 @@
       outline
       block
       type="submit"
-      [disabled]="(!myProfileForm.valid || myProfileForm.pristine)">Confirmar Alterações</button>
-    </ion-item-group>
-  </form>
+      [disabled]="(!passwordForm.valid || password.pristine)">Alterar Senha</button>
+    </form>
+  </ion-item-group>
   </ion-content>
