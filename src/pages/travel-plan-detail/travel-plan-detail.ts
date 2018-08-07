@@ -51,13 +51,28 @@ export class TravelPlanDetailPage {
       .subscribe((tList: any) => {
         this.tradeList = tList;
         this.tradesPlan = new Array<{ date: Date; tt: Array<TravelTrade> }>();
-        this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
-        this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
-        this.tradesPlanPrevDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
         this.populaTrades();
+        this.obtemTradesDias();
+        this.getOrcamentoTotal();
         this.loading.dismiss();
         subscribe.unsubscribe();
       });
+  }
+
+  obtemTradesDias(){
+    this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    this.tradesPlanPrevDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+
+    this.today = new Date();
+
+    this.tradesPlanToday = this.tradesPlan.filter(item => item.date.toDateString() == this.today.toDateString());
+    this.tradesPlanNextDays = this.tradesPlan.filter(item => item.date.toDateString() > this.today.toDateString());
+    this.tradesPlanPrevDays = this.tradesPlan.filter(item => item.date.toDateString() < this.today.toDateString());
+
+    console.log("today ", this.tradesPlanToday);
+    console.log("next ", this.tradesPlanNextDays);
+    console.log("prev ", this.tradesPlanPrevDays);
   }
 
   ionViewDidEnter() {
@@ -100,6 +115,14 @@ export class TravelPlanDetailPage {
 
       return sum;
     }
+  }
+
+  getOrcamentoTotal(){
+    this.tradesPlan.map((i) => {
+      i.tt.map((j) =>{
+        this.orcamentoTotal += j.avgPrice;
+      })
+    })
   }
 
   deletePlan() {
