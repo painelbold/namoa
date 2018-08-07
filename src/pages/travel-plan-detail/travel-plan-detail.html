@@ -46,7 +46,7 @@
               <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
             </ion-label>
             <div item-end class="btn-container">
-              <button ion-button small clear class="btn-side" color="namoa-color">
+              <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal()">
                 <ion-icon name="star-outline"></ion-icon>
               </button>
               <button ion-button small clear class="btn-side" color="namoa-color">
@@ -76,7 +76,7 @@
                 <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
               </ion-label>
               <div item-end class="btn-container">
-                <button ion-button small clear class="btn-side" color="namoa-color">
+                <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal()">
                   <ion-icon name="star-outline"></ion-icon>
                 </button>
                 <button ion-button small clear class="btn-side" color="namoa-color">
@@ -106,7 +106,7 @@
                     <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
                   </ion-label>
                   <div item-end class="btn-container">
-                    <button ion-button small clear class="btn-side" color="namoa-color">
+                    <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal()">
                       <ion-icon name="star-outline"></ion-icon>
                     </button>
                     <button ion-button small clear class="btn-side" color="namoa-color">

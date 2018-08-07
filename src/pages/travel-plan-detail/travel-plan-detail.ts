@@ -4,7 +4,8 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  ToastController
+  ToastController,
+  ModalController
 } from "ionic-angular";
 import moment from "moment";
 
@@ -15,6 +16,7 @@ import { TravelPlanTradesProvider } from "./../../providers/travel-plan-trades/t
 import { TravelPlanPage } from "./../plan/travel-plan/travel-plan";
 import { TravelPlansListPage } from "./../travel-plans-list/travel-plans-list";
 import { Loading, LoadingController } from 'ionic-angular';
+import { animation } from "../../../node_modules/@angular/core/src/animation/dsl";
 
 @IonicPage()
 @Component({
@@ -42,6 +44,7 @@ export class TravelPlanDetailPage {
     private toast: ToastController,
     private tpProvider: TravelPlanProvider,
     private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
   ) {
     this.orcamentoTotal = 0;
     this.createLoading();
@@ -69,10 +72,6 @@ export class TravelPlanDetailPage {
     this.tradesPlanToday = this.tradesPlan.filter(item => item.date.toDateString() == this.today.toDateString());
     this.tradesPlanNextDays = this.tradesPlan.filter(item => item.date.toDateString() > this.today.toDateString());
     this.tradesPlanPrevDays = this.tradesPlan.filter(item => item.date.toDateString() < this.today.toDateString());
-
-    console.log("today ", this.tradesPlanToday);
-    console.log("next ", this.tradesPlanNextDays);
-    console.log("prev ", this.tradesPlanPrevDays);
   }
 
   ionViewDidEnter() {
@@ -108,11 +107,10 @@ export class TravelPlanDetailPage {
   getOrcamento(tt: TravelTrade[]) {
     var sum = 0;
 
-    if (tt) {
-      tt.forEach(element => {
-        sum += element.avgPrice;
+    if(tt){
+      tt.map((item) =>{
+        sum += item.avgPrice;
       });
-
       return sum;
     }
   }
@@ -179,5 +177,17 @@ export class TravelPlanDetailPage {
     this.navCtrl.push(TravelPlanPage, {
       editTravelPlan: this.travelPlan
     });
+  }
+
+  openModal(){
+    console.log("modal opened");
+    var modal = this.modalCtrl.create('ModalRatingPage',{
+      animation: 'slide-in-up',
+      viewType: 'bottom-sheet',
+      enableBackdropDismiss: true
+    } );
+
+    modal.present();
+    console.log("modal presented");
   }
 }

@@ -1,0 +1,27 @@
+page-modal-rating {
+  .content-page{
+    bottom: 0;
+    min-height: initial;
+    top: initial;
+    height: 50%;
+  }
+
+  .transparent {
+    background-color: black;
+    opacity: 0.2;
+  }
+
+  ul {
+    padding: 0px;
+
+    &.rating li {
+      padding: 5px 10px !important;
+      background: none;
+      color: #ffb400;
+
+      ion-icon {
+        font-size: 30px;
+      }
+    }
+  }
+}
