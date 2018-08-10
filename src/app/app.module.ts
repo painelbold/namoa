@@ -1,6 +1,7 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -109,11 +110,12 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     AuthService,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserDataProvider,
     TravelPlanProvider,
     ValidaCadastroProvider,
-    TravelPlanTradesProvider
+    TravelPlanTradesProvider,
   ]
 })
 export class AppModule {}
