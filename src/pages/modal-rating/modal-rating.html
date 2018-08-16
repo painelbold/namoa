@@ -27,7 +27,7 @@
     <h5>Avaliação do trade</h5>
     <p>Data da avaliação: {{dateRating.ratingDate | date: "dd/MM/yyyy"}}</p>
     <p>Nota de avaliação: {{dateRating.rating}}/5</p>
-    <p>Média da avaliação do trade: {{(avgRating/allRatesTrade.length).toFixed(2)}}</p>
+    <p>Média da avaliação do trade: {{(avgRating/allRatesTrade.length).toFixed(2).replace('.',',')}}</p>
 
     <button
     ion-button
