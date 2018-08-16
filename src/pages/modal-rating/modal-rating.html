@@ -2,14 +2,42 @@
 </ion-content>
 
 <ion-content padding class="content-page">
-  <h5>Avalie o trade</h5>
+  <div *ngIf="!dateRating; else avaliado">
+    <h5>Avalie o trade</h5>
 
-  <rating [(ngModel)]="rate"
-        readOnly="false"
-        max="5"
-        emptyStarIconName="star-outline"
-        halfStarIconName="star-half"
-        starIconName="star"
-        nullable="false" ></rating>
+    <rating [(ngModel)]="rate"
+          readOnly="false"
+          max="5"
+          emptyStarIconName="star-outline"
+          halfStarIconName="star-half"
+          starIconName="star"
+          nullable="false" ></rating>
+
+    <button
+    ion-button
+    block
+    outline
+    namoa-color
+    class="btn-rating"
+    (click)="saveRating()">
+    Salvar avaliação
+    </button>
+  </div>
+  <ng-template #avaliado>
+    <h5>Avaliação do trade</h5>
+    <p>Data da avaliação: {{dateRating.ratingDate | date: "dd/MM/yyyy"}}</p>
+    <p>Nota de avaliação: {{dateRating.rating}}/5</p>
+    <p>Média da avaliação do trade: {{(avgRating/allRatesTrade.length).toFixed(2)}}</p>
+
+    <button
+    ion-button
+    block
+    outline
+    namoa-color
+    class="btn-rating"
+    (click)="closeModal()">
+    Voltar
+    </button>
+  </ng-template>
 
 </ion-content>

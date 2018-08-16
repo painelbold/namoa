@@ -32,7 +32,7 @@
       </ion-row>
     </ion-grid>
 
-    <div *ngIf="tradesPlanToday">
+    <div *ngIf="tradesPlanToday.length > 0">
       <ion-card *ngFor="let item of tradesPlanToday" class="day-item">
         <ion-card-header class="card-header">
           Hoje ({{item.date | date:"dd/MM"}})
@@ -46,7 +46,7 @@
               <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
             </ion-label>
             <div item-end class="btn-container">
-              <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal()">
+              <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
                 <ion-icon name="star-outline"></ion-icon>
               </button>
               <button ion-button small clear class="btn-side" color="namoa-color">
@@ -57,11 +57,11 @@
         </ion-list>
         <hr class="divider">
         <p item-end class="orcamento-dia">
-          Orçamento do dia: {{(getOrcamento(item.tt) | currency: "BRL").toString().replace('.',',')}}</p>
+          Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
       </ion-card>
       <hr>
     </div>
-    <div *ngIf="tradesPlanNextDays">
+    <div *ngIf="tradesPlanNextDays.length > 0">
       <h5>Próximos Dias</h5>
         <ion-card *ngFor="let item of tradesPlanNextDays" class="day-item">
           <ion-card-header class="card-header">
@@ -76,7 +76,7 @@
                 <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
               </ion-label>
               <div item-end class="btn-container">
-                <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal()">
+                <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
                   <ion-icon name="star-outline"></ion-icon>
                 </button>
                 <button ion-button small clear class="btn-side" color="namoa-color">
@@ -87,11 +87,11 @@
           </ion-list>
           <hr class="divider">
           <p item-end class="orcamento-dia">
-            Orçamento do dia: {{(getOrcamento(item.tt) | currency: "BRL").toString().replace('.',',')}}</p>
+            Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
         </ion-card>
         <hr>
       </div>
-      <div *ngIf="tradesPlanPrevDays">
+      <div *ngIf="tradesPlanPrevDays.length > 0">
           <h5>Dias Anteriores</h5>
             <ion-card *ngFor="let item of tradesPlanPrevDays" class="day-item">
               <ion-card-header class="card-header">
@@ -106,7 +106,7 @@
                     <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
                   </ion-label>
                   <div item-end class="btn-container">
-                    <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal()">
+                    <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
                       <ion-icon name="star-outline"></ion-icon>
                     </button>
                     <button ion-button small clear class="btn-side" color="namoa-color">
@@ -117,10 +117,10 @@
               </ion-list>
               <hr class="divider">
               <p item-end class="orcamento-dia">
-                Orçamento do dia: {{(getOrcamento(item.tt) | currency: "BRL").toString().replace('.',',')}}</p>
+                Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
             </ion-card>
           </div>
 
   </ion-list>
-  <p>Orçamento total: {{(orcamentoTotal | currency: "BRL").toString().replace('.',',')}}</p>
+  <p>Orçamento total: {{formatter.format(orcamentoTotal)}}</p>
 </ion-content>

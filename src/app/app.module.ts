@@ -46,6 +46,7 @@ import { TravelPlansListPageModule } from './../pages/travel-plans-list/travel-p
 import { TravelTipsPage } from './../pages/travel-tips/travel-tips';
 import { TravelTipsPageModule } from './../pages/travel-tips/travel-tips.module';
 import { MyApp } from './app.component';
+import { TravelTradeRatingProvider } from '../providers/travel-trade-rating/travel-trade-rating';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBFfhTAKdhYWSJQC_3DypjKKSG7umW6DEs",
@@ -116,6 +117,7 @@ export const firebaseConfig = {
     TravelPlanProvider,
     ValidaCadastroProvider,
     TravelPlanTradesProvider,
+    TravelTradeRatingProvider,
   ]
 })
 export class AppModule {}

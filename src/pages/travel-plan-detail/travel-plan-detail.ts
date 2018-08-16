@@ -12,7 +12,6 @@ import {
 } from "ionic-angular";
 import moment from "moment";
 
-import { animation } from "../../../node_modules/@angular/core/src/animation/dsl";
 import { TravelPlan } from "../../models/travelPlan";
 import { TravelTrade } from "../../models/travelTrade";
 import { TravelPlanProvider } from "../../providers/travel-plan/travel-plan";
@@ -37,7 +36,7 @@ export class TravelPlanDetailPage {
   tradesPlanPrevDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
   orcamentoTotal: number;
   loading: Loading;
-
+  formatter: Intl.NumberFormat;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -52,6 +51,13 @@ export class TravelPlanDetailPage {
     this.orcamentoTotal = 0;
     this.createLoading();
     this.travelPlan = this.navParams.get("travelPlan");
+    this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    this.initArrays();
+    this.formatter = new Intl.NumberFormat('pt-BR',{
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    });
     const subscribe = this.tptProvider
       .getAllByStartDate(this.travelPlan.key)
       .subscribe((tList: any) => {
@@ -66,16 +72,6 @@ export class TravelPlanDetailPage {
   }
 
   obtemTradesDias() {
-    this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
-    this.tradesPlanNextDays = new Array<{
-      date: Date;
-      tt: Array<TravelTrade>;
-    }>();
-    this.tradesPlanPrevDays = new Array<{
-      date: Date;
-      tt: Array<TravelTrade>;
-    }>();
-
     this.today = new Date();
 
     this.tradesPlanToday = this.tradesPlan.filter(
@@ -89,9 +85,16 @@ export class TravelPlanDetailPage {
     );
   }
 
+  initArrays(){
+    this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade>; }>();
+    this.tradesPlanPrevDays = new Array<{ date: Date;  tt: Array<TravelTrade>; }>();
+  }
+
   ionViewDidEnter() {
     this.today = new Date();
     this.lastDay = this.travelPlan.endDateTrip;
+
   }
 
   createLoading() {
@@ -202,11 +205,14 @@ export class TravelPlanDetailPage {
     });
   }
 
-  openModal() {
+  openModal(rateDate: Date, trade:string) {
     var modal = this.modalCtrl.create("ModalRatingPage", {
       animation: "slide-in-up",
       viewType: "bottom-sheet",
-      enableBackdropDismiss: true
+      enableBackdropDismiss: true,
+      userId: localStorage.getItem("loggedUserKey"),
+      rateDate: rateDate.toISOString(),
+      trade: trade
     });
 
     modal.present();
