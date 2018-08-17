@@ -73,15 +73,16 @@ export class TravelPlanDetailPage {
 
   obtemTradesDias() {
     this.today = new Date();
+    this.today.setHours(0,0,0,0);
 
     this.tradesPlanToday = this.tradesPlan.filter(
-      item => item.date.toDateString() == this.today.toDateString()
+      item => item.date.toISOString() == this.today.toISOString()
     );
     this.tradesPlanNextDays = this.tradesPlan.filter(
-      item => item.date.toDateString() > this.today.toDateString()
+      item => item.date.toISOString() > this.today.toISOString()
     );
     this.tradesPlanPrevDays = this.tradesPlan.filter(
-      item => item.date.toDateString() < this.today.toDateString()
+      item => item.date.toISOString() < this.today.toISOString()
     );
   }
 
@@ -238,11 +239,16 @@ export class TravelPlanDetailPage {
 
   getShareMessage() {
     let msg: string;
+    let date1: string;
+    let date2: string;
+    date1 = this.travelPlan.startDateTrip.toDateString();
+    date2 = this.travelPlan.endDateTrip.toDateString();
+
     msg =
       "Plano de Viagem\n\nPeríodo: " +
-      this.travelPlan.startDateTrip.toDateString() +
+      this.travelPlan.startDateTrip +
       " - " +
-      this.travelPlan.endDateTrip.toDateString() +
+      this.travelPlan.endDateTrip +
       "\n\nProgramação:\n\nHoje: " +
       this.getProgramacaoHoje() +
       this.getProgramacaoProxDias();

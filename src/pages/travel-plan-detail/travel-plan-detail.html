@@ -59,7 +59,7 @@
         <p item-end class="orcamento-dia">
           Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
       </ion-card>
-      <hr>
+      <hr class="item-divider">
     </div>
     <div *ngIf="tradesPlanNextDays.length > 0">
       <h5>Próximos Dias</h5>
@@ -89,7 +89,7 @@
           <p item-end class="orcamento-dia">
             Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
         </ion-card>
-        <hr>
+        <hr class="item-divider">
       </div>
       <div *ngIf="tradesPlanPrevDays.length > 0">
           <h5>Dias Anteriores</h5>
