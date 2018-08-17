@@ -238,47 +238,44 @@ export class TravelPlanDetailPage {
   }
 
   getShareMessage() {
-    let msg: string;
-    let date1: string;
-    let date2: string;
-    date1 = this.travelPlan.startDateTrip.toDateString();
-    date2 = this.travelPlan.endDateTrip.toDateString();
+    let msg: string = '';
 
     msg =
-      "Plano de Viagem\n\nPeríodo: " +
-      this.travelPlan.startDateTrip +
+      "*Plano de Viagem*\n\n_Período: " +
+      moment(this.travelPlan.startDateTrip).format("D/MM/YYYY") +
       " - " +
-      this.travelPlan.endDateTrip +
-      "\n\nProgramação:\n\nHoje: " +
+      moment(this.travelPlan.endDateTrip).format("D/MM/YYYY") +
+      "_\n\n*Programação:*\n\n_Hoje_:\n " +
       this.getProgramacaoHoje() +
-      this.getProgramacaoProxDias();
-
+      "\n\n_Próximos dias_: " + this.getProgramacaoProxDias();
+    console.log(msg);
     return msg;
   }
 
-  getProgramacaoHoje() {
-    let msg: string;
+  getProgramacaoHoje() : string {
+    let msg: string = '';
     this.tradesPlanToday.map(tp =>
       tp.tt.map(travelTrade => {
-        msg += "Cidade: " + travelTrade.city;
-        msg += "\nCategoria:" + travelTrade.category;
+        msg += "\nCidade: " + travelTrade.city;
+        msg += "\nCategoria: " + travelTrade.category;
         msg += "\nTrade: " + travelTrade.trade;
       })
     );
-
     return msg;
   }
 
-  getProgramacaoProxDias() {
-    let msg: string;
+  getProgramacaoProxDias() : string {
+    let msg: string = '';
     this.tradesPlanNextDays.map(tp => {
-      msg += "\n\nDia: " + tp.date.toDateString();
+      msg += "\n\nDia: " + moment(tp.date).format("D/MM/YYYY");
+
       tp.tt.map(travelTrade => {
         msg += "\nCidade: " + travelTrade.city;
         msg += "\nCategoria:" + travelTrade.category;
         msg += "\nTrade: " + travelTrade.trade;
       });
     });
+    console.log(msg);
     return msg;
   }
 }
