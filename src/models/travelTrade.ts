@@ -1,6 +1,7 @@
 export class TravelTrade{
     state: string;
     city: any;
+    estado: any;
     startDateTrader: Date;
     endDateTrader: Date;
     categoryType: string;

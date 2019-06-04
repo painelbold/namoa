@@ -4,6 +4,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+import { HttpModule } from '@angular/http';
+
 import { AngularFireModule } from '../../node_modules/angularfire2';
 import { AngularFireAuthModule } from '../../node_modules/angularfire2/auth';
 import { AngularFireDatabaseModule } from '../../node_modules/angularfire2/database';
@@ -82,7 +84,8 @@ export const firebaseConfig = {
     TravelTipsPageModule,
     TravelPlanDetailPageModule,
     AboutPageModule,
-    ModalRatingPageModule
+    ModalRatingPageModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

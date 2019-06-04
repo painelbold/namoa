@@ -9,6 +9,8 @@ import { TravelTrade } from '../../../models/travelTrade';
 import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/travel-plan-trades';
 import { resolveDefinition } from '../../../../node_modules/@angular/core/src/view/util';
 
+import { Http, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
 
 /**
  * Generated class for the PlanStep3Page page.
@@ -36,7 +38,10 @@ export class PlanStep3Page {
     private toastController: ToastController,
     private tptProvider: TravelPlanTradesProvider,
     private loadingCtrl: LoadingController,
-   public app: MyApp) {
+    public http: Http,
+    public app: MyApp
+   ) {
+
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tradesList = JSON.parse(localStorage.getItem("traveltrades"));
     this.addTradesList = JSON.parse(localStorage.getItem("addTradesList"));
@@ -59,9 +64,65 @@ export class PlanStep3Page {
       }
       this.tptProvider.save(this.addTradesList, result)
       .then(()=>{
-        this.loading.dismiss();
-        this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
-        this.app.nav.setRoot(TravelPlansListPage);
+
+          const payload_plano = {
+              "tituloTravelTrip" : this.tp.title,
+              "startDateTrip" : this.tp.startDateTrip,
+              "endDateTrip" : this.tp.endDateTrip,
+              "usuario" : localStorage.getItem('loggedUserKey')
+          }
+          // console.log("payload_plano",payload_plano);
+          let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+          let options = new RequestOptions({ headers: headers });
+
+          this.http.post('http://namoa.vivainovacao.com/api/home/createPlano/',
+                          payload_plano, options
+          ).map(res => res.json()).subscribe(data => {
+
+            // console.log("data retorno plano",data[0]);
+
+            var retornoPlano = data[0];
+            var payload_tradeList = {}
+
+            this.tradesList.map(item =>{
+
+              // console.log("item", item);
+
+              payload_tradeList = {
+                   "plano_id": retornoPlano.plano_id,
+                   "tipoCategoria" : item.categoryType ,
+                   "categoria" : item.category ,
+                   "cidade" : item.city ,
+                   "startDateTrader" : item.startDateTrader ,
+                   "endDateTrader" : item.endDateTrader ,
+                   "estado" : item.estado ,
+                   "trade" : item.trade ,
+                   "avgPrice" : item.avgPrice ,
+                   "usuario" : localStorage.getItem('loggedUserKey')
+              }
+
+              // console.log("payload_tradeList",payload_tradeList)
+              let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+              let options = new RequestOptions({ headers: headers });
+
+              this.http.post('http://namoa.vivainovacao.com/api/home/createTrade/',
+                          payload_tradeList, options
+              ).map(res => res.json()).subscribe(data => {
+
+                  // console.log("data retorno trade List insert",data[0])
+                  this.loading.dismiss();
+                  this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
+                  this.app.nav.setRoot(TravelPlansListPage);
+
+              })
+
+            })
+
+
+          });
+
+
+        
       })
     })
     .catch((error) => {

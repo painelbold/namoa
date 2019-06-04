@@ -18,6 +18,9 @@ import {
 import { ValidaCadastroProvider } from "../../../providers/valida-cadastro/valida-cadastro";
 import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/travel-plan-trades';
 
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+
 /**
  * Generated class for the PlanStep2Page page.
  *
@@ -47,6 +50,7 @@ export class PlanStep2Page {
   categoria: Array<{ id: number; descricao: string }>;
   trade: Array<{ id: number; descricao: string }>;
   tradePrice: Array<number>;
+  estados: Array<{ nome_estado: string, sigla_estado: string} >;
 
   constructor(
     public navCtrl: NavController,
@@ -56,7 +60,8 @@ export class PlanStep2Page {
     private formBuilder: FormBuilder,
     private alertCtrl: AlertController,
     private tptProvider: TravelPlanTradesProvider,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public http: Http
   ) {
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tradesList = new Array<TravelTrade>();
@@ -90,35 +95,13 @@ export class PlanStep2Page {
   }
 
   private populateDropdowns() {
-    this.cidades = [
-      { id: 1, descricao: "Salvador" },
-      { id: 2, descricao: "Itacaré" },
-      { id: 3, descricao: "Lençóis" },
-      { id: 4, descricao: "Ilhéus" },
-      { id: 5, descricao: "Itabuna" },
-      { id: 6, descricao: "Itaparica" }
-    ];
-    this.tpCategoria = [
-      { id: 1, descricao: "Alimentação" },
-      { id: 2, descricao: "Cultura" },
-      { id: 3, descricao: "Hospedagem" },
-      { id: 4, descricao: "Lazer" },
-      { id: 5, descricao: "Transporte" }
-    ];
-    this.categoria = [
-      { id: 1, descricao: "Cinema" },
-      { id: 2, descricao: "Praia" },
-      { id: 3, descricao: "Restaurante" },
-      { id: 4, descricao: "Esportes Radicais" },
-      { id: 5, descricao: "Museus" }
-    ];
-    this.trade = [
-      { id: 1, descricao: "Trade 1" },
-      { id: 2, descricao: "Trade 2" },
-      { id: 3, descricao: "Trade 3" },
-      { id: 4, descricao: "Trade 4" },
-      { id: 5, descricao: "Trade 5" }
-    ];
+    
+    this.estados = [];
+    this.cidades = [];
+    this.tpCategoria = [];
+    this.categoria = [];
+
+    this.trade = [];
     this.tradePrice = [100, 50, 20, 60, 200, 300, 40, 15];
   }
 
@@ -127,6 +110,10 @@ export class PlanStep2Page {
   }
 
   ionViewDidLoad() {
+
+    this.getEstado();
+    this.getTipoCategoria();
+    this.getTrade();
     this.minDate = this.tp.startDateTrip;
     this.step2Form.patchValue({
       startDateTrader: this.minDate
@@ -135,6 +122,60 @@ export class PlanStep2Page {
     this.tradesList = new Array<TravelTrade>();
     this.addTradesList = new Array<TravelTrade>();
     this.removeTradesList = new Array<TravelTrade>();
+  }
+
+  getEstado(){
+    // console.log("getEstado");
+
+      this.http.get('http://namoa.vivainovacao.com/api/home/estado/').map(res => res.json()).subscribe(data => {
+          // console.log("data",data[0]);
+          this.estados = data[0];
+      });
+
+  }
+
+  getCidades(estado){
+
+    // console.log("Estado Selecionado",estado);
+
+    this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
+        // console.log("data",data[0]);
+        this.cidades = data[0];
+    });
+
+  }
+
+  getTipoCategoria(){
+    // console.log("getTipoCategoria")
+
+      this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
+          // console.log("data",data[0]);
+          this.tpCategoria = data[0];
+          // console.log("this.tpCategoria",this.tpCategoria)
+      });
+
+  }
+
+  getCategoria(tipo){
+
+    // console.log("Estado Selecionado",tipo);
+
+    this.http.get('http://namoa.vivainovacao.com/api/home/categorias/'+tipo).map(res => res.json()).subscribe(data => {
+        // console.log("data",data[0]);
+        this.categoria = data[0];
+    });
+
+  }
+
+  getTrade(){
+    // console.log("getTrade")
+
+    this.http.get('http://namoa.vivainovacao.com/api/home/trade/').map(res => res.json()).subscribe(data => {
+          // console.log("data",data[0]);
+          this.trade = data[0];
+          // console.log("this.trade",this.trade)
+      });
+
   }
 
   submitStep2() {
@@ -176,6 +217,7 @@ export class PlanStep2Page {
 
   createForm() {
     this.step2Form = this.formBuilder.group({
+      estado: ["", Validators.required],
       city: ["", Validators.required],
       categoryType: ["", Validators.required],
       category: ["", Validators.required],
