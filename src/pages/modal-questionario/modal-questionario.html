@@ -8,11 +8,8 @@
 
 
 <ion-content padding>
-  <ion-row>
-    <ion-col>
-      <ion-list inset>
 
-      	<ion-item>
+    <ion-item>
 	  <ion-label>1. Faixa etária:</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q1">
 	    <ion-option value="Até 18 anos">Até 18 anos</ion-option>
@@ -409,10 +406,6 @@
       </ion-select>
    	</ion-item>
 
-
-      </ion-list>
-    </ion-col>
-  </ion-row>
   <ion-row>
     <ion-col>
     	<button ion-button class="submit-btn" block outline type="submit" 
@@ -421,4 +414,5 @@
     	</button>
     </ion-col>
   </ion-row>
+
 </ion-content>

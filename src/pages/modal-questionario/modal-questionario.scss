@@ -2,8 +2,18 @@ page-modal-questionario {
     
     ion-label{
     	white-space: normal;
+    	color: #8e8a8a;
+    }
+    .label, .label-md{
+    	font-weight: normal;
+    	color: #8e8a8a;
+    }
+    .item{
+    	font-weight: normal;
+    	color: #8e8a8a;
     }
     .margemEsquerda{
     	margin-left:10px;
+    	color: #8e8a8a;
     }
 }
