@@ -46,6 +46,8 @@ import { TravelPlanDetailPageModule } from './../pages/travel-plan-detail/travel
 import { TravelPlansListPageModule } from './../pages/travel-plans-list/travel-plans-list.module';
 import { TravelTipsPage } from './../pages/travel-tips/travel-tips';
 import { TravelTipsPageModule } from './../pages/travel-tips/travel-tips.module';
+import { ModalQuestionarioPage } from './../pages/modal-questionario/modal-questionario'
+import { ModalQuestionarioPageModule } from './../pages/modal-questionario/modal-questionario.module'
 import { MyApp } from './app.component';
 
 export const firebaseConfig = {
@@ -85,7 +87,8 @@ export const firebaseConfig = {
     TravelPlanDetailPageModule,
     AboutPageModule,
     ModalRatingPageModule,
-    HttpModule
+    HttpModule,
+    ModalQuestionarioPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -106,7 +109,8 @@ export const firebaseConfig = {
     TravelTipsPage,
     TravelPlanDetailPage,
     AboutPage,
-    ModalRatingPage
+    ModalRatingPage,
+    ModalQuestionarioPage
   ],
   providers: [
     StatusBar,

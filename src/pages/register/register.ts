@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MenuController, NavController, NavParams, ToastController, Loading, LoadingController } from 'ionic-angular';
+import { MenuController, NavController, NavParams, ToastController, Loading, LoadingController, ModalController } from 'ionic-angular';
 
 import { Usuario } from '../../models/usuario';
 import { AuthService } from '../../providers/auth/auth-service';
 import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
 import { UserDataProvider } from './../../providers/user-data/user-data';
+
+import { ModalQuestionarioPage } from '../modal-questionario/modal-questionario'
 
 @Component({
   selector: 'page-register',
@@ -15,6 +17,7 @@ export class RegisterPage {
   registerCredentials = { email: '', password: '', confirmPassword: ''};
   usuario: Usuario = new Usuario();
   loading: Loading;
+  modalPreenchido: any = false;
 
   constructor(
     public navCtrl: NavController,
@@ -23,7 +26,8 @@ export class RegisterPage {
     private authService: AuthService,
     private userProvider: UserDataProvider,
     private menu: MenuController,
-  private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    public modalCtrl: ModalController) {
   }
 
   goBack(event) {
@@ -45,47 +49,72 @@ export class RegisterPage {
     this.loading.present();
   }
 
-
   onRegister(form: NgForm) {
-    if (form.valid){
-      if(this.registerCredentials.password == this.registerCredentials.confirmPassword){
-        this.createLoading();
-        this.authService.createUser(this.registerCredentials)
-        .then((result: any)=> {
-          this.usuario.email = this.registerCredentials.email;
 
-          this.userProvider.saveUserData(this.usuario, '');
+    // if (form.valid){
+      // if(this.registerCredentials.password == this.registerCredentials.confirmPassword){
+        
 
-          this.loading.dismiss();
 
-          this.toastController.create({message: "Usuário criado com sucesso", duration: 2000, position: "bottom"}).present();
-          this.navCtrl.setRoot(TravelPlansListPage);
-        })
-        .catch((error:any)=>{
-          this.loading.dismiss();
-          switch (error.code){
-            case "auth/email-already-in-use":
-            this.toastController.create({message: "O e-mail inserido já está em uso.", duration: 2000, position: "bottom"}).present();
-            break;
-            case "auth/invalid-email":
-            this.toastController.create({message: "O e-mail inserido é inválido.", duration: 2000, position: "bottom"}).present();
-            break;
-            case "auth/operation-not-allowed":
-            this.toastController.create({message: "A operação não é permitida.", duration: 2000, position: "bottom"}).present();
-            break;
-            case "auth/weak-password":
-            this.toastController.create({message: "A senha escolhida é fraca.", duration: 2000, position: "bottom"}).present();
-            break;
-            default:
-            console.log("Erro ao registrar usuário: " + error.code);
-            break;
-          }
-        })
-      }
-      else
-      {
-        this.toastController.create({message: "As senhas digitadas são diferentes.", duration: 2000, position: "bottom"}).present();
-      }
-    }
+          let profileModal = this.modalCtrl.create(ModalQuestionarioPage);
+          profileModal.present();
+
+          profileModal.onDidDismiss(data => {  
+            console.log(data);
+
+            if(data.retorno==true){
+              console.log("form",form)
+              console.log("this.registerCredentials",this.registerCredentials)
+              //LIBERAR EFETIVAÇÃO DO CADASTRO
+
+              // this.createLoading();
+              // this.authService.createUser(this.registerCredentials)
+              // .then((result: any)=> {
+              //   this.usuario.email = this.registerCredentials.email;
+
+              //   this.userProvider.saveUserData(this.usuario, '');
+
+              //   this.loading.dismiss();
+
+              //   this.toastController.create({message: "Usuário criado com sucesso", duration: 2000, position: "bottom"}).present();
+              //   this.navCtrl.setRoot(TravelPlansListPage);
+              // })
+              // .catch((error:any)=>{
+              //   this.loading.dismiss();
+              //   switch (error.code){
+              //     case "auth/email-already-in-use":
+              //     this.toastController.create({message: "O e-mail inserido já está em uso.", duration: 2000, position: "bottom"}).present();
+              //     break;
+              //     case "auth/invalid-email":
+              //     this.toastController.create({message: "O e-mail inserido é inválido.", duration: 2000, position: "bottom"}).present();
+              //     break;
+              //     case "auth/operation-not-allowed":
+              //     this.toastController.create({message: "A operação não é permitida.", duration: 2000, position: "bottom"}).present();
+              //     break;
+              //     case "auth/weak-password":
+              //     this.toastController.create({message: "A senha escolhida é fraca.", duration: 2000, position: "bottom"}).present();
+              //     break;
+              //     default:
+              //     console.log("Erro ao registrar usuário: " + error.code);
+              //     break;
+              //   }
+              // })
+
+              //FIM DO LIBERAR EFETIVAÇÃO DO CADASTRO
+          
+            }
+          });
+
+          
+      // }
+      // else
+      // {
+      //   this.toastController.create({message: "As senhas digitadas são diferentes.", duration: 2000, position: "bottom"}).present();
+      // }
+    // }
+
+
   }
+
+
 }
