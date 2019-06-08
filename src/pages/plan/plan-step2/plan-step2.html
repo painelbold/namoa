@@ -20,27 +20,6 @@
     [formGroup]="step2Form">
     <ion-item-group inset class="trade-info">
       <ion-item>
-        <ion-label>Data de Início</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY"
-        [min]="minDate"
-        [max]="tp.endDateTrip"
-        (ionChange)="dtInicioChange()"
-        formControlName="startDateTrader"
-        required
-        ></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Data Final</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY"
-        [min]="minEndDate"
-        [max]="tp.endDateTrip"
-        formControlName="endDateTrader"
-        required
-        [disabled]="!step2Form.get('startDateTrader').value"
-        ></ion-datetime>
-      </ion-item>
-      
-      <ion-item>
         <ion-label>Estado</ion-label>
         <ion-select formControlName="estado" (ionChange)="getCidades($event);">
           <ion-option *ngFor="let e of estados" value="{{e.sigla_estado}}" required>
@@ -60,7 +39,7 @@
 
 
       <ion-item>
-          <ion-label>Tipo de Categoria</ion-label>
+          <ion-label>Categoria</ion-label>
           <ion-select formControlName="categoryType" (ionChange)="getCategoria($event);" id="tpCategoria" name="tpCategoria">
             <ion-option *ngFor="let t of tpCategoria" value="{{t.id}}" required>
                 {{t.descricao}}
@@ -70,8 +49,8 @@
 
       <ion-item
       *ngIf="step2Form.controls['categoryType'].valid">
-          <ion-label>Categoria</ion-label>
-          <ion-select formControlName="category" id="categoria" name="categoria">
+          <ion-label>Sub categoria</ion-label>
+          <ion-select formControlName="category" id="categoria" name="categoria" (ionChange)="getTrade($event);">
               <ion-option *ngFor="let c of categoria" value="{{c.id}}" required>
                 {{c.descricao}}
               </ion-option>
@@ -95,6 +74,28 @@
           </ion-option>
           </ion-select>
           </ion-item>
+
+          <ion-item>
+          <ion-label>Data de Início</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY"
+            [min]="minDate"
+            [max]="tp.endDateTrip"
+            (ionChange)="dtInicioChange()"
+            formControlName="startDateTrader"
+            required
+            ></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data Final</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY"
+            [min]="minEndDate"
+            [max]="tp.endDateTrip"
+            formControlName="endDateTrader"
+            required
+            [disabled]="!step2Form.get('startDateTrader').value"
+            ></ion-datetime>
+          </ion-item>
+
           <button
           ion-button
           id="addTrade"

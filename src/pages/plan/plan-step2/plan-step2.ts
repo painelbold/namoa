@@ -76,7 +76,7 @@ export class PlanStep2Page {
 
   createLoading(){
     this.loading = this.loadingCtrl.create({
-      content: "Carregando trades..."
+      content: "Carregando..."
     });
     this.loading.present();
   }
@@ -113,7 +113,7 @@ export class PlanStep2Page {
 
     this.getEstado();
     this.getTipoCategoria();
-    this.getTrade();
+    // this.getTrade();
     this.minDate = this.tp.startDateTrip;
     this.step2Form.patchValue({
       startDateTrader: this.minDate
@@ -125,55 +125,81 @@ export class PlanStep2Page {
   }
 
   getEstado(){
+
+    this.createLoading();
     // console.log("getEstado");
 
       this.http.get('http://namoa.vivainovacao.com/api/home/estado/').map(res => res.json()).subscribe(data => {
           // console.log("data",data[0]);
           this.estados = data[0];
+          this.loading.dismiss();
+      },err =>{
+          this.loading.dismiss();
+          this.getEstado();
       });
 
   }
 
   getCidades(estado){
 
+    this.createLoading();
+
     // console.log("Estado Selecionado",estado);
 
     this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
         // console.log("data",data[0]);
         this.cidades = data[0];
-    });
+        this.loading.dismiss();
+    },err =>{
+        this.loading.dismiss();
+        this.getCidades(estado);
+    })
 
   }
 
   getTipoCategoria(){
+
     // console.log("getTipoCategoria")
 
       this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
           // console.log("data",data[0]);
           this.tpCategoria = data[0];
           // console.log("this.tpCategoria",this.tpCategoria)
+      },err =>{
+          this.getTipoCategoria();
       });
 
   }
 
   getCategoria(tipo){
 
+    this.createLoading();
+
     // console.log("Estado Selecionado",tipo);
 
     this.http.get('http://namoa.vivainovacao.com/api/home/categorias/'+tipo).map(res => res.json()).subscribe(data => {
         // console.log("data",data[0]);
         this.categoria = data[0];
-    });
+        this.loading.dismiss();
+    }, err =>{
+        this.loading.dismiss();
+        this.getCategoria(tipo);
+    })
 
   }
 
-  getTrade(){
-    // console.log("getTrade")
+  getTrade(subcategoria){
 
-    this.http.get('http://namoa.vivainovacao.com/api/home/trade/').map(res => res.json()).subscribe(data => {
-          // console.log("data",data[0]);
+    this.createLoading();
+    
+    this.http.get('http://namoa.vivainovacao.com/api/home/trade/'+encodeURI(this.step2Form.value.city)+'/'+subcategoria).map(res => res.json()).subscribe(data => {
+          // console.log("data TRADE",data[0]);
           this.trade = data[0];
+          this.loading.dismiss();
           // console.log("this.trade",this.trade)
+      },err =>{
+          this.loading.dismiss();
+          this.getTrade(subcategoria);
       });
 
   }
