@@ -24,7 +24,7 @@ export class TravelPlansListPage {
       this.cities = new Array<string>();
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.createLoading();
     const subscribe = this.tpProvider.getAll(localStorage.getItem("loggedUserKey"))
     .subscribe((tp: any) =>{

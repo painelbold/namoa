@@ -90,9 +90,9 @@ export class MyProfilePage {
     }
 
     changePassword(){
-      this.createLoading();
 
       if(this.validatePassword()){
+        this.createLoading();
         this.authService.changePassword(this.password)
         .then(() => {
           this.loading.dismiss();
