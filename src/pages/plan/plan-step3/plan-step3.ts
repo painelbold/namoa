@@ -69,6 +69,7 @@ export class PlanStep3Page {
     .then((result:any)=>{
       if(this.removeTradesList.length > 0){
         this.tptProvider.deleteList(this.removeTradesList, result);
+        this.loading.dismiss();
       }
       this.tptProvider.save(this.addTradesList, result)
       .then(()=>{

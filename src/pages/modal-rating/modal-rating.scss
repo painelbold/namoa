@@ -3,12 +3,16 @@ page-modal-rating {
     bottom: 0;
     min-height: initial;
     top: initial;
-    height: 50%;
+    height: 35%;
   }
 
   .transparent {
     background-color: black;
     opacity: 0.2;
+  }
+
+  .btn-rating{
+    border-radius: 20px;
   }
 
   ul {

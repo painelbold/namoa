@@ -1,6 +1,7 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -49,6 +50,7 @@ import { TravelTipsPageModule } from './../pages/travel-tips/travel-tips.module'
 import { ModalQuestionarioPage } from './../pages/modal-questionario/modal-questionario'
 import { ModalQuestionarioPageModule } from './../pages/modal-questionario/modal-questionario.module'
 import { MyApp } from './app.component';
+import { TravelTradeRatingProvider } from '../providers/travel-trade-rating/travel-trade-rating';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBFfhTAKdhYWSJQC_3DypjKKSG7umW6DEs",
@@ -116,11 +118,13 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     AuthService,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserDataProvider,
     TravelPlanProvider,
     ValidaCadastroProvider,
-    TravelPlanTradesProvider
+    TravelPlanTradesProvider,
+    TravelTradeRatingProvider,
   ]
 })
 export class AppModule {}

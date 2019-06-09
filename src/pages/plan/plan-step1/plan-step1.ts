@@ -19,6 +19,7 @@ import { ValidaCadastroProvider } from "../../../providers/valida-cadastro/valid
 export class PlanStep1Page {
   tp: TravelPlan;
   step1Form: FormGroup;
+  pageTitle: string;
 
   minDate: any;
   minEndDate: any;
@@ -37,6 +38,7 @@ export class PlanStep1Page {
   ionViewDidLoad() {
     this.minDate = new Date().toISOString();
     this.tp = this.navParams.data;
+    this.pageTitle = this.navParams.data.title ? "Editar Plano" : "Novo Plano";
     this.createForm();
     this.maxCalDate = "2030-12-31";
   }

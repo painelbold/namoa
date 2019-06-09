@@ -46,8 +46,6 @@ export class MyApp {
                                 udObserver.unsubscribe();
                               }
                             });
-
-        authObserver.unsubscribe();
       }
       else{
         this.rootPage = LoginPage;

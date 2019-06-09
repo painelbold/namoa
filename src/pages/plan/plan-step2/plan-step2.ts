@@ -44,16 +44,16 @@ export class PlanStep2Page {
 
   minDate: any;
   minEndDate: any;
-  optionSugestao: Array<{ cidade: string, valor: string }>;
+
+  tradePrice: Array<number>;
   optionSugestaoTrade: Array<{ trade: string, valor: string }>;
   resultTrade: Array<{ id: string, descricao: string }>;
-
   cidades: Array<{ id: number; descricao: string }>;
   tpCategoria: Array<{ id: number; descricao: string }>;
   categoria: Array<{ id: number; descricao: string }>;
   trade: Array<{ id: number; descricao: string }>;
-  tradePrice: Array<number>;
   estados: Array<{ nome_estado: string, sigla_estado: string} >;
+  optionSugestao: Array<{ cidade: string, valor: string }>;
 
   constructor(
     public navCtrl: NavController,
@@ -103,6 +103,8 @@ export class PlanStep2Page {
     this.cidades = [];
     this.tpCategoria = [];
     this.categoria = [];
+    this.optionSugestao = [];
+    this.optionSugestaoTrade = [];
 
     this.trade = [];
     this.tradePrice = [100, 50, 20, 60, 200, 300, 40, 15];
@@ -129,16 +131,14 @@ export class PlanStep2Page {
   }
 
   getSugestoes(){
-      this.createLoading();
       var payload_questionario = JSON.parse(localStorage.getItem('payload_questionario'));
 
       let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
       let options = new RequestOptions({ headers: headers });
 
-      this.http.post('http://beenils.com.br:8080',
-                  payload_questionario, options
-      ).map(res => res.json()).subscribe(data => {
-
+      this.http.post('https://cors-anywhere.herokuapp.com/http://beenils.com.br:8080',
+      payload_questionario, options).map(res => res.json()).subscribe(data => {
+        
           //CONVERTENDO LISTA EM ARRAY COM DADOS
           var new_city_choices = data.city_choices;
           var newSugestoes = [];
@@ -156,13 +156,11 @@ export class PlanStep2Page {
 
           //PEGANDO VALOR MAIOR DA SUGESTAO
           var elementMax = 0;
-          
+
           newSugestoes.map(item => {
-            // console.log(this.optionSugestao)
-            // console.log(item)
             if(item.valor>elementMax){
               elementMax = item.valor;
-              this.optionSugestao = [item];
+              this.optionSugestao.push(item);
             }
           })
 
@@ -194,9 +192,6 @@ export class PlanStep2Page {
             }
           })
 
-          this.loading.dismiss();
-
-
       })
   }
 
@@ -206,17 +201,20 @@ export class PlanStep2Page {
           // console.log("data",data[0]);
           this.resultTrade = data[0];
       },err =>{
-          this.getEstado();
+          this.getTradeSugestao(id);
       });
 
   }
 
   getEstado(){
+      this.createLoading();
 
       this.http.get('http://namoa.vivainovacao.com/api/home/estado/').map(res => res.json()).subscribe(data => {
           // console.log("data",data[0]);
           this.estados = data[0];
+          this.loading.dismiss();
       },err =>{
+          this.loading.dismiss();
           this.getEstado();
       });
 

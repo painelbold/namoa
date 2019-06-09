@@ -1,11 +1,14 @@
 import { Component } from "@angular/core";
+import { SocialSharing } from "@ionic-native/social-sharing";
 import {
   AlertController,
   IonicPage,
+  Loading,
+  LoadingController,
+  ModalController,
   NavController,
   NavParams,
-  ToastController,
-  ModalController
+  ToastController
 } from "ionic-angular";
 import moment from "moment";
 
@@ -15,8 +18,6 @@ import { TravelPlanProvider } from "../../providers/travel-plan/travel-plan";
 import { TravelPlanTradesProvider } from "./../../providers/travel-plan-trades/travel-plan-trades";
 import { TravelPlanPage } from "./../plan/travel-plan/travel-plan";
 import { TravelPlansListPage } from "./../travel-plans-list/travel-plans-list";
-import { Loading, LoadingController } from 'ionic-angular';
-import { animation } from "../../../node_modules/@angular/core/src/animation/dsl";
 
 @IonicPage()
 @Component({
@@ -35,7 +36,7 @@ export class TravelPlanDetailPage {
   tradesPlanPrevDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
   orcamentoTotal: number;
   loading: Loading;
-
+  formatter: Intl.NumberFormat;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -44,11 +45,19 @@ export class TravelPlanDetailPage {
     private toast: ToastController,
     private tpProvider: TravelPlanProvider,
     private loadingCtrl: LoadingController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private socialsharing: SocialSharing
   ) {
     this.orcamentoTotal = 0;
     this.createLoading();
     this.travelPlan = this.navParams.get("travelPlan");
+    this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    this.initArrays();
+    this.formatter = new Intl.NumberFormat('pt-BR',{
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2
+    });
     const subscribe = this.tptProvider
       .getAllByStartDate(this.travelPlan.key)
       .subscribe((tList: any) => {
@@ -71,23 +80,37 @@ export class TravelPlanDetailPage {
   }
 
   obtemTradesDias(){
-    this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
-    this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
-    this.tradesPlanPrevDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    // this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    // this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    // this.tradesPlanPrevDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();
 
     this.today = new Date();
+    this.today.setHours(0,0,0,0);
 
-    this.tradesPlanToday = this.tradesPlan.filter(item => item.date.toDateString() == this.today.toDateString());
-    this.tradesPlanNextDays = this.tradesPlan.filter(item => item.date.toDateString() > this.today.toDateString());
-    this.tradesPlanPrevDays = this.tradesPlan.filter(item => item.date.toDateString() < this.today.toDateString());
+    this.tradesPlanToday = this.tradesPlan.filter(
+      item => item.date.toISOString() == this.today.toISOString()
+    );
+    this.tradesPlanNextDays = this.tradesPlan.filter(
+      item => item.date.toISOString() > this.today.toISOString()
+    );
+    this.tradesPlanPrevDays = this.tradesPlan.filter(
+      item => item.date.toISOString() < this.today.toISOString()
+    );
+  }
+
+  initArrays(){
+    this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
+    this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade>; }>();
+    this.tradesPlanPrevDays = new Array<{ date: Date;  tt: Array<TravelTrade>; }>();
   }
 
   ionViewDidEnter() {
     this.today = new Date();
     this.lastDay = this.travelPlan.endDateTrip;
+
   }
 
-  createLoading(){
+  createLoading() {
     this.loading = this.loadingCtrl.create({
       content: "Carregando detalhes do plano..."
     });
@@ -96,16 +119,24 @@ export class TravelPlanDetailPage {
 
   private populaTrades() {
     this.tradeList.forEach((trade: TravelTrade) => {
-      for (let d = moment(trade.startDateTrader); d.diff(trade.endDateTrader, "days") <= 0; d.add(1, "days")) {
-        if (!this.tradesPlan.find(item => item.date.toISOString() == d.toDate().toISOString())) {
-
+      for (
+        let d = moment(trade.startDateTrader);
+        d.diff(trade.endDateTrader, "days") <= 0;
+        d.add(1, "days")
+      ) {
+        if (
+          !this.tradesPlan.find(
+            item => item.date.toISOString() == d.toDate().toISOString()
+          )
+        ) {
           this.tradesPlan.push({
             date: d.toDate(),
             tt: [trade]
           });
-        }
-        else {
-          var i = this.tradesPlan.findIndex(item => item.date.toISOString() == d.toDate().toISOString());
+        } else {
+          var i = this.tradesPlan.findIndex(
+            item => item.date.toISOString() == d.toDate().toISOString()
+          );
           this.tradesPlan[i].tt.push(trade);
         }
       }
@@ -115,20 +146,20 @@ export class TravelPlanDetailPage {
   getOrcamento(tt: TravelTrade[]) {
     var sum = 0;
 
-    if(tt){
-      tt.map((item) =>{
+    if (tt) {
+      tt.map(item => {
         sum += item.avgPrice;
       });
       return sum;
     }
   }
 
-  getOrcamentoTotal(){
-    this.tradesPlan.map((i) => {
-      i.tt.map((j) =>{
+  getOrcamentoTotal() {
+    this.tradesPlan.map(i => {
+      i.tt.map(j => {
         this.orcamentoTotal += j.avgPrice;
-      })
-    })
+      });
+    });
   }
 
   deletePlan() {
@@ -187,15 +218,76 @@ export class TravelPlanDetailPage {
     });
   }
 
-  openModal(){
-    console.log("modal opened");
-    var modal = this.modalCtrl.create('ModalRatingPage',{
-      animation: 'slide-in-up',
-      viewType: 'bottom-sheet',
-      enableBackdropDismiss: true
-    } );
+  openModal(rateDate: Date, trade:string) {
+    var modal = this.modalCtrl.create("ModalRatingPage", {
+      animation: "slide-in-up",
+      viewType: "bottom-sheet",
+      enableBackdropDismiss: true,
+      userId: localStorage.getItem("loggedUserKey"),
+      rateDate: rateDate.toISOString(),
+      trade: trade
+    });
 
     modal.present();
-    console.log("modal presented");
+  }
+
+  sharePlanWhatsapp() {
+    this.socialsharing
+      .shareViaWhatsApp(this.getShareMessage())
+      .then(() => {
+        console.log("Compartilhado no Whatsapp");
+      })
+      .catch(error => {
+        this.toast
+          .create({
+            message: "Erro ao compartilhar plano no WhatsApp.",
+            duration: 2000,
+            position: "bottom"
+          })
+          .present();
+        console.log("Erro ao compartilhar no WhatsApp" + error.code);
+      });
+  }
+
+  getShareMessage() {
+    let msg: string = '';
+
+    msg =
+      "*Plano de Viagem*\n\n_Período: " +
+      moment(this.travelPlan.startDateTrip).format("D/MM/YYYY") +
+      " - " +
+      moment(this.travelPlan.endDateTrip).format("D/MM/YYYY") +
+      "_\n\n*Programação:*\n\n_Hoje_:\n " +
+      this.getProgramacaoHoje() +
+      "\n\n_Próximos dias_: " + this.getProgramacaoProxDias();
+    console.log(msg);
+    return msg;
+  }
+
+  getProgramacaoHoje() : string {
+    let msg: string = '';
+    this.tradesPlanToday.map(tp =>
+      tp.tt.map(travelTrade => {
+        msg += "\nCidade: " + travelTrade.city;
+        msg += "\nCategoria: " + travelTrade.category;
+        msg += "\nTrade: " + travelTrade.trade;
+      })
+    );
+    return msg;
+  }
+
+  getProgramacaoProxDias() : string {
+    let msg: string = '';
+    this.tradesPlanNextDays.map(tp => {
+      msg += "\n\nDia: " + moment(tp.date).format("D/MM/YYYY");
+
+      tp.tt.map(travelTrade => {
+        msg += "\nCidade: " + travelTrade.city;
+        msg += "\nCategoria:" + travelTrade.category;
+        msg += "\nTrade: " + travelTrade.trade;
+      });
+    });
+    console.log(msg);
+    return msg;
   }
 }

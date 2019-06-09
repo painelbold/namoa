@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Loading, LoadingController } from 'ionic-angular';
 
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -29,8 +29,16 @@ export class ModalQuestionarioPage {
   cidades: Array<{ id: number; descricao: string }> = [];
   trade: Array<{ id: number; descricao: string }> = [];
   estados: Array<{ nome_estado: string, sigla_estado: string} > = [];
+  loading: Loading;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public http: Http) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public http: Http, private loadingCtrl: LoadingController,) {
+  }
+
+  createLoading(){
+    this.loading = this.loadingCtrl.create({
+      content: "Carregando..."
+    });
+    this.loading.present();
   }
 
   ionViewDidLoad() {
@@ -40,21 +48,40 @@ export class ModalQuestionarioPage {
   }
 
   getEstado(){
-      this.http.get('http://namoa.vivainovacao.com/api/home/estado/').map(res => res.json()).subscribe(data => {
-          this.estados = data[0];
-      });
+
+  		this.createLoading();
+
+	    this.http.get('http://namoa.vivainovacao.com/api/home/estado/').map(res => res.json()).subscribe(data => {
+	        this.estados = data[0];
+	        this.loading.dismiss();
+		    },err =>{
+	          this.loading.dismiss();
+	          this.getEstado();
+	    });
   }
 
   getCidades(estado){
-    this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
-        this.cidades = data[0];
-    });
+
+  	if(estado!=""){
+  		this.createLoading();
+  		this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
+	        this.cidades = data[0];
+	        this.loading.dismiss();
+	    },err =>{
+          this.loading.dismiss();
+          this.getCidades(estado);
+        });
+  	}
+
   }
 
   getTrade(){
-    this.http.get('http://namoa.vivainovacao.com/api/home/trade/').map(res => res.json()).subscribe(data => {
+
+    this.http.get('http://namoa.vivainovacao.com/api/home/allTrade/').map(res => res.json()).subscribe(data => {
           this.trade = data[0];
-      });
+    },err =>{
+	      this.getTrade();
+    });
   }
 
   responderQuestionario() {
