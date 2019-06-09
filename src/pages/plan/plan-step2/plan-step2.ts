@@ -18,7 +18,7 @@ import {
 import { ValidaCadastroProvider } from "../../../providers/valida-cadastro/valida-cadastro";
 import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/travel-plan-trades';
 
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 /**
@@ -44,6 +44,9 @@ export class PlanStep2Page {
 
   minDate: any;
   minEndDate: any;
+  optionSugestao: Array<{ cidade: string, valor: string }>;
+  optionSugestaoTrade: Array<{ trade: string, valor: string }>;
+  resultTrade: Array<{ id: string, descricao: string }>;
 
   cidades: Array<{ id: number; descricao: string }>;
   tpCategoria: Array<{ id: number; descricao: string }>;
@@ -113,6 +116,7 @@ export class PlanStep2Page {
 
     this.getEstado();
     this.getTipoCategoria();
+    this.getSugestoes();
     // this.getTrade();
     this.minDate = this.tp.startDateTrip;
     this.step2Form.patchValue({
@@ -124,17 +128,92 @@ export class PlanStep2Page {
     this.removeTradesList = new Array<TravelTrade>();
   }
 
-  getEstado(){
+  getSugestoes(){
+      this.createLoading();
+      var payload_questionario = JSON.parse(localStorage.getItem('payload_questionario'));
 
-    this.createLoading();
-    // console.log("getEstado");
+      let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.post('http://beenils.com.br:8080',
+                  payload_questionario, options
+      ).map(res => res.json()).subscribe(data => {
+
+          //CONVERTENDO LISTA EM ARRAY COM DADOS
+          var new_city_choices = data.city_choices;
+          var newSugestoes = [];
+          var chavesCidades = Object.keys(new_city_choices);
+          var valueCidades = Object.values(new_city_choices); 
+
+          for(var loop = 0; loop < chavesCidades.length; loop++){
+              var elemento = {
+                cidade: chavesCidades[loop],
+                valor: valueCidades[loop]
+              }
+              newSugestoes.push(elemento);
+          }
+
+          //PEGANDO VALOR MAIOR DA SUGESTAO
+          var elementMax = 0;
+          
+          newSugestoes.map(item => {
+            // console.log(this.optionSugestao)
+            // console.log(item)
+            if(item.valor>elementMax){
+              elementMax = item.valor;
+              this.optionSugestao = [item];
+            }
+          })
+
+          //VERIFICÇÃO DE SUGESTÃO DE TRADE
+
+          var new_trade_choices = data.trade_choices;
+          var newSugestoesTrade = [];
+          var chavesTrade = Object.keys(new_trade_choices);
+          var valueTrade = Object.values(new_trade_choices); 
+
+          for(var loop = 0; loop < chavesTrade.length; loop++){
+              var elementoTrade = {
+                trade: chavesTrade[loop],
+                valor: valueTrade[loop]
+              }
+              newSugestoesTrade.push(elementoTrade);
+          }
+
+          //PEGANDO VALOR MAIOR DA SUGESTAO
+          var elementMaxTrade = 0;
+          
+          newSugestoesTrade.map(itemT => {
+            if(itemT.valor>elementMaxTrade){
+              elementMaxTrade = itemT.valor;
+              this.optionSugestaoTrade = [itemT];
+              this.getTradeSugestao(itemT.trade);
+            }
+          })
+
+          this.loading.dismiss();
+
+
+      })
+  }
+
+  getTradeSugestao(id){
+
+      this.http.get('http://namoa.vivainovacao.com/api/home/getTrade/'+id).map(res => res.json()).subscribe(data => {
+          // console.log("data",data[0]);
+          this.resultTrade = data[0];
+      },err =>{
+          this.getEstado();
+      });
+
+  }
+
+  getEstado(){
 
       this.http.get('http://namoa.vivainovacao.com/api/home/estado/').map(res => res.json()).subscribe(data => {
           // console.log("data",data[0]);
           this.estados = data[0];
-          this.loading.dismiss();
       },err =>{
-          this.loading.dismiss();
           this.getEstado();
       });
 
@@ -142,18 +221,21 @@ export class PlanStep2Page {
 
   getCidades(estado){
 
+
+    if(estado!=""){
+
     this.createLoading();
 
     // console.log("Estado Selecionado",estado);
-
-    this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
-        // console.log("data",data[0]);
-        this.cidades = data[0];
-        this.loading.dismiss();
-    },err =>{
-        this.loading.dismiss();
-        this.getCidades(estado);
-    })
+      this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
+          // console.log("data",data[0]);
+          this.cidades = data[0];
+          this.loading.dismiss();
+      },err =>{
+          this.loading.dismiss();
+          this.getCidades(estado);
+      })
+    }
 
   }
 
@@ -164,6 +246,7 @@ export class PlanStep2Page {
       this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
           // console.log("data",data[0]);
           this.tpCategoria = data[0];
+          localStorage.setItem("categorias", JSON.stringify(data[0]));
           // console.log("this.tpCategoria",this.tpCategoria)
       },err =>{
           this.getTipoCategoria();
@@ -190,17 +273,20 @@ export class PlanStep2Page {
 
   getTrade(subcategoria){
 
-    this.createLoading();
-    
-    this.http.get('http://namoa.vivainovacao.com/api/home/trade/'+encodeURI(this.step2Form.value.city)+'/'+subcategoria).map(res => res.json()).subscribe(data => {
-          // console.log("data TRADE",data[0]);
-          this.trade = data[0];
-          this.loading.dismiss();
-          // console.log("this.trade",this.trade)
-      },err =>{
-          this.loading.dismiss();
-          this.getTrade(subcategoria);
-      });
+    if(this.step2Form.value.city!=""){
+
+      this.createLoading();
+      
+      this.http.get('http://namoa.vivainovacao.com/api/home/trade/'+encodeURI(this.step2Form.value.city)+'/'+subcategoria).map(res => res.json()).subscribe(data => {
+            // console.log("data TRADE",data[0]);
+            this.trade = data[0];
+            this.loading.dismiss();
+            // console.log("this.trade",this.trade)
+        },err =>{
+            this.loading.dismiss();
+            this.getTrade(subcategoria);
+        });
+    }
 
   }
 
@@ -239,6 +325,14 @@ export class PlanStep2Page {
         position: "bottom"
       })
       .present();
+  }
+
+  visualizarCategoria(id){
+
+      var categorias = JSON.parse(localStorage.getItem("categorias"))
+      var filtroCat = categorias.filter(element => { return element.id === id });
+      return filtroCat[0].descricao
+      
   }
 
   createForm() {

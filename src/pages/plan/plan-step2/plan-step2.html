@@ -31,9 +31,15 @@
       <ion-item>
           <ion-label>Cidade</ion-label>
           <ion-select formControlName="city">
+            
+            <ion-option *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" required>
+              Sugestão: {{sugestao.cidade}}
+            </ion-option>
+            
             <ion-option *ngFor="let c of cidades" value="{{c.nome_cidade}}" required>
               {{c.nome_cidade}}
             </ion-option>
+
           </ion-select>
       </ion-item>
 
@@ -61,17 +67,19 @@
         <ion-item
         *ngIf="step2Form.controls['category'].valid">
             <ion-label>Trade</ion-label>
-            <ion-select
-            formControlName="trade"
-          id="trade"
-          name="trade"
-          required>
-          <ion-option
-          *ngFor="let t of trade"
-          value="{{t.descricao}}"
-          required>
-            {{t.descricao}}
-          </ion-option>
+            <ion-select formControlName="trade" id="trade" name="trade" required>
+
+              <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{sugestaoTrade.descricao}}" required>
+                Sugestão: {{sugestaoTrade.descricao}}
+              </ion-option>
+
+              <ion-option value="Restaurante Amado" required>
+                Patrocinado: Restaurante Amado
+              </ion-option>
+
+              <ion-option *ngFor="let t of trade" value="{{t.descricao}}" required>
+                {{t.descricao}}
+              </ion-option>
           </ion-select>
           </ion-item>
 
@@ -141,7 +149,7 @@
             </ion-row>
             <ion-row>
               <ion-col col-md-6>
-                <p>Categoria: {{item.category}}</p>
+                <p>Categoria: {{visualizarCategoria(item.categoryType)}}</p>
               </ion-col>
               <ion-col col-md-6>
                 <p class="text-right">{{item.startDateTrader | date:'dd/MM'}} a {{item.endDateTrader | date:'dd/MM'}}</p>
