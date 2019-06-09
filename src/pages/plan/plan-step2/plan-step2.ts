@@ -143,12 +143,13 @@ export class PlanStep2Page {
           var new_city_choices = data.city_choices;
           var newSugestoes = [];
           var chavesCidades = Object.keys(new_city_choices);
-          var valueCidades = Object.values(new_city_choices); 
+          // var valueCidades = Object.values(new_city_choices); 
 
           for(var loop = 0; loop < chavesCidades.length; loop++){
+              
               var elemento = {
                 cidade: chavesCidades[loop],
-                valor: valueCidades[loop]
+                valor: data.city_choices[chavesCidades[loop]]
               }
               newSugestoes.push(elemento);
           }
@@ -170,15 +171,17 @@ export class PlanStep2Page {
           var new_trade_choices = data.trade_choices;
           var newSugestoesTrade = [];
           var chavesTrade = Object.keys(new_trade_choices);
-          var valueTrade = Object.values(new_trade_choices); 
+          // var valueTrade = Object.values(new_trade_choices); 
 
           for(var loop = 0; loop < chavesTrade.length; loop++){
               var elementoTrade = {
                 trade: chavesTrade[loop],
-                valor: valueTrade[loop]
+                valor: data.trade_choices[chavesTrade[loop]]
               }
               newSugestoesTrade.push(elementoTrade);
           }
+
+          // console.log("newSugestoesTrade",newSugestoesTrade)
 
           //PEGANDO VALOR MAIOR DA SUGESTAO
           var elementMaxTrade = 0;

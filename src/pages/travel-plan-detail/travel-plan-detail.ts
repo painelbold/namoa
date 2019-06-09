@@ -62,6 +62,14 @@ export class TravelPlanDetailPage {
       });
   }
 
+  visualizarCategoria(id){
+
+      var categorias = JSON.parse(localStorage.getItem("categorias"))
+      var filtroCat = categorias.filter(element => { return element.id === id });
+      return filtroCat[0].descricao
+      
+  }
+
   obtemTradesDias(){
     this.tradesPlanToday = new Array<{ date: Date; tt: Array<TravelTrade> }>();
     this.tradesPlanNextDays = new Array<{ date: Date; tt: Array<TravelTrade> }>();

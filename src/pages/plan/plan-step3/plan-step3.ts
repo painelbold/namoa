@@ -55,6 +55,14 @@ export class PlanStep3Page {
     this.loading.present();
   }
 
+  visualizarCategoria(id){
+
+      var categorias = JSON.parse(localStorage.getItem("categorias"))
+      var filtroCat = categorias.filter(element => { return element.id === id });
+      return filtroCat[0].descricao
+      
+  }
+
   confirm(){
     this.createLoading();
     this.tpProvider.save(this.tp, localStorage.getItem('loggedUserKey'))

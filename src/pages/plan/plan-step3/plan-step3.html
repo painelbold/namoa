@@ -20,7 +20,7 @@
         <ion-item *ngFor="let item of tradesList">
           <ion-label>
             <p>Trade: {{item.trade}}<p>
-            <p>Categoria: {{item.category}}</p>
+            <p>Categoria: {{visualizarCategoria(item.categoryType)}}</p>
             <p>Período: {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
           </ion-label>
         </ion-item>

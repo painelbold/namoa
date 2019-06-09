@@ -42,7 +42,7 @@
             <ion-label item-content>
               <p>Cidade: {{trade.city}}</p>
               <p>Trade: {{trade.trade}}</p>
-              <p>Categoria: {{trade.category}}</p>
+              <p>Categoria: {{visualizarCategoria(trade.categoryType)}}</p>
               <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
             </ion-label>
             <div item-end class="btn-container">
@@ -72,7 +72,7 @@
               <ion-label item-content>
                 <p>Cidade: {{trade.city}}</p>
                 <p>Trade: {{trade.trade}}</p>
-                <p>Categoria: {{trade.category}}</p>
+                <p>Categoria: {{visualizarCategoria(trade.categoryType)}}</p>
                 <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
               </ion-label>
               <div item-end class="btn-container">
@@ -102,7 +102,7 @@
                   <ion-label item-content>
                     <p>Cidade: {{trade.city}}</p>
                     <p>Trade: {{trade.trade}}</p>
-                    <p>Categoria: {{trade.category}}</p>
+                    <p>Categoria: {{visualizarCategoria(trade.categoryType)}}</p>
                     <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
                   </ion-label>
                   <div item-end class="btn-container">
