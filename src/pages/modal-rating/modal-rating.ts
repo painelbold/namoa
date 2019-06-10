@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, ToastController, ViewController, L
 
 import { TravelTradeRatingProvider } from './../../providers/travel-trade-rating/travel-trade-rating';
 
+import { Http, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
 /**
  * Generated class for the ModalRatingPage page.
  *
@@ -32,7 +34,8 @@ export class ModalRatingPage {
     public viewCtrl: ViewController,
     private ttrProvider: TravelTradeRatingProvider,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    public http: Http) {
       this.rate = 3;
       this.allRatesTrade = new Array<TradeRating>();
       this.date = this.navParams.get("rateDate");
@@ -53,25 +56,44 @@ export class ModalRatingPage {
 
   saveRating(){
     console.log("saveRating", this.date, this.uid, this.rate, this.trade);
-    this.ttrProvider.rateTrade(this.date,this.uid, this.rate, this.trade)
-    .then(()=>{
-      this.toastCtrl.create({
-        duration: 2000,
-        message: "Avaliação do trade registrada!",
-        position: "bottom"
-      })
-      .present();
-      this.closeModal();
+
+    var payload_feedback = {
+           "usuario" : this.uid,
+           "id_trade" : this.trade,
+           "grade" : this.rate,
+           "observation" : "",
+           "anonimo" : 0
+    }
+
+    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    let options = new RequestOptions({ headers: headers });
+
+    this.http.post('http://namoa.vivainovacao.com/api/home/createfeedback/',
+                    payload_feedback, options).map(res => res.json()).subscribe(data => {
+      
+          this.ttrProvider.rateTrade(this.date,this.uid, this.rate, this.trade)
+          .then(()=>{
+            this.toastCtrl.create({
+              duration: 2000,
+              message: "Avaliação do trade registrada!",
+              position: "bottom"
+            })
+            .present();
+            this.closeModal();
+          })
+          .catch((error)=>{
+            this.toastCtrl.create({
+              duration: 2000,
+              message: "Erro ao avaliar o trade.",
+              position: "bottom"
+            })
+            .present();
+            console.log("Erro ao avaliar o trade: " + error.code);
+          });
+
     })
-    .catch((error)=>{
-      this.toastCtrl.create({
-        duration: 2000,
-        message: "Erro ao avaliar o trade.",
-        position: "bottom"
-      })
-      .present();
-      console.log("Erro ao avaliar o trade: " + error.code);
-    });
+
+    
   }
 
   getRating(){
