@@ -9,6 +9,9 @@ import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
 import { AuthService } from './../../providers/auth/auth-service';
 import * as firebase from 'firebase/app';
 
+import {TranslateService} from '@ngx-translate/core';
+
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -31,7 +34,11 @@ export class LoginPage {
     private toastController: ToastController,
     private afAuth: AngularFireAuth,
     private menu: MenuController,
-  private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    translate: TranslateService) {
+
+    translate.setDefaultLang(localStorage.getItem('idioma'));
+    translate.use(localStorage.getItem('idioma'));
   }
 
   createLoading(){

@@ -69,7 +69,6 @@ export class PlanStep3Page {
     .then((result:any)=>{
       if(this.removeTradesList.length > 0){
         this.tptProvider.deleteList(this.removeTradesList, result);
-        this.loading.dismiss();
       }
       this.tptProvider.save(this.addTradesList, result)
       .then(()=>{
@@ -119,7 +118,7 @@ export class PlanStep3Page {
               ).map(res => res.json()).subscribe(data => {
 
                   // console.log("data retorno trade List insert",data[0])
-                  this.loading.dismiss();
+                  
                   this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
                   this.app.nav.setRoot(TravelPlansListPage);
 
@@ -133,10 +132,10 @@ export class PlanStep3Page {
 
         
       })
+      this.loading.dismiss();
     })
     .catch((error) => {
       console.log(error);
-      this.loading.dismiss();
       this.toastController.create({message: "Erro na criação do plano.", duration: 2000, position: "bottom"}).present();
     });
   }

@@ -5,8 +5,6 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { HttpModule } from '@angular/http';
-
 import { AngularFireModule } from '../../node_modules/angularfire2';
 import { AngularFireAuthModule } from '../../node_modules/angularfire2/auth';
 import { AngularFireDatabaseModule } from '../../node_modules/angularfire2/database';
@@ -52,6 +50,11 @@ import { ModalQuestionarioPageModule } from './../pages/modal-questionario/modal
 import { MyApp } from './app.component';
 import { TravelTradeRatingProvider } from '../providers/travel-trade-rating/travel-trade-rating';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 export const firebaseConfig = {
   apiKey: "AIzaSyBFfhTAKdhYWSJQC_3DypjKKSG7umW6DEs",
   authDomain: "namoa-56722.firebaseapp.com",
@@ -61,12 +64,15 @@ export const firebaseConfig = {
   messagingSenderId: "472445632561"
 };
 
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
+    ListPage
   ],
   imports: [
     BrowserModule,
@@ -89,8 +95,16 @@ export const firebaseConfig = {
     TravelPlanDetailPageModule,
     AboutPageModule,
     ModalRatingPageModule,
+    ModalQuestionarioPageModule,
+    HttpClientModule,
     HttpModule,
-    ModalQuestionarioPageModule
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

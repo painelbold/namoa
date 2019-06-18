@@ -69,11 +69,10 @@ export class PlanStep2Page {
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tradesList = new Array<TravelTrade>();
     this.travelTrade = new TravelTrade();
-    this.createForm();
     this.setupPageTitle();
 
     this.loadTrades();
-
+    this.createForm();
     this.populateDropdowns();
   }
 
@@ -87,17 +86,18 @@ export class PlanStep2Page {
 
   private loadTrades(){
     if(this.tp.key){
-      this.createLoading();
+      // this.createLoading();
       const subscribe = this.tptProvider.getAllByStartDate(this.tp.key)
       .subscribe((tList: any)=>{
         this.tradesList = tList;
-        this.loading.dismiss();
+        // this.loading.dismiss();
         subscribe.unsubscribe();
       });
     }
   }
 
   private populateDropdowns() {
+    
     
     this.estados = [];
     this.cidades = [];
@@ -329,6 +329,7 @@ export class PlanStep2Page {
   }
 
   createForm() {
+    
     this.step2Form = this.formBuilder.group({
       estado: ["", Validators.required],
       city: ["", Validators.required],
