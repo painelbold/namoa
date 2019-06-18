@@ -222,14 +222,10 @@ export class PlanStep2Page {
 
   getCidades(estado){
 
-
     if(estado!=""){
 
     this.createLoading();
-
-    // console.log("Estado Selecionado",estado);
       this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
-          // console.log("data",data[0]);
           this.cidades = data[0];
           this.loading.dismiss();
       },err =>{
@@ -242,13 +238,9 @@ export class PlanStep2Page {
 
   getTipoCategoria(){
 
-    // console.log("getTipoCategoria")
-
       this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
-          // console.log("data",data[0]);
           this.tpCategoria = data[0];
           localStorage.setItem("categorias", JSON.stringify(data[0]));
-          // console.log("this.tpCategoria",this.tpCategoria)
       },err =>{
           this.getTipoCategoria();
       });

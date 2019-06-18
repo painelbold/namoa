@@ -19,6 +19,10 @@ import { TravelPlanTradesProvider } from "./../../providers/travel-plan-trades/t
 import { TravelPlanPage } from "./../plan/travel-plan/travel-plan";
 import { TravelPlansListPage } from "./../travel-plans-list/travel-plans-list";
 
+import { Http, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
+
+
 @IonicPage()
 @Component({
   selector: "page-travel-plan-detail",
@@ -46,7 +50,8 @@ export class TravelPlanDetailPage {
     private tpProvider: TravelPlanProvider,
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
-    private socialsharing: SocialSharing
+    private socialsharing: SocialSharing,
+    public http: Http
   ) {
     this.orcamentoTotal = 0;
     this.createLoading();
@@ -73,9 +78,16 @@ export class TravelPlanDetailPage {
 
   visualizarCategoria(id){
 
-      var categorias = JSON.parse(localStorage.getItem("categorias"))
-      var filtroCat = categorias.filter(element => { return element.id === id });
-      return filtroCat[0].descricao
+    this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
+        // console.log("data",data[0]);
+        localStorage.setItem("categorias", JSON.stringify(data[0]));
+        
+        var categorias = data[0] || []
+        var filtroCat = categorias.filter(element => { return element.id === id });
+        return filtroCat.length>0? filtroCat[0].descricao : "Não encontrada"
+    },err =>{
+        this.visualizarCategoria(id);
+    });
       
   }
 
@@ -177,34 +189,48 @@ export class TravelPlanDetailPage {
         {
           text: "Confirmar",
           handler: () => {
-            this.tptProvider
-              .delete(this.travelPlan.key)
-              .then(() => {
-                this.tpProvider
-                  .delete(
-                    localStorage.getItem("loggedUserKey"),
-                    this.travelPlan.key
-                  )
+
+            var payload_delete = {
+              "title": this.travelPlan.title,
+              "usuario": localStorage.getItem("loggedUserKey")
+            }
+            let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+            let options = new RequestOptions({ headers: headers });
+
+            this.http.post('http://namoa.vivainovacao.com/api/home/removeTrade/',
+                            payload_delete, options).map(res => res.json()).subscribe(data => {
+              
+                  this.tptProvider
+                  .delete(this.travelPlan.key)
                   .then(() => {
+                    this.tpProvider
+                      .delete(
+                        localStorage.getItem("loggedUserKey"),
+                        this.travelPlan.key
+                      )
+                      .then(() => {
+                        this.toast
+                          .create({
+                            message: "Plano de viagem removido.",
+                            duration: 2000,
+                            position: "bottom"
+                          })
+                          .present();
+                        this.navCtrl.setRoot(TravelPlansListPage);
+                      });
+                  })
+                  .catch(() => {
                     this.toast
                       .create({
-                        message: "Plano de viagem removido.",
+                        message: "Erro na remoção de plano de viagem.",
                         duration: 2000,
                         position: "bottom"
                       })
                       .present();
-                    this.navCtrl.setRoot(TravelPlansListPage);
                   });
-              })
-              .catch(() => {
-                this.toast
-                  .create({
-                    message: "Erro na remoção de plano de viagem.",
-                    duration: 2000,
-                    position: "bottom"
-                  })
-                  .present();
-              });
+
+            })
+
           }
         }
       ]
