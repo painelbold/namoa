@@ -67,7 +67,7 @@
         <ion-item
         *ngIf="step2Form.controls['category'].valid">
             <ion-label>Trade</ion-label>
-            <ion-select formControlName="trade" id="trade" name="trade" required>
+            <ion-select formControlName="trade" id="trade" name="trade" required >
 
               <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{sugestaoTrade.descricao}}" required>
                 Sugestão: {{sugestaoTrade.descricao}}

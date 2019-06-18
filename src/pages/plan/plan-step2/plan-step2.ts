@@ -51,7 +51,7 @@ export class PlanStep2Page {
   cidades: Array<{ id: number; descricao: string }>;
   tpCategoria: Array<{ id: number; descricao: string }>;
   categoria: Array<{ id: number; descricao: string }>;
-  trade: Array<{ id: number; descricao: string }>;
+  trade: Array<{ id: number; descricao: string; min_value: string; max_value: string; }>;
   estados: Array<{ nome_estado: string, sigla_estado: string} >;
   optionSugestao: Array<{ cidade: string, valor: string }>;
 
@@ -302,11 +302,26 @@ export class PlanStep2Page {
     }
   }
 
+  // SelectTrade(idTrade){
+  //   if(idTrade){
+  //       var tradePrice = this.trade.filter(el => el.descricao === idTrade)
+  //       this.travelTrade.avgPrice = (parseInt(tradePrice[0].min_value) || 0 + parseInt(tradePrice[0].max_value) || 0)/2;
+  //   }
+    
+  // }
+
   addTrade() {
     this.travelTrade = this.step2Form.value;
-    this.travelTrade.avgPrice = this.tradePrice[
-      Math.floor(Math.random() * this.tradePrice.length)
-    ];
+
+    
+    // this.travelTrade.avgPrice = this.tradePrice[
+    //   Math.floor(Math.random() * this.tradePrice.length)
+    // ];
+    // console.log("this.trade",this.trade)
+    var tradePrice = this.trade.filter(el => el.descricao === this.travelTrade.trade)
+    this.travelTrade.avgPrice = (parseInt(tradePrice[0].min_value)+ parseInt(tradePrice[0].max_value))/2;
+
+    // console.log("this.travelTrade.avgPrice",this.travelTrade.avgPrice)
     this.addTradesList.push(this.travelTrade);
     this.tradesList.push(this.travelTrade);
     this.travelTrade = new TravelTrade();

@@ -37,8 +37,8 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     translate: TranslateService) {
 
-    translate.setDefaultLang(localStorage.getItem('idioma'));
-    translate.use(localStorage.getItem('idioma'));
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
   }
 
   createLoading(){
@@ -87,6 +87,10 @@ export class LoginPage {
         toast.present();
       });
     }
+  }
+
+  alterLanguage(event){
+    localStorage.setItem("idioma",event)
   }
 
   ionViewDidEnter(){
