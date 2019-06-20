@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Perfil do Usuário</ion-title>
+    <ion-title>{{ 'PERFIL DO USUÁRIO' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,137 +10,137 @@
 <ion-content padding>
 
     <ion-item>
-	  <ion-label>1. Faixa etária:</ion-label>
+	  <ion-label>{{ '1. FAIXA ETÁRIA:' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q1">
-	    <ion-option value="1">Até 18 anos</ion-option>
-	    <ion-option value="2">Entre 18 e 20 anos</ion-option>
-	    <ion-option value="3">Entre 21 e 30 anos</ion-option>
-	    <ion-option value="4">Entre 31 e 40 anos</ion-option>
-	    <ion-option value="5">Entre 41 e 50 anos</ion-option>
-	    <ion-option value="6">Entre 51 e 60 anos</ion-option>
-	    <ion-option value="7">Entre 61 e 70 anos</ion-option>
-	    <ion-option value="8">Acima de 70 anos</ion-option>
+	    <ion-option value="1">{{ 'ATÉ 18 ANOS' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'ENTRE 18 E 20 ANOS' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'ENTRE 21 E 30 ANOS' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'ENTRE 31 E 40 ANOS' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'ENTRE 41 E 50 ANOS' | translate }}</ion-option>
+	    <ion-option value="6">{{ 'ENTRE 51 E 60 ANOS' | translate }}</ion-option>
+	    <ion-option value="7">{{ 'ENTRE 61 E 70 ANOS' | translate }}</ion-option>
+	    <ion-option value="8">{{ 'ACIMA DE 70 ANOS' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>2. Sexo:</ion-label>
+	  <ion-label>{{ '2. SEXO:' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q2">
-	    <ion-option value="1">Feminino</ion-option>
-	    <ion-option value="2">Masculino</ion-option>
-	    <ion-option value="3">Prefiro não informar</ion-option>
+	    <ion-option value="1">{{ 'FEMININO' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'MASCULINO' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'PREFIRO NÃO OPINAR' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>3. Qual será a expectativa quanto à média do orçamento diário por pessoa?</ion-label>
+	  <ion-label>{{ '3. QUAL SERÁ A EXPECTATIVA QUANTO À MÉDIA DO ORÇAMENTO DIÁRIO POR PESSOA?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q3">
-	    <ion-option value="1">Até R$20/dia</ion-option>
-	    <ion-option value="2">Até R$50/dia</ion-option>
-	    <ion-option value="3">Até R$100/dia</ion-option>
-	    <ion-option value="4">Até R$500/dia</ion-option>
-	    <ion-option value="5">Acima de R$500/dia</ion-option>
+	    <ion-option value="1">{{ 'ATÉ R$20/DIA' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'ATÉ R$50/DIA' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'ATÉ R$100/DIA' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'ATÉ R$500/DIA' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'ACIMA DE R$500/DIA' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>4. Qual é a renda mensal familiar?</ion-label>
+	  <ion-label>{{ '4. QUAL É A RENDA MENSAL FAMILIAR?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q4">
-	    <ion-option value="1">Até R$1.000,00/mês</ion-option>
-	    <ion-option value="2">Até R$3.000,00/mês</ion-option>
-	    <ion-option value="3">Até R$5.000,00/mês</ion-option>
-	    <ion-option value="4">Até R$10.000,00/mês</ion-option>
-	    <ion-option value="5">Acima de R$10.000,00/mês</ion-option>
+	    <ion-option value="1">{{ 'ATÉ R$1.000,00/MÊS' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'ATÉ R$3.000,00/MÊS' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'ATÉ R$5.000,00/MÊS' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'ATÉ R$10.000,00/MÊS' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'ACIMA DE R$10.000,00/MÊS' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>5. Habilitação literária:</ion-label>
+	  <ion-label>{{ '5. HABILITAÇÃO LITERÁRIA' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q5">
-	    <ion-option value="1">Ensino Fundamental</ion-option>
-	    <ion-option value="2">Ensino Médio</ion-option>
-	    <ion-option value="3">Ensino Superior Incompleto</ion-option>
-	    <ion-option value="4">Ensino Superior Completo</ion-option>
-	    <ion-option value="5">Pós graduação</ion-option>
+	    <ion-option value="1">{{ 'ENSINO FUNDAMENTAL' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'ENSINO MÉDIO' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'ENSINO SUPERIOR INCOMPLETO' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'ENSINO SUPERIOR COMPLETO' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'PÓS GRADUAÇAO' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>6. Quando tempo costuma durar as suas férias?</ion-label>
+	  <ion-label>{{ '6. QUANTO TEMPO COSTUMA DURAR AS SUAS FÉRIAS?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q6">
-	    <ion-option value="1">Inferior a 3 dias</ion-option>
-	    <ion-option value="2">Entre 4 a 10 dias</ion-option>
-	    <ion-option value="3">11 a 15 dias</ion-option>
-	    <ion-option value="4">Superior a 15 dias</ion-option>
+	    <ion-option value="1">{{ 'INFERIOR A 3 DIAS' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'ENTRE 4 E 10 DIAS' | translate }}</ion-option>
+	    <ion-option value="3">{{ '11 A 15 DIAS' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'SUPERIOR A 15 DIAS' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>7. Com quem costuma passar as férias?</ion-label>
+	  <ion-label>{{ '7. COM QUEM COSTUMA PASSSAR AS FÉRIAS?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q7">
-	    <ion-option value="1">Com amigos</ion-option>
-	    <ion-option value="2">Com a família</ion-option>
-	    <ion-option value="3">Com o cônjuge/companheiro(a)</ion-option>
-	    <ion-option value="4">Com o cônjuge e os filhos</ion-option>
-	    <ion-option value="5">Sozinho</ion-option>
+	    <ion-option value="1">{{ 'COM AMIGOS' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'COM A FAMÍLIA' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'COM O CÔNJUJE/COMPANHEIRO(A)' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'COM O CÔNJUJE E OS FILHOS' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'SOZINHO' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>8. Através de qual meio de transporte costuma se locomover até o local?</ion-label>
+	  <ion-label>{{ '8. ATRAVÉS DE QUAL MEIO DE TRANSPORTE COSTUMA SE LOCOMOVER ATÉ O LOCAL?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q8">
-	    <ion-option value="1">Rodoviário</ion-option>
-	    <ion-option value="2">Ferroviário</ion-option>
-	    <ion-option value="3">Marítimo</ion-option>
-	    <ion-option value="4">Aéreo</ion-option>
+	    <ion-option value="1">{{ 'RODOVIÁRIO' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'FERROVIÁRIO' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'MARÍTIMO' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'AÉREO' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>9. Qual tipo de turismo costuma preferir?</ion-label>
+	  <ion-label>{{ '9. QUAL TIPO DE TURISMO COSTUMA PREFERIR?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q9">
-	    <ion-option value="1">Sol e mar</ion-option>
-	    <ion-option value="2">Natureza</ion-option>
-	    <ion-option value="3">Cultura</ion-option>
-	    <ion-option value="4">LGBT</ion-option>
-	    <ion-option value="5">Religioso</ion-option>
-	    <ion-option value="6">Negócios</ion-option>
+	    <ion-option value="1">{{ 'SOL E MAR' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'NATUREZA' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'CULTURA' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'LGBT' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'RELIGIOSO' | translate }}</ion-option>
+	    <ion-option value="6">{{ 'NEGÓCIOS' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>10. Durante as férias, onde costuma pernoitar?</ion-label>
+	  <ion-label>{{ '10. DURANTE AS FÉRIAS, ONDE CUSTUMA PERNOITAR?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q10">
-	    <ion-option value="1">Hotel</ion-option>
-	    <ion-option value="2">Casa de amigos</ion-option>
-	    <ion-option value="3">Casa alugada</ion-option>
-	    <ion-option value="4">Hostel</ion-option>
-	    <ion-option value="5">Espaços de turismo rural</ion-option>
-	    <ion-option value="6">Residenciais</ion-option>
-		<ion-option value="7">Parques de camping</ion-option>
+	    <ion-option value="1">{{ 'HOTEL' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'CASA DE AMIGOS' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'CASA ALUGADA' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'HOSTEL' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'ESPAÇOS DE TURISMO RURAL' | translate }}</ion-option>
+	    <ion-option value="6">{{ 'RESIDENCIAIS' | translate }}</ion-option>
+		<ion-option value="7">{{ 'PARQUES DE CAMPING' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>11. Quais as fontes de informação são consultadas para o planejamento das férias?</ion-label>
+	  <ion-label>{{ '11. QUAIS FONTES DE INFORMAÇÃO SÃO CONSULTADAS PARA O PLANEJAMENTO DAS FÉRIAS?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q11">
-	    <ion-option value="1">Amigos e familiares</ion-option>
-	    <ion-option value="2">Guias de turismo</ion-option>
-	    <ion-option value="3">Agências de viagem</ion-option>
-	    <ion-option value="4">Postos de informação</ion-option>
-	    <ion-option value="5">Blogs/WebSites</ion-option>
-	    <ion-option value="6">Livros</ion-option>
+	    <ion-option value="1">{{ 'AMIGOS E FAMILIARES' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'GUIAS DE TURISMO' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'AGÊNCIAS DE VIAGEM' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'POSTOS DE INFORMAÇÃO' | translate }}</ion-option>
+	    <ion-option value="5">{{ 'BLOGS/WEBSITES' | translate }}</ion-option>
+	    <ion-option value="6">{{ 'LIVROS' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
 	  <ion-label>
-	  	12. Por favor, avalie em uma escala de 1 (pouco) a 5 (muito) o quanto valoriza o trade de hospedagem conforme critérios a seguir
+	  	{{ '12. POR FAVOR, AVALIE EM UMA ESCALA DE 1 (POUCO) A 5 (MUITO) O QUANTO VALORIZA O TRADE DE HOSPEDAGEM CONFORME CRITÉRIOS A SEGUIR' | translate }}
 	  </ion-label>
 	</ion-item>
 	
 	<ion-item class="margemEsquerda">
-	  <ion-label>12.1 - Qualidade geral do alojamento</ion-label>
+	  <ion-label>{{ '12.1 - QUALIDADE GERAL DO ALOJAMENTO' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q12_1">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -151,7 +151,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>12.2 - Profissionalismo dos colaboradores</ion-label>
+	  <ion-label>{{ '12.2 - PROFISSIONALISMO DOS COLABORADORES' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q12_2">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -162,7 +162,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>12.3 - Vizinhança</ion-label>
+	  <ion-label>{{ '12.3 - VIZINHANÇA' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q12_3">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -173,7 +173,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>12.4 - Áreas comuns</ion-label>
+	  <ion-label>{{ '12.4 - ÁREAS COMUNS' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q12_4">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -184,7 +184,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>12.5 - Limpeza</ion-label>
+	  <ion-label>{{ '12.5 - LIMPEZA' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q12_5">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -195,7 +195,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>12.6 - Instalações e equipamentos</ion-label>
+	  <ion-label>{{ '12.6 - INSTALAÇÕES E EQUIPAMENTOS' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q12_6">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -206,7 +206,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>12.7 - Relação custo benefício</ion-label>
+	  <ion-label>{{ '12.7 - RELAÇÃO CUSTO BENEFÍCIO' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q12_7">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -219,12 +219,12 @@
 
 	<ion-item>
 	  <ion-label>
-	  	13. Por favor, avalie em uma escala de 1 (pouco) a 5 (muito) o quanto valoriza o trade de alimentação conforme critérios a seguir
+	  	{{ '13. POR FAVOR, AVALIE EM UMA ESCALA DE 1 (POUCO) A 5 (MUITO) O QUANTO VALORIZA O TRADE DE ALIMENTAÇÃO CONFORME CRITÉRIOS A SEGUIR' | translate }}
 	  </ion-label>
 	</ion-item>
 	
 	<ion-item class="margemEsquerda">
-	  <ion-label>13.1 - Qualidade geral do alojamento</ion-label>
+	  <ion-label>{{ '13.1 - QUALIDADE GERAL DO ALOJAMENTO' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q13_1">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -235,7 +235,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>13.2 - Profissionalismo dos colaboradores</ion-label>
+	  <ion-label>{{ '13.2 - PROFISSINALISMO DOS COLABORADORES' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q13_2">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -246,7 +246,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>13.3 - Vizinhança</ion-label>
+	  <ion-label>{{ '13.3 - VIZINHANÇA' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q13_3">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -257,7 +257,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>13.4 - Limpeza geral</ion-label>
+	  <ion-label>{{ '13.4 - LIMPEZA GERAL' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q13_4">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -268,7 +268,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>13.5 - Limpeza dos banheiros</ion-label>
+	  <ion-label>{{ '13.5 - LIMPEZA DOS BANHEIROS' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q13_5">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -279,7 +279,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>13.6 - Instalações e equipamentos</ion-label>
+	  <ion-label>{{ '13.6 - INSTALAÇÕES E EQUIPAMENTOS' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q13_6">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -290,7 +290,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>13.7 - Relação custo benefício</ion-label>
+	  <ion-label>{{ '13.7 - RELAÇÃO CUSTO BENEFÍCIO' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q13_7">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -302,12 +302,12 @@
 
 	<ion-item>
 	  <ion-label>
-	  	14. Por favor, avalie em uma escala de 1 (pouco) a 5 (muito) o quanto valoriza as atrações da cidade conforme critérios a seguir
+	  	{{ '14. POR FAVOR, AVALIE EM UMA ESCALA DE 1 (POUCO) A 5 (MUITO) O QUANTO VALORIZA AS ATRAÇÕES DA CIDADE CONFORME CRITÉRIOS A SEGUIR' | translate }}
 	  </ion-label>
 	</ion-item>
 	
 	<ion-item class="margemEsquerda">
-	  <ion-label>14.1 - Formas de acesso às atrações</ion-label>
+	  <ion-label>{{ '14.1 - FORMAS DE ACESSO ÀS ATRAÇÕES' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q14_1">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -318,7 +318,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>14.2 - Sinalização até as atrações</ion-label>
+	  <ion-label>{{ '14.2 - SINALIZAÇÃO ATÉ AS ATRAÇÕES' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q14_2">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -329,7 +329,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>14.3 - Patrimônio histórico</ion-label>
+	  <ion-label>{{ '14.3 - PATRIMÔNIO HISTÓRICO' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q14_3">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -340,7 +340,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>14.4 - Atendimento nas atrações</ion-label>
+	  <ion-label>{{ '14.4 - ATENDIMENTO NAS ATRAÇÕES' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q14_4">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -351,7 +351,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-	  <ion-label>14.5 - Segurança nas atrações</ion-label>
+	  <ion-label>{{ '14.5 - SEGURANÇA NAS ATRAÇÕES' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q14_5">
 	    <ion-option value="1">1</ion-option>
 	    <ion-option value="2">2</ion-option>
@@ -362,21 +362,21 @@
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>15. Você já ouviu falar do conceito Economia da Experiência?</ion-label>
+	  <ion-label>{{ '15. VOCÊ JÁ OUVIU FALAR DO CONCEITO ECONOMIA DA EXPERIÊNCIA?' | translate }}</ion-label>
 	  <ion-select required  [(ngModel)]="formQuestionario.q15">
-	    <ion-option value="1">Sim e conheço bastante</ion-option>
-	    <ion-option value="2">Sim, mas conheço pouco</ion-option>
-	    <ion-option value="3">Prefiro não opinar</ion-option>
-	    <ion-option value="4">Nunca ouvi falar</ion-option>
+	    <ion-option value="1">{{ 'SIM E CONHEÇO BASTANTE' | translate }}</ion-option>
+	    <ion-option value="2">{{ 'SIM, MAS CONHEÇO POUCO' | translate }}</ion-option>
+	    <ion-option value="3">{{ 'PREFIRO NÃO OPINAR' | translate }}</ion-option>
+	    <ion-option value="4">{{ 'NUNCA OUVI FALAR' | translate }}</ion-option>
 	  </ion-select>
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>16. Cite uma cidade que gostou de visitar</ion-label>
+	  <ion-label>{{ '16. CITE UMA CIDADE QUE GOSTOU DE VISITAR' | translate }}</ion-label>
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-		<ion-label>Estado</ion-label>
+		<ion-label>{{ 'ESTADO' | translate }}</ion-label>
 	  	<ion-select required (ionChange)="getCidades($event);">
 	      <ion-option *ngFor="let e of estados" value="{{e.sigla_estado}}">
 	          {{e.nome_estado}}
@@ -385,7 +385,7 @@
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-		<ion-label>Cidade</ion-label>
+		<ion-label>{{ 'CIDADE' | translate }}</ion-label>
 	    <ion-select required [(ngModel)]="formQuestionario.q16">
             <ion-option *ngFor="let c of cidades" value="{{c.nome_cidade}}">
               {{c.nome_cidade}}
@@ -394,11 +394,11 @@
 	</ion-item>
 
 	<ion-item>
-	  <ion-label>17. Cite um local que recomendaria o serviço</ion-label>
+	  <ion-label>{{ '17. CITE UM LOCAL QUE RECOMENDARIA O SERVIÇO' | translate }}</ion-label>
 	</ion-item>
 
 	<ion-item class="margemEsquerda">
-        <ion-label>Trade</ion-label>
+        <ion-label>{{ 'TRADE' | translate }}</ion-label>
         <ion-select required [(ngModel)]="formQuestionario.q17">
       		<ion-option *ngFor="let t of trade" value="{{t.descricao}}">
         		{{t.descricao}}
@@ -410,7 +410,7 @@
     <ion-col>
     	<button ion-button class="submit-btn" block outline type="submit" 
     	(click)="responderQuestionario()">
-    		Finalizar Questionário
+    		{{ 'FINALIZAR QUESTIONÁRIO' | translate }}
     	</button>
     </ion-col>
   </ion-row>

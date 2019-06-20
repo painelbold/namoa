@@ -33,3 +33,55 @@
     height: 30%;
     margin: auto;
 }
+
+.SelectLanguage{
+	width:70%;
+	background-color: #51647F;
+    bottom: 0;
+    position: absolute;
+    margin-bottom: 10px;
+    margin-left:20%;
+}
+
+.SelectLanguage .item-inner, .flagLanguage .item-inner{
+	border-bottom:none !important;
+}
+
+.SelectLanguage ion-select{
+    width: 70%;
+    max-width: 70%;
+}
+
+.flagLanguage{
+	float:left;
+	width:25%;
+	background-color: #51647F;
+    bottom: 0;
+    position: absolute;
+    margin-bottom: 10px;
+    z-index:9999;
+}
+
+.flagLanguage img{
+	float:right;
+}
+
+.flagLanguage .label, .flagLanguage .label-ios, .flagLanguage .label-md{
+	margin:0px;
+}
+
+
+.menuIdioma .SelectLanguage .select-placeholder, .menuIdioma .SelectLanguage ion-select, .menuIdioma .SelectLanguage ion-select placeholder{
+	color: #FFFFFF;
+	font-size: 18px;
+}
+
+.loginIdioma .SelectLanguage, .loginIdioma .flagLanguage{
+	background-color: rgba(0,0,0,0.5) !important;
+}
+
+.loginIdioma .SelectLanguage .select-placeholder, .loginIdioma .SelectLanguage ion-select, .loginIdioma .SelectLanguage ion-select placeholder{
+	color: #FFFFFF;
+	font-size: 18px;
+}
+

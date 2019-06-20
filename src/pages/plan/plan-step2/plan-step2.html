@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>PlanStep2</ion-title>
+    <ion-title>{{ 'PLANSTEP2' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,7 +20,7 @@
     [formGroup]="step2Form">
     <ion-item-group inset class="trade-info">
       <ion-item>
-        <ion-label>Estado</ion-label>
+        <ion-label>{{ 'ESTADO' | translate }}</ion-label>
         <ion-select formControlName="estado" (ionChange)="getCidades($event);">
           <ion-option *ngFor="let e of estados" value="{{e.sigla_estado}}" required>
               {{e.nome_estado}}
@@ -29,7 +29,7 @@
       </ion-item>
 
       <ion-item>
-          <ion-label>Cidade</ion-label>
+          <ion-label>{{ 'CIDADE' | translate }}</ion-label>
           <ion-select formControlName="city">
             
             <ion-option *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" required>
@@ -45,7 +45,7 @@
 
 
       <ion-item>
-          <ion-label>Categoria</ion-label>
+          <ion-label>{{ 'CATEGORIA' | translate }}</ion-label>
           <ion-select formControlName="categoryType" (ionChange)="getCategoria($event);" id="tpCategoria" name="tpCategoria">
             <ion-option *ngFor="let t of tpCategoria" value="{{t.id}}" required>
                 {{t.descricao}}
@@ -55,7 +55,7 @@
 
       <ion-item
       *ngIf="step2Form.controls['categoryType'].valid">
-          <ion-label>Sub categoria</ion-label>
+          <ion-label>{{ 'SUBCATEGORIA' | translate }}</ion-label>
           <ion-select formControlName="category" id="categoria" name="categoria" (ionChange)="getTrade($event);">
               <ion-option *ngFor="let c of categoria" value="{{c.id}}" required>
                 {{c.descricao}}
@@ -66,15 +66,15 @@
 
         <ion-item
         *ngIf="step2Form.controls['category'].valid">
-            <ion-label>Trade</ion-label>
-            <ion-select formControlName="trade" id="trade" name="trade" required >
+            <ion-label>{{ 'TRADE' | translate }}</ion-label>
+            <ion-select formControlName="trade" id="trade" name="trade" required>
 
               <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{sugestaoTrade.descricao}}" required>
-                Sugestão: {{sugestaoTrade.descricao}}
+                {{ 'SUGESTÃO' | translate }}: {{sugestaoTrade.descricao}}
               </ion-option>
 
               <ion-option value="Restaurante Amado" required>
-                Patrocinado: Restaurante Amado
+                {{ 'PATROCINADO' | translate }}: Restaurante Amado
               </ion-option>
 
               <ion-option *ngFor="let t of trade" value="{{t.descricao}}" required>
@@ -84,7 +84,7 @@
           </ion-item>
 
           <ion-item>
-          <ion-label>Data de Início</ion-label>
+          <ion-label>{{ 'DATA DE INÍCIO' | translate }}</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY"
             [min]="minDate"
             [max]="tp.endDateTrip"
@@ -94,7 +94,7 @@
             ></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label>Data Final</ion-label>
+            <ion-label>{{ 'DATA FINAL' | translate }}</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY"
             [min]="minEndDate"
             [max]="tp.endDateTrip"
@@ -117,12 +117,12 @@
           [disabled]="!step2Form.valid"
           >
           <ion-icon name="add-circle"></ion-icon>
-          Adicionar Trade
+          {{ 'ADICIONAR TRADE' | translate }}
         </button>
       </ion-item-group>
     </form>
   <hr>
-    <h4>Trades</h4>
+    <h4>{{ 'Trades' | translate }}</h4>
     <ng-template [ngIf]="tradesList.length > 0">
       <ion-item
       *ngFor="let item of tradesList; let i = index"
@@ -149,7 +149,7 @@
             </ion-row>
             <ion-row>
               <ion-col col-md-6>
-                <p>Categoria: {{visualizarCategoria(item.categoryType)}}</p>
+                <p>{{ 'CATEGORIA' | translate }}: {{visualizarCategoria(item.categoryType)}}</p>
               </ion-col>
               <ion-col col-md-6>
                 <p class="text-right">{{item.startDateTrader | date:'dd/MM'}} a {{item.endDateTrader | date:'dd/MM'}}</p>
@@ -157,14 +157,14 @@
             </ion-row>
             <ion-row>
               <ion-col>
-                <p class="text-right">Orçamento (dia): {{(item.avgPrice | currency: "BRL").toString().replace('.',',')}}</p>
+                <p class="text-right">{{ 'ORÇAMENTO (DIA)' | translate }}: {{(item.avgPrice | currency: "BRL").toString().replace('.',',')}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
       </ion-item>
     </ng-template>
     <ng-template #noTrades [ngIf]="tradesList.length == 0">
-      <p>Sem trades cadastrados.</p>
+      <p>{{ 'SEM TRADES CADASTRADOS.' | translate }}</p>
     </ng-template>
     <div class="buttons">
       <ion-buttons end>
@@ -180,7 +180,7 @@
           type="button"
           >
           <ion-icon name="arrow-dropleft"></ion-icon>
-          Anterior
+          {{ 'Anterior' | translate }}
       </button>
         <button
         ion-button
@@ -193,7 +193,7 @@
         class="submit-btn"
         type="button"
         [disabled]="tradesList.length == 0"
-        > Próximo
+        >   {{ 'Próximo' | translate }}
           <ion-icon name="arrow-dropright"></ion-icon>
         </button>
         </ion-buttons>

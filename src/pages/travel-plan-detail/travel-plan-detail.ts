@@ -22,6 +22,8 @@ import { TravelPlansListPage } from "./../travel-plans-list/travel-plans-list";
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import {TranslateService} from '@ngx-translate/core';
+
 
 @IonicPage()
 @Component({
@@ -51,8 +53,13 @@ export class TravelPlanDetailPage {
     private loadingCtrl: LoadingController,
     private modalCtrl: ModalController,
     private socialsharing: SocialSharing,
-    public http: Http
+    public http: Http,
+    translate: TranslateService
   ) {
+
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
+    
     this.orcamentoTotal = 0;
     this.createLoading();
     this.travelPlan = this.navParams.get("travelPlan");

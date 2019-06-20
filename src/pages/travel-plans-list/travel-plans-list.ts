@@ -6,6 +6,8 @@ import { TravelPlan } from './../../models/travelPlan';
 import { TravelPlanProvider } from './../../providers/travel-plan/travel-plan';
 import { TravelPlanDetailPage } from '../travel-plan-detail/travel-plan-detail';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @IonicPage()
 @Component({
   selector: 'page-travel-plans-list',
@@ -19,7 +21,12 @@ export class TravelPlansListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private tpProvider: TravelPlanProvider,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    translate: TranslateService) {
+
+      translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+      translate.use(localStorage.getItem('idioma') || 'pt');
+
       this.travelPlans = new Array<TravelPlan>();
       this.cities = new Array<string>();
   }

@@ -10,16 +10,14 @@ import {
 } from "ionic-angular";
 import { TravelPlan } from "../../../models/travelPlan";
 import { TravelTrade } from "../../../models/travelTrade";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators
-} from "../../../../node_modules/@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "../../../../node_modules/@angular/forms";
 import { ValidaCadastroProvider } from "../../../providers/valida-cadastro/valida-cadastro";
 import { TravelPlanTradesProvider } from '../../../providers/travel-plan-trades/travel-plan-trades';
 
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Generated class for the PlanStep2Page page.
@@ -64,8 +62,13 @@ export class PlanStep2Page {
     private alertCtrl: AlertController,
     private tptProvider: TravelPlanTradesProvider,
     private loadingCtrl: LoadingController,
-    public http: Http
+    public http: Http,
+    translate: TranslateService
   ) {
+
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
+    
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tradesList = new Array<TravelTrade>();
     this.travelTrade = new TravelTrade();

@@ -10,7 +10,7 @@
         <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
             <ion-item-group inset>
                 <ion-item>
-                    <ion-label floating>Nome Completo</ion-label>
+                    <ion-label floating>{{ 'NOME COMPLETO' | translate }}</ion-label>
                     <ion-input
                     type="text"
                     name="fullName"
@@ -19,7 +19,7 @@
                     required></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label floating>E-mail</ion-label>
+                    <ion-label floating>{{ 'E-MAIL' | translate }}</ion-label>
                     <ion-input
                     type="email"
                     name="email"
@@ -31,7 +31,7 @@
                     O campo é obrigatório
                 </ion-item> -->
                 <ion-item>
-                    <ion-label floating>Senha</ion-label>
+                    <ion-label floating>{{ 'SENHA' | translate }}</ion-label>
                     <ion-input
                     type="password"
                     name="password"
@@ -43,7 +43,7 @@
                     O campo é obrigatório
                 </ion-item> -->
                 <ion-item>
-                    <ion-label floating>Confirmar Senha</ion-label>
+                    <ion-label floating>{{ 'CONFIRMAR SENHA' | translate }}</ion-label>
                     <ion-input
                     type="password"
                     name="confirm-password"
@@ -58,7 +58,7 @@
             block
             outline
             type="submit"
-            [disabled]="!registerForm.valid">Registrar</button>
+            [disabled]="!registerForm.valid">{{ 'Registrar' | translate }}</button>
         </form>
     </div>
 </ion-content>

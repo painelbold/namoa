@@ -12,6 +12,8 @@ import { resolveDefinition } from '../../../../node_modules/@angular/core/src/vi
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import {TranslateService} from '@ngx-translate/core';
+
 /**
  * Generated class for the PlanStep3Page page.
  *
@@ -39,9 +41,13 @@ export class PlanStep3Page {
     private tptProvider: TravelPlanTradesProvider,
     private loadingCtrl: LoadingController,
     public http: Http,
-    public app: MyApp
+    public app: MyApp,
+    translate: TranslateService
    ) {
 
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
+    
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
     this.tradesList = JSON.parse(localStorage.getItem("traveltrades"));
     this.addTradesList = JSON.parse(localStorage.getItem("addTradesList"));

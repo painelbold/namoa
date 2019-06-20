@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>PlanStep1</ion-title>
+    <ion-title>{{ 'PLANSTEP1' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,7 +15,7 @@
     >
     <ion-item-group inset>
         <ion-item>
-            <ion-label floating>Titulo</ion-label>
+            <ion-label floating>{{ 'TÍTULO' | translate }}</ion-label>
             <ion-input
             type="text"
             formControlName="title"
@@ -23,7 +23,7 @@
             ></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Data de Início</ion-label>
+            <ion-label>{{ 'DATA DE INÍCIO' | translate }}</ion-label>
             <ion-datetime
             displayFormat="DD/MM/YYYY"
             [min]="minDate"
@@ -34,7 +34,7 @@
             ></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label>Data Final</ion-label>
+            <ion-label>{{ 'DATA FINAL' | translate }}</ion-label>
             <ion-datetime
             displayFormat="DD/MM/YYYY"
             [min]="minEndDate"
@@ -53,7 +53,7 @@
             id="proximo"
             color="namoa-color"
             outline
-            [disabled]="!step1Form.valid"> Próximo
+            [disabled]="!step1Form.valid"> {{ 'PRÓXIMO' | translate }}
                 <ion-icon name="arrow-dropright"></ion-icon>
             </button>
           </ion-buttons>

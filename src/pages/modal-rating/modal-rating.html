@@ -3,7 +3,7 @@
 
 <ion-content padding class="content-page">
   <div *ngIf="!dateRating; else avaliado">
-    <h5>Avalie o trade</h5>
+    <h5>{{ 'Avalie o trade' | translate }}</h5>
 
     <rating [(ngModel)]="rate"
           readOnly="false"
@@ -20,14 +20,14 @@
     namoa-color
     class="btn-rating"
     (click)="saveRating()">
-    Salvar avaliação
+    {{ 'SALVAR AVALIAÇÃO' | translate }}
     </button>
   </div>
   <ng-template #avaliado>
-    <h5>Avaliação do trade</h5>
-    <p>Data da avaliação: {{dateRating.ratingDate | date: "dd/MM/yyyy"}}</p>
-    <p>Nota de avaliação: {{dateRating.rating}}/5</p>
-    <p>Média da avaliação do trade: {{(avgRating/allRatesTrade.length).toFixed(2).replace('.',',')}}</p>
+    <h5>{{ 'AVALIAÇÃO DO TRADE' | translate }}</h5>
+    <p>{{ 'DATA DA AVALIAÇÃO' | translate }}: {{dateRating.ratingDate | date: "dd/MM/yyyy"}}</p>
+    <p>{{ 'NOTA DE AVALIAÇÃO' | translate }}: {{dateRating.rating}}/5</p>
+    <p>{{ 'MÉDIA DA AVALIAÇÃO DO TRADE' | translate }}: {{(avgRating/allRatesTrade.length).toFixed(2).replace('.',',')}}</p>
 
     <button
     ion-button
@@ -36,7 +36,7 @@
     namoa-color
     class="btn-rating"
     (click)="closeModal()">
-    Voltar
+    {{ 'VOLTAR' | translate }}
     </button>
   </ng-template>
 

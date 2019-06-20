@@ -6,6 +6,9 @@ import { TravelTradeRatingProvider } from './../../providers/travel-trade-rating
 
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+
+import {TranslateService} from '@ngx-translate/core';
+
 /**
  * Generated class for the ModalRatingPage page.
  *
@@ -35,7 +38,12 @@ export class ModalRatingPage {
     private ttrProvider: TravelTradeRatingProvider,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    public http: Http) {
+    public http: Http,
+    translate: TranslateService) {
+
+      translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+      translate.use(localStorage.getItem('idioma') || 'pt');
+
       this.rate = 3;
       this.allRatesTrade = new Array<TradeRating>();
       this.date = this.navParams.get("rateDate");

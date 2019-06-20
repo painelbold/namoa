@@ -9,7 +9,7 @@
 
 
 <ion-content padding>
-    <h4>Meus Planos</h4>
+    <h4>{{ 'Meus Planos' | translate }}</h4>
     <button
     ion-button
     outline
@@ -17,7 +17,7 @@
     class="btn-list"
     (click)="newTravelPlan()"
     block >
-      Criar Novo Plano
+      {{ 'CRIAR NOVO PLANO' | translate }}
     </button>
     <ng-template [ngIf]="travelPlans.length > 0">
       <ion-card
@@ -30,7 +30,7 @@
         <ion-item class="card-item container">
           <ion-label
           item-content
-          class="travel-span">Período da viagem: {{tp.startDateTrip | date:'dd/MM'}} a {{tp.endDateTrip | date:'dd/MM'}}
+          class="travel-span">{{ 'PERÍODO DA VIAGEM' | translate }}: {{tp.startDateTrip | date:'dd/MM'}} a {{tp.endDateTrip | date:'dd/MM'}}
         </ion-label>
             <button
             ion-button
@@ -50,6 +50,6 @@
       </ion-card>
     </ng-template>
     <ng-template [ngIf]="!travelPlans">
-      <p class="no-plans">Sem planos cadastrados.</p>
+      <p class="no-plans">{{ 'SEM PLANOS CADASTRADOS' | translate }}.</p>
     </ng-template>
 </ion-content>

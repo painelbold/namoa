@@ -12,6 +12,8 @@ import { ModalQuestionarioPage } from '../modal-questionario/modal-questionario'
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html'
@@ -31,7 +33,11 @@ export class RegisterPage {
     private menu: MenuController,
     private loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
-    public http: Http) {
+    public http: Http,
+    translate: TranslateService) {
+
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
   }
 
   goBack(event) {

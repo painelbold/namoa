@@ -27,6 +27,8 @@ export class LoginPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
+  language: any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,6 +41,23 @@ export class LoginPage {
 
     translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
     translate.use(localStorage.getItem('idioma') || 'pt');
+
+
+    if(localStorage.getItem('idioma')==='pt'){
+        this.language = { idioma: "Português", srcImg: "./assets/imgs/languagePT.png" };
+    }else if(localStorage.getItem('idioma')==='en'){
+        this.language = { idioma: "Inglês", srcImg: "./assets/imgs/languageEN.png" };
+    }else if(localStorage.getItem('idioma')==='es'){
+        this.language = { idioma: "Espanhol", srcImg: "./assets/imgs/languageES.png" };
+    }else if(localStorage.getItem('idioma')==='it'){
+        this.language = { idioma: "Italiano", srcImg: "./assets/imgs/languageIT.png" };
+    }else if(localStorage.getItem('idioma')==='fr'){
+        this.language = { idioma: "Francês", srcImg: "./assets/imgs/languageFR.png" };
+    }else if(localStorage.getItem('idioma')==='al'){
+        this.language = { idioma: "Alemão", srcImg: "./assets/imgs/languageAL.png" };
+    }else{
+        this.language = { idioma: "Português", srcImg: "./assets/imgs/languagePT.png" };
+    }
   }
 
   createLoading(){
@@ -46,6 +65,11 @@ export class LoginPage {
       content: "Entrando na conta..."
     });
     this.loading.present();
+  }
+
+  alterIdioma(idioma){
+    localStorage.setItem('idioma',idioma);
+    window.location.reload()
   }
 
 

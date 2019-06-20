@@ -9,13 +9,13 @@
 
 
 <ion-content padding>
-  <h4>Minha Conta</h4>
+  <h4>{{ 'MINHA CONTA' | translate }}</h4>
   <form
   (ngSubmit)="updateProfile()"
   [formGroup]="myProfileForm">
     <ion-item-group inset>
       <ion-item>
-        <ion-label floating>Nome Completo</ion-label>
+        <ion-label floating>{{ 'NOME COMPLETO' | translate }}</ion-label>
         <ion-input
         type="text"
         name="fullName"
@@ -25,7 +25,7 @@
       </ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Telefone</ion-label>
+      <ion-label>{{ 'TELEFONE ' | translate }}</ion-label>
       <ion-input
       type="tel"
       name="phone"
@@ -36,7 +36,7 @@
     </ion-input>
   </ion-item>
   <ion-item>
-        <ion-label>Data de Nascimento</ion-label>
+        <ion-label>{{ 'DATA DE NASCIMENTO' | translate }}</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY"
         [max]="maxDate"
         required
@@ -49,31 +49,31 @@
         outline
         block
         type="submit"
-        [disabled]="(!myProfileForm.valid || myProfileForm.pristine)">Confirmar Alterações</button>
+        [disabled]="(!myProfileForm.valid || myProfileForm.pristine)">{{ 'CONFIRMAR ATRAÇÕES' | translate }}</button>
       </ion-item-group>
   </form>
   <hr class="divider">
   <ion-item-group class="divider">
-    <h5>Alterar senha</h5>
+    <h5>{{ 'ALTERAR SENHA' | translate }}</h5>
     <form
     (ngSubmit)="changePassword()"
     [formGroup]="passwordForm">
       <ion-item>
-        <ion-label>Senha Atual</ion-label>
+        <ion-label>{{ 'SENHA ATUAL' | translate }}</ion-label>
         <ion-input
         type="password"
         name="currentPassword"
         formControlName="old"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Nova Senha</ion-label>
+        <ion-label>{{ 'NOVA SENHA' | translate }}</ion-label>
         <ion-input
         type="password"
         name="newPassword"
         formControlName="new"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Confirmar Senha</ion-label>
+        <ion-label>{{ 'CONFIRMAR SENHA' | translate }}</ion-label>
         <ion-input
         type="password"
         name="confirmNewPassword"
@@ -85,7 +85,7 @@
       outline
       block
       type="submit"
-      [disabled]="(!passwordForm.valid || password.pristine)">Alterar Senha</button>
+      [disabled]="(!passwordForm.valid || password.pristine)">{{ 'ALTERAR SENHA' | translate }}</button>
     </form>
   </ion-item-group>
   </ion-content>

@@ -15,6 +15,9 @@ import { UserDataProvider } from './../providers/user-data/user-data';
 import { TravelPlanPage } from '../pages/plan/travel-plan/travel-plan';
 import { AboutPage } from '../pages/about/about';
 
+import { TranslateService } from '@ngx-translate/core';
+
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -24,16 +27,22 @@ export class MyApp {
   rootPage: any;
   loggedUser: any;
 
-  pages: Array<{title: string, component: any, icon: string}>;
+  language: any;
+
+  pages: Array<{title: string, component: any, icon: string}> = [];
 
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private afAuth: AngularFireAuth,
     private authService: AuthService,
-    private udProvider: UserDataProvider) {
+    private udProvider: UserDataProvider,
+    translate: TranslateService) {
     this.initializeApp();
     this.loggedUser = { fullName: '' };
+
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
 
     const authObserver = afAuth.authState.subscribe(user =>{
       if(user){
@@ -52,19 +61,44 @@ export class MyApp {
       }
     });
 
+    if(localStorage.getItem('idioma')==='pt'){
+        this.language = { idioma: "Português", srcImg: "./assets/imgs/languagePT.png" };
+    }else if(localStorage.getItem('idioma')==='en'){
+        this.language = { idioma: "Inglês", srcImg: "./assets/imgs/languageEN.png" };
+    }else if(localStorage.getItem('idioma')==='es'){
+        this.language = { idioma: "Espanhol", srcImg: "./assets/imgs/languageES.png" };
+    }else if(localStorage.getItem('idioma')==='it'){
+        this.language = { idioma: "Italiano", srcImg: "./assets/imgs/languageIT.png" };
+    }else if(localStorage.getItem('idioma')==='fr'){
+        this.language = { idioma: "Francês", srcImg: "./assets/imgs/languageFR.png" };
+    }else if(localStorage.getItem('idioma')==='al'){
+        this.language = { idioma: "Alemão", srcImg: "./assets/imgs/languageAL.png" };
+    }else{
+        this.language = { idioma: "Português", srcImg: "./assets/imgs/languagePT.png" };
+    }
 
-
+    translate.get("MEUS PLANOS").subscribe(value => { 
+          this.pages.push({ title: value, component: TravelPlansListPage, icon: 'list-box' });
+    });
+    translate.get("ADICIONAR PLANO").subscribe(value => { 
+          this.pages.push({ title: value, component: TravelPlanPage , icon: 'add-circle' });
+    });
+    translate.get("MINHA CONTA").subscribe(value => { 
+          this.pages.push({ title: value, component: MyProfilePage, icon: 'person'});
+    });
+    translate.get("DICAS SUSTENTÁVEIS").subscribe(value => { 
+          this.pages.push({ title: value, component: TravelTipsPage, icon: 'water'});
+    });
+    translate.get("TERMOS DE USO").subscribe(value => { 
+          this.pages.push({ title: value, component: TermsOfServicePage, icon: 'book' });
+    });
+    translate.get("POLÍTICA DE PRIVACIDADE").subscribe(value => { 
+          this.pages.push({ title: value, component: PrivacyPage, icon: 'information' });
+    });
+    translate.get("SOBRE O NAMOA").subscribe(value => { 
+          this.pages.push({ title: value, component: AboutPage, icon: 'information-circle' });
+    });
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Meus Planos', component: TravelPlansListPage, icon: 'list-box' },
-      { title: 'Adicionar Plano', component: TravelPlanPage , icon: 'add-circle' },
-      { title: 'Minha Conta', component: MyProfilePage, icon: 'person'},
-      { title: 'Dicas Sustentáveis', component: TravelTipsPage, icon: 'water'},
-      { title: 'Termos de Uso', component: TermsOfServicePage, icon: 'book' },
-      { title: 'Política de Privacidade', component: PrivacyPage, icon: 'information' },
-      { title: 'Sobre o Namoa', component: AboutPage, icon: 'information-circle' },
-    ];
-
   }
 
   initializeApp() {
@@ -74,6 +108,11 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  alterIdioma(idioma){
+    localStorage.setItem('idioma',idioma);
+    window.location.reload()
   }
 
   openPage(page) {

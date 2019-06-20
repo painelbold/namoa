@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, ViewController, Loading, LoadingCo
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import {TranslateService} from '@ngx-translate/core';
+
 /**
  * Generated class for the ModalQuestionarioPage page.
  *
@@ -31,7 +33,12 @@ export class ModalQuestionarioPage {
   estados: Array<{ nome_estado: string, sigla_estado: string} > = [];
   loading: Loading;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public http: Http, private loadingCtrl: LoadingController,) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public http: Http,
+  	 	private loadingCtrl: LoadingController,
+    	translate: TranslateService) {
+
+  	translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
   }
 
   createLoading(){

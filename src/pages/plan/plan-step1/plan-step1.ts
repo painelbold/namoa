@@ -4,6 +4,8 @@ import { TravelPlan } from "../../../models/travelPlan";
 import {  FormGroup,  FormBuilder,  Validators } from "../../../../node_modules/@angular/forms";
 import { ValidaCadastroProvider } from "../../../providers/valida-cadastro/valida-cadastro";
 
+import {TranslateService} from '@ngx-translate/core';
+
 /**
  * Generated class for the PlanStep1Page page.
  *
@@ -29,8 +31,13 @@ export class PlanStep1Page {
     public navCtrl: NavController,
     public navParams: NavParams,
     private validaCadastro: ValidaCadastroProvider,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    translate: TranslateService
   ) {
+
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
+
     this.tp = new TravelPlan();
     this.createForm();
   }

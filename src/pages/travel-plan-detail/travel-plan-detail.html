@@ -12,7 +12,7 @@
     <ion-grid class="title-grid">
       <ion-row>
         <ion-col col-9 class="col-plan-title">
-          <h5 class="plan-title">{{travelPlan.title}} - Programação</h5>
+          <h5 class="plan-title">{{travelPlan.title}} - {{ 'PROGRAMAÇÃO' | translate }}</h5>
         </ion-col>
         <ion-col col-1 class="col-plan-btn">
           <button ion-button clear color="namoa-color" medium (click)="sharePlanWhatsapp()">
@@ -35,15 +35,14 @@
     <div *ngIf="tradesPlanToday.length > 0">
       <ion-card *ngFor="let item of tradesPlanToday" class="day-item">
         <ion-card-header class="card-header">
-          Hoje ({{item.date | date:"dd/MM"}})
+         {{ 'HOJE' | translate }} ({{item.date | date:"dd/MM"}})
         </ion-card-header>
         <ion-list>
           <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
             <ion-label item-content>
-              <p>Cidade: {{trade.city}}</p>
-              <p>Trade: {{trade.trade}}</p>
-              <p>Categoria: {{visualizarCategoria(trade.categoryType)}}</p>
-              <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
+              <p>{{ 'CIDADE:' | translate }} {{trade.city}}</p>
+              <p>{{ 'CATEGORIA:' | translate }}: {{visualizarCategoria(trade.categoryType)}}</p>
+              <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
             </ion-label>
             <div item-end class="btn-container">
               <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
@@ -57,23 +56,23 @@
         </ion-list>
         <hr class="divider">
         <p item-end class="orcamento-dia">
-          Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
+          {{ 'ORÇAMENTO DO DIA' | translate }}: {{formatter.format(getOrcamento(item.tt))}}</p>
       </ion-card>
       <hr class="item-divider">
     </div>
     <div *ngIf="tradesPlanNextDays.length > 0">
-      <h5>Próximos Dias</h5>
+      <h5>{{ 'PRÓXIMOS DIAS' | translate }}</h5>
         <ion-card *ngFor="let item of tradesPlanNextDays" class="day-item">
           <ion-card-header class="card-header">
-            Dia {{item.date | date:"dd/MM"}}
+           {{ ' DIA' | translate }} {{item.date | date:"dd/MM"}}
           </ion-card-header>
           <ion-list>
             <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
               <ion-label item-content>
-                <p>Cidade: {{trade.city}}</p>
-                <p>Trade: {{trade.trade}}</p>
-                <p>Categoria: {{visualizarCategoria(trade.categoryType)}}</p>
-                <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
+                <p>{{ 'CIDADE' | translate }}: {{trade.city}}</p>
+                <p>{{ 'TRADE' | translate }}: {{trade.trade}}</p>
+                <p>{{ 'CATEGORIA' | translate }}: {{visualizarCategoria(trade.categoryType)}}</p>
+                <p *ngIf="item.tt.length > 1">{{ 'Orçamento' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
               </ion-label>
               <div item-end class="btn-container">
                 <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
@@ -87,22 +86,22 @@
           </ion-list>
           <hr class="divider">
           <p item-end class="orcamento-dia">
-            Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
+            {{ 'Orçamento do dia' | translate }}: {{formatter.format(getOrcamento(item.tt))}}</p>
         </ion-card>
         <hr class="item-divider">
       </div>
       <div *ngIf="tradesPlanPrevDays.length > 0">
-          <h5>Dias Anteriores</h5>
+          <h5>{{ 'Dias Anteriores' | translate }}</h5>
             <ion-card *ngFor="let item of tradesPlanPrevDays" class="day-item">
               <ion-card-header class="card-header">
-                Dia {{item.date | date:"dd/MM"}}
+                {{ 'Dia' | translate }} {{item.date | date:"dd/MM"}}
               </ion-card-header>
               <ion-list>
                 <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
                   <ion-label item-content>
-                    <p>Cidade: {{trade.city}}</p>
-                    <p>Trade: {{trade.trade}}</p>
-                    <p>Categoria: {{visualizarCategoria(trade.categoryType)}}</p>
+                    <p>{{ 'Cidade' | translate }}: {{trade.city}}</p>
+                    <p>{{ 'Trade' | translate }}: {{trade.trade}}</p>
+                    <p>{{ 'Categoria' | translate }}: {{visualizarCategoria(trade.categoryType)}}</p>
                     <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
                   </ion-label>
                   <div item-end class="btn-container">
@@ -117,10 +116,10 @@
               </ion-list>
               <hr class="divider">
               <p item-end class="orcamento-dia">
-                Orçamento do dia: {{formatter.format(getOrcamento(item.tt))}}</p>
+                {{ 'Orçamento do dia' | translate }}: {{formatter.format(getOrcamento(item.tt))}}</p>
             </ion-card>
           </div>
 
   </ion-list>
-  <p>Orçamento total: {{formatter.format(orcamentoTotal)}}</p>
+  <p>{{ 'Orçamento total' | translate }}: {{formatter.format(orcamentoTotal)}}</p>
 </ion-content>

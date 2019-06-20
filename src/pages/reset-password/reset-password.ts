@@ -4,6 +4,8 @@ import { IonicPage, MenuController, NavController, NavParams, ToastController } 
 
 import { AuthService } from './../../providers/auth/auth-service';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @IonicPage()
 @Component({
   selector: 'page-reset-password',
@@ -17,7 +19,12 @@ export class ResetPasswordPage {
     public navParams: NavParams,
     private authService: AuthService,
     private toastController: ToastController,
-    private menu: MenuController) {
+    private menu: MenuController,
+    translate: TranslateService) {
+
+      translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+      translate.use(localStorage.getItem('idioma') || 'pt');
+      
       this.menu.enable(false, 'sideMenu');
   }
 

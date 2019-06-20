@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '../../../node_modules/@angul
 import { TravelPlansListPage } from '../travel-plans-list/travel-plans-list';
 import { AuthService } from '../../providers/auth/auth-service';
 
+import {TranslateService} from '@ngx-translate/core';
+
 /**
  * Generated class for the MyProfilePage page.
  *
@@ -32,7 +34,12 @@ export class MyProfilePage {
     private udProvider: UserDataProvider,
     private toastController: ToastController,
     private authService: AuthService,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    translate: TranslateService) {
+
+      translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+      translate.use(localStorage.getItem('idioma') || 'pt');
+
       this.user = new Usuario();
       this.createForm();
       this.createPasswordForm();
