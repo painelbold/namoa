@@ -7,6 +7,8 @@ import { PlanStep3Page } from './../plan-step3/plan-step3';
 import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
 import { TravelPlan } from '../../../models/travelPlan';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @IonicPage()
 @Component({
   selector: 'page-travel-plan',
@@ -20,9 +22,13 @@ export class TravelPlanPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private cadastro: ValidaCadastroProvider) {
+    private cadastro: ValidaCadastroProvider,
+    translate: TranslateService) {
       this.editTravelPlan = this.navParams.get("editTravelPlan");
       this.cadastro.setEnableStep1(true);
+
+      translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+      translate.use(localStorage.getItem('idioma') || 'pt');
   }
 
   getEnableStep1(){

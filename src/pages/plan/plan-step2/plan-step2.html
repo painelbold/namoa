@@ -33,7 +33,7 @@
           <ion-select formControlName="city">
             
             <ion-option *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" required>
-              Sugestão: {{sugestao.cidade}}
+              {{ 'SUGESTÃO' | translate }}: {{sugestao.cidade}}
             </ion-option>
             
             <ion-option *ngFor="let c of cidades" value="{{c.nome_cidade}}" required>

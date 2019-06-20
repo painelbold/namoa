@@ -41,10 +41,6 @@ export class TravelPlanDetailPage {
   tradesPlanNextDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
   tradesPlanPrevDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
 
-  catTradesPlanToday: Array<{ descricao: string = [] }>
-  catTradesPlanNextDays: Array<{ descricao: string = [] }>
-  catTradesPlanPrevDays: Array<{ descricao: string = [] }>
-
   orcamentoTotal: number;
   loading: Loading;
   formatter: Intl.NumberFormat;
@@ -105,7 +101,7 @@ export class TravelPlanDetailPage {
           const categorias = JSON.parse(localStorage.getItem("categorias"));
           var filtroCat = categorias.filter(element => { return element.id === el.categoryType });
 
-          el.categoria = filtroCat[0].descricao
+          el.catDescricao = filtroCat[0].descricao
       })  
     })
 
@@ -115,7 +111,7 @@ export class TravelPlanDetailPage {
           const categorias = JSON.parse(localStorage.getItem("categorias"));
           var filtroCat = categorias.filter(element => { return element.id === el.categoryType });
 
-          el.categoria = filtroCat[0].descricao
+          el.catDescricao = filtroCat[0].descricao
       })  
     })
 
@@ -125,7 +121,7 @@ export class TravelPlanDetailPage {
           const categorias = JSON.parse(localStorage.getItem("categorias"));
           var filtroCat = categorias.filter(element => { return element.id === el.categoryType });
 
-          el.categoria = filtroCat[0].descricao
+          el.catDescricao = filtroCat[0].descricao
       })  
     })    
       
