@@ -34,13 +34,40 @@
     margin: auto;
 }
 
-.SelectLanguage{
+.menuIdioma .SelectLanguage{
 	width:70%;
 	background-color: #51647F;
     bottom: 0;
     position: absolute;
     margin-bottom: 10px;
     margin-left:20%;
+}
+
+.menuIdioma .flagLanguage{
+    float:left;
+    width:25%;
+    background-color: #51647F;
+    bottom: 0;
+    position: absolute;
+    margin-bottom: 10px;
+    z-index:9999;
+}
+
+.loginIdioma .SelectLanguage{
+    width:60%;
+    background-color: #51647F;
+    position: absolute;
+    margin-left:30%;
+    height: 46px;
+}
+
+.loginIdioma .flagLanguage{
+    float:left;
+    width:30%;
+    background-color: #51647F;
+    position: absolute;
+    z-index:9999;
+    height: 46px;
 }
 
 .SelectLanguage .item-inner, .flagLanguage .item-inner{
@@ -50,16 +77,6 @@
 .SelectLanguage ion-select{
     width: 70%;
     max-width: 70%;
-}
-
-.flagLanguage{
-	float:left;
-	width:25%;
-	background-color: #51647F;
-    bottom: 0;
-    position: absolute;
-    margin-bottom: 10px;
-    z-index:9999;
 }
 
 .flagLanguage img{
@@ -85,3 +102,6 @@
 	font-size: 18px;
 }
 
+.login-content .logo-row{
+    margin-top:20%;
+}

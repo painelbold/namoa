@@ -13,6 +13,11 @@
           starIconName="star"
           nullable="false" ></rating>
 
+    <ion-item>
+        <ion-label floating>{{ 'OBSERVAÇÂO' | translate }}</ion-label>
+        <ion-input type="text" [(ngModel)]="observation" required></ion-input>
+    </ion-item>
+
     <button
     ion-button
     block

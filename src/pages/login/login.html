@@ -1,4 +1,24 @@
 <ion-content class="login-content" padding>
+    
+    
+    <div class="loginIdioma">
+      <ion-item class="flagLanguage">
+          <img src="{{language.srcImg}}">
+      </ion-item>
+
+      <ion-item class="SelectLanguage">
+          <ion-select placeholder="{{ language.idioma }}" (ionChange)="alterIdioma($event)">
+            <ion-option value="pt">Português</ion-option>
+            <ion-option value="en">Inglês</ion-option>
+            <ion-option value="es">Espanhol</ion-option>
+            <ion-option value="it">Italiano</ion-option>
+            <ion-option value="fr">Francês</ion-option>
+            <ion-option value="al">Alemão</ion-option>
+          </ion-select>
+      </ion-item>
+
+    </div>
+
     <ion-row class="logo-row">
         <img src="assets/imgs/logo.png" class="logo"/>
     </ion-row>
@@ -33,24 +53,6 @@
         </form>
         <button ion-button class="other-btn" block clear type="button" (click)="createAccount()">{{ 'CRIAR NOVA CONTA' | translate }}</button>
         <button ion-button class="other-btn" block clear type="button" (click)="resetPassword()">{{ 'ESQUECI MINHA SENHA' | translate }}</button>
-
-            <div class="loginIdioma">
-              <ion-item class="flagLanguage">
-                  <img src="{{language.srcImg}}">
-              </ion-item>
-
-              <ion-item class="SelectLanguage">
-                  <ion-select placeholder="{{ language.idioma }}" (ionChange)="alterIdioma($event)">
-                    <ion-option value="pt">Português</ion-option>
-                    <ion-option value="en">Inglês</ion-option>
-                    <ion-option value="es">Espanhol</ion-option>
-                    <ion-option value="it">Italiano</ion-option>
-                    <ion-option value="fr">Francês</ion-option>
-                    <ion-option value="al">Alemão</ion-option>
-                  </ion-select>
-              </ion-item>
-
-            </div>
 
 
     </div>

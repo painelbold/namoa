@@ -31,6 +31,7 @@ export class ModalRatingPage {
   trade: string;
   loading: Loading;
   avgRating: number;
+  observation: string = "";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -54,22 +55,22 @@ export class ModalRatingPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ModalRatingPage');
+    // console.log('ionViewDidLoad ModalRatingPage');
   }
 
   closeModal(){
-    console.log("closeModal");
+    // console.log("closeModal");
     this.viewCtrl.dismiss();
   }
 
   saveRating(){
-    console.log("saveRating", this.date, this.uid, this.rate, this.trade);
+    // console.log("saveRating", this.date, this.uid, this.rate, this.trade);
 
     var payload_feedback = {
            "usuario" : this.uid,
            "id_trade" : this.trade,
            "grade" : this.rate,
-           "observation" : "",
+           "observation" : this.observation,
            "anonimo" : 0
     }
 
@@ -112,6 +113,8 @@ export class ModalRatingPage {
       this.allRatesTrade.map((item) => this.avgRating += item.rating);
 
       this.dateRating = this.allRatesTrade.filter((r) => r.user_date == this.uid + "_" + this.date)[0]
+
+      // console.log("this.dateRating",this.dateRating)
 
       this.loading.dismiss();
       subscribe.unsubscribe();

@@ -40,9 +40,17 @@ export class TravelPlanDetailPage {
   tradesPlanToday: Array<{ date: Date; tt: Array<TravelTrade> }>;
   tradesPlanNextDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
   tradesPlanPrevDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
+
+  catTradesPlanToday: Array<{ descricao: string = [] }>
+  catTradesPlanNextDays: Array<{ descricao: string = [] }>
+  catTradesPlanPrevDays: Array<{ descricao: string = [] }>
+
   orcamentoTotal: number;
   loading: Loading;
   formatter: Intl.NumberFormat;
+
+  call: number = 0;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -81,21 +89,53 @@ export class TravelPlanDetailPage {
         this.loading.dismiss();
         subscribe.unsubscribe();
       });
+
+      this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
+          localStorage.setItem("categorias", JSON.stringify(data[0]));
+
+          this.visualizarCategoria();
+      });
   }
 
-  visualizarCategoria(id){
+  visualizarCategoria(){
 
-    this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
-        // console.log("data",data[0]);
-        localStorage.setItem("categorias", JSON.stringify(data[0]));
-        
-        var categorias = data[0] || []
-        var filtroCat = categorias.filter(element => { return element.id === id });
-        return filtroCat.length>0? filtroCat[0].descricao : "Não encontrada"
-    },err =>{
-        this.visualizarCategoria(id);
-    });
+    this.tradesPlanToday.map(item => {
+      const itemTT = item.tt;
+      itemTT.map(el =>{
+          const categorias = JSON.parse(localStorage.getItem("categorias"));
+          var filtroCat = categorias.filter(element => { return element.id === el.categoryType });
+
+          el.categoria = filtroCat[0].descricao
+      })  
+    })
+
+    this.tradesPlanNextDays.map(item => {
+      const itemTT = item.tt;
+      itemTT.map(el =>{
+          const categorias = JSON.parse(localStorage.getItem("categorias"));
+          var filtroCat = categorias.filter(element => { return element.id === el.categoryType });
+
+          el.categoria = filtroCat[0].descricao
+      })  
+    })
+
+    this.tradesPlanPrevDays.map(item => {
+      const itemTT = item.tt;
+      itemTT.map(el =>{
+          const categorias = JSON.parse(localStorage.getItem("categorias"));
+          var filtroCat = categorias.filter(element => { return element.id === el.categoryType });
+
+          el.categoria = filtroCat[0].descricao
+      })  
+    })    
       
+  }
+
+  getCategoria(id){
+      const categorias = JSON.parse(localStorage.getItem("categorias"));
+      var filtroCat = categorias.filter(element => { return element.id === id });
+
+      return filtroCat[0].descricao || "Não Informada";
   }
 
   obtemTradesDias(){
@@ -126,7 +166,6 @@ export class TravelPlanDetailPage {
   ionViewDidEnter() {
     this.today = new Date();
     this.lastDay = this.travelPlan.endDateTrip;
-
   }
 
   createLoading() {
@@ -302,7 +341,7 @@ export class TravelPlanDetailPage {
     this.tradesPlanToday.map(tp =>
       tp.tt.map(travelTrade => {
         msg += "\nCidade: " + travelTrade.city;
-        msg += "\nCategoria: " + travelTrade.category;
+        msg += "\nCategoria: " + this.getCategoria(travelTrade.categoryType);
         msg += "\nTrade: " + travelTrade.trade;
       })
     );
@@ -316,7 +355,7 @@ export class TravelPlanDetailPage {
 
       tp.tt.map(travelTrade => {
         msg += "\nCidade: " + travelTrade.city;
-        msg += "\nCategoria:" + travelTrade.category;
+        msg += "\nCategoria:" + this.getCategoria(travelTrade.categoryType);
         msg += "\nTrade: " + travelTrade.trade;
       });
     });

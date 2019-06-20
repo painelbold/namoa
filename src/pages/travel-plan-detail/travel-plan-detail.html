@@ -41,7 +41,7 @@
           <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
             <ion-label item-content>
               <p>{{ 'CIDADE:' | translate }} {{trade.city}}</p>
-              <p>{{ 'CATEGORIA:' | translate }}: {{visualizarCategoria(trade.categoryType)}}</p>
+              <p>{{ 'CATEGORIA:' | translate }}: {{trade.categoria}}</p>
               <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
             </ion-label>
             <div item-end class="btn-container">
@@ -71,7 +71,7 @@
               <ion-label item-content>
                 <p>{{ 'CIDADE' | translate }}: {{trade.city}}</p>
                 <p>{{ 'TRADE' | translate }}: {{trade.trade}}</p>
-                <p>{{ 'CATEGORIA' | translate }}: {{visualizarCategoria(trade.categoryType)}}</p>
+                <p>{{ 'CATEGORIA:' | translate }}: {{trade.categoria}}</p>
                 <p *ngIf="item.tt.length > 1">{{ 'Orçamento' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
               </ion-label>
               <div item-end class="btn-container">
@@ -101,7 +101,7 @@
                   <ion-label item-content>
                     <p>{{ 'Cidade' | translate }}: {{trade.city}}</p>
                     <p>{{ 'Trade' | translate }}: {{trade.trade}}</p>
-                    <p>{{ 'Categoria' | translate }}: {{visualizarCategoria(trade.categoryType)}}</p>
+                    <p>{{ 'CATEGORIA:' | translate }}: {{trade.categoria}}</p>
                     <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
                   </ion-label>
                   <div item-end class="btn-container">
