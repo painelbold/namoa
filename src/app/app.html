@@ -12,7 +12,7 @@
       <ion-item
       class="menu-items"
       no-lines>
-        <p class="hello-user">Olá, {{loggedUser.fullName.split(' ')[0]}}!</p>
+        <p class="hello-user">{{ 'OLÁ' | translate }}, {{loggedUser.fullName.split(' ')[0]}}!</p>
       </ion-item>
       <hr>
       <button
@@ -53,11 +53,11 @@
       <ion-item class="SelectLanguage">
           <ion-select placeholder="{{ language.idioma }}" (ionChange)="alterIdioma($event)">
             <ion-option value="pt">Português</ion-option>
-            <ion-option value="en">Inglês</ion-option>
-            <ion-option value="es">Espanhol</ion-option>
+            <ion-option value="en">English</ion-option>
+            <ion-option value="es">Español</ion-option>
             <ion-option value="it">Italiano</ion-option>
-            <ion-option value="fr">Francês</ion-option>
-            <ion-option value="al">Alemão</ion-option>
+            <ion-option value="fr">Français</ion-option>
+            <ion-option value="al">Deutsch</ion-option>
           </ion-select>
       </ion-item>
 

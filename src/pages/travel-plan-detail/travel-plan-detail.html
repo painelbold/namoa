@@ -52,7 +52,19 @@
                 <ion-icon name="checkmark-circle"></ion-icon>
               </button>
             </div>
+            
           </ion-item>
+
+
+            <ion-item>
+                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarFui(trade,1)">
+                  Fui
+                </button>
+                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarNaoFui(trade,0)">
+                  Não Fui
+                </button>
+            </ion-item>
+
         </ion-list>
         <hr class="divider">
         <p item-end class="orcamento-dia">
@@ -72,7 +84,7 @@
                 <p>{{ 'CIDADE' | translate }}: {{trade.city}}</p>
                 <p>{{ 'TRADE' | translate }}: {{trade.trade}}</p>
                 <p>{{ 'CATEGORIA:' | translate }}: {{trade.catDescricao}}</p>
-                <p *ngIf="item.tt.length > 1">{{ 'Orçamento' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
+                <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
               </ion-label>
               <div item-end class="btn-container">
                 <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
@@ -82,24 +94,36 @@
                   <ion-icon name="checkmark-circle"></ion-icon>
                 </button>
               </div>
+              </ion-item>
+
+            
+            <ion-item>
+                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarFui(trade,1)">
+                  Fui
+                </button>
+                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarNaoFui(trade,0)">
+                  Não Fui
+                </button>
             </ion-item>
+
+
           </ion-list>
           <hr class="divider">
           <p item-end class="orcamento-dia">
-            {{ 'Orçamento do dia' | translate }}: {{formatter.format(getOrcamento(item.tt))}}</p>
+            {{ 'ORÇAMENTO DO DIA' | translate }}: {{formatter.format(getOrcamento(item.tt))}}</p>
         </ion-card>
         <hr class="item-divider">
       </div>
       <div *ngIf="tradesPlanPrevDays.length > 0">
-          <h5>{{ 'Dias Anteriores' | translate }}</h5>
+          <h5>{{ 'DIAS ANTERIORES' | translate }}</h5>
             <ion-card *ngFor="let item of tradesPlanPrevDays" class="day-item">
               <ion-card-header class="card-header">
-                {{ 'Dia' | translate }} {{item.date | date:"dd/MM"}}
+                {{ 'DIA' | translate }} {{item.date | date:"dd/MM"}}
               </ion-card-header>
               <ion-list>
                 <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
                   <ion-label item-content>
-                    <p>{{ 'Cidade' | translate }}: {{trade.city}}</p>
+                    <p>{{ 'CIDADE' | translate }}: {{trade.city}}</p>
                     <p>{{ 'Trade' | translate }}: {{trade.trade}}</p>
                     <p>{{ 'CATEGORIA:' | translate }}: {{trade.catDescricao}}</p>
                     <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
@@ -112,14 +136,26 @@
                       <ion-icon name="checkmark-circle"></ion-icon>
                     </button>
                   </div>
+
                 </ion-item>
+                
+                <ion-item>
+                    <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarFui(trade,1)">
+                      Fui
+                    </button>
+                    <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarNaoFui(trade,0)">
+                      Não Fui
+                    </button>
+                </ion-item>
+
+
               </ion-list>
               <hr class="divider">
               <p item-end class="orcamento-dia">
-                {{ 'Orçamento do dia' | translate }}: {{formatter.format(getOrcamento(item.tt))}}</p>
+                {{ 'ORÇAMENTO DO DIA' | translate }}: {{formatter.format(getOrcamento(item.tt))}}</p>
             </ion-card>
           </div>
 
   </ion-list>
-  <p>{{ 'Orçamento total' | translate }}: {{formatter.format(orcamentoTotal)}}</p>
+  <p>{{ 'ORÇAMENTO TOTAL' | translate }}: {{formatter.format(orcamentoTotal)}}</p>
 </ion-content>

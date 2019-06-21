@@ -32,7 +32,7 @@ export class PlanStep1Page {
     public navParams: NavParams,
     private validaCadastro: ValidaCadastroProvider,
     private formBuilder: FormBuilder,
-    translate: TranslateService
+    private translate: TranslateService
   ) {
 
     translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
@@ -40,12 +40,25 @@ export class PlanStep1Page {
 
     this.tp = new TravelPlan();
     this.createForm();
+
   }
 
   ionViewDidLoad() {
     this.minDate = new Date().toISOString();
     this.tp = this.navParams.data;
-    this.pageTitle = this.navParams.data.title ? "Editar Plano" : "Novo Plano";
+
+    if(this.navParams.data.title){
+
+      this.translate.get("MEU PLANO").subscribe(value => { 
+            this.pageTitle = value
+      });
+
+    }else{
+      this.translate.get("NOVO PLANO").subscribe(value => { 
+            this.pageTitle = value
+      });
+    }
+    
     this.createForm();
     this.maxCalDate = "2030-12-31";
   }

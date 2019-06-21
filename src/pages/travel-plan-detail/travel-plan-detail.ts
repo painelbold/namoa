@@ -58,7 +58,7 @@ export class TravelPlanDetailPage {
     private modalCtrl: ModalController,
     private socialsharing: SocialSharing,
     public http: Http,
-    translate: TranslateService
+    private translate: TranslateService
   ) {
 
     translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
@@ -84,6 +84,9 @@ export class TravelPlanDetailPage {
         this.getOrcamentoTotal();
         this.loading.dismiss();
         subscribe.unsubscribe();
+
+        console.log("this.tradeList",this.tradeList);
+        console.log("this.tradesPlan",this.tradesPlan);
       });
 
       this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
@@ -165,8 +168,11 @@ export class TravelPlanDetailPage {
   }
 
   createLoading() {
+    var msg_load = "";
+    this.translate.get("CARREGANDO DETALHES DO PLANO").subscribe(value => { msg_load = value });
+
     this.loading = this.loadingCtrl.create({
-      content: "Carregando detalhes do plano..."
+      content: msg_load
     });
     this.loading.present();
   }
@@ -197,6 +203,17 @@ export class TravelPlanDetailPage {
     });
   }
 
+  informarFui(dados,status){
+    console.log("dados Fui",dados)
+    console.log("status Fui",status)
+
+
+
+
+    
+  }
+
+
   getOrcamento(tt: TravelTrade[]) {
     var sum = 0;
 
@@ -217,9 +234,21 @@ export class TravelPlanDetailPage {
   }
 
   deletePlan() {
+
+    var title_alert = "";
+    var message_alert = "";
+    var pl_rm_alert = "";
+    var err_pl_alert = "";
+
+    this.translate.get("CONFIRMAR EXCLUSÃO").subscribe(value => { title_alert = value });
+    this.translate.get("TEM CERTEZA QUE DESEJA EXCLUIR O PLANO DE VIAGEM?").subscribe(value => { message_alert = value });
+
+    this.translate.get("PLANO DE VIAGEM REMOVIDO.").subscribe(value => { pl_rm_alert = value });
+    this.translate.get("ERRO NA REMOÇÃO DO PLANO DE VIAGEM.").subscribe(value => { err_pl_alert = value });
+
     let alert = this.alertCtrl.create({
-      title: "Confirmar exclusão",
-      message: "Tem certeza que deseja excluir o plano de viagem?",
+      title: title_alert,
+      message: message_alert,
       buttons: [
         {
           text: "Cancelar",
@@ -253,7 +282,7 @@ export class TravelPlanDetailPage {
                       .then(() => {
                         this.toast
                           .create({
-                            message: "Plano de viagem removido.",
+                            message: pl_rm_alert,
                             duration: 2000,
                             position: "bottom"
                           })
@@ -264,7 +293,7 @@ export class TravelPlanDetailPage {
                   .catch(() => {
                     this.toast
                       .create({
-                        message: "Erro na remoção de plano de viagem.",
+                        message: err_pl_alert,
                         duration: 2000,
                         position: "bottom"
                       })
@@ -300,6 +329,10 @@ export class TravelPlanDetailPage {
   }
 
   sharePlanWhatsapp() {
+
+    var msg_load = "";
+    this.translate.get("ERRO AO COMPARTILHAR PLANO NO WHATSAPP.").subscribe(value => { msg_load = value });
+    
     this.socialsharing
       .shareViaWhatsApp(this.getShareMessage())
       .then(() => {
@@ -308,7 +341,7 @@ export class TravelPlanDetailPage {
       .catch(error => {
         this.toast
           .create({
-            message: "Erro ao compartilhar plano no WhatsApp.",
+            message: msg_load,
             duration: 2000,
             position: "bottom"
           })
@@ -319,40 +352,68 @@ export class TravelPlanDetailPage {
 
   getShareMessage() {
     let msg: string = '';
+    var title_msg = '';
+    var periodo_msg = '';
+    var prog_msg = '';
+    var prox_msg = '';
 
-    msg =
-      "*Plano de Viagem*\n\n_Período: " +
+    this.translate.get("PLANO DE VIAGEM").subscribe(value => { title_msg = value });
+    this.translate.get("PERÍODO").subscribe(value => { periodo_msg = value });
+    this.translate.get("PROGRAMAÇÃO").subscribe(value => { prog_msg = value });
+    this.translate.get("PRÓXIMOS DIAS").subscribe(value => { prox_msg = value });
+
+    msg = "*"+title_msg+"*\n\n_"+periodo_msg+": " +
       moment(this.travelPlan.startDateTrip).format("D/MM/YYYY") +
       " - " +
       moment(this.travelPlan.endDateTrip).format("D/MM/YYYY") +
-      "_\n\n*Programação:*\n\n_Hoje_:\n " +
+      "_\n\n*"+prog_msg+":*\n\n_Hoje_:\n " +
       this.getProgramacaoHoje() +
-      "\n\n_Próximos dias_: " + this.getProgramacaoProxDias();
+      "\n\n_"+prox_msg+"_: " + this.getProgramacaoProxDias();
     console.log(msg);
     return msg;
   }
 
   getProgramacaoHoje() : string {
+
+    var cidade_msg = '';
+    var cat_msg = '';
+    var trade_msg = '';
+
+    this.translate.get("CIDADE").subscribe(value => { cidade_msg = value });
+    this.translate.get("CATEGORIA").subscribe(value => { cat_msg = value });
+    this.translate.get("TRADE").subscribe(value => { trade_msg = value });
+
     let msg: string = '';
     this.tradesPlanToday.map(tp =>
       tp.tt.map(travelTrade => {
-        msg += "\nCidade: " + travelTrade.city;
-        msg += "\nCategoria: " + this.getCategoria(travelTrade.categoryType);
-        msg += "\nTrade: " + travelTrade.trade;
+        msg += "\n"+cidade_msg+": " + travelTrade.city;
+        msg += "\n"+cat_msg+": " + this.getCategoria(travelTrade.categoryType);
+        msg += "\n"+trade_msg+": " + travelTrade.trade;
       })
     );
     return msg;
   }
 
   getProgramacaoProxDias() : string {
+
+    var cidade_msg = '';
+    var cat_msg = '';
+    var trade_msg = '';
+    var dia_msg = '';
+
+    this.translate.get("CIDADE").subscribe(value => { cidade_msg = value });
+    this.translate.get("CATEGORIA").subscribe(value => { cat_msg = value });
+    this.translate.get("TRADE").subscribe(value => { trade_msg = value });
+    this.translate.get("DIA").subscribe(value => { dia_msg = value });
+
     let msg: string = '';
     this.tradesPlanNextDays.map(tp => {
-      msg += "\n\nDia: " + moment(tp.date).format("D/MM/YYYY");
+      msg += "\n\n"+dia_msg+": " + moment(tp.date).format("D/MM/YYYY");
 
       tp.tt.map(travelTrade => {
-        msg += "\nCidade: " + travelTrade.city;
-        msg += "\nCategoria:" + this.getCategoria(travelTrade.categoryType);
-        msg += "\nTrade: " + travelTrade.trade;
+        msg += "\n"+cidade_msg+": " + travelTrade.city;
+        msg += "\n"+cat_msg+":" + this.getCategoria(travelTrade.categoryType);
+        msg += "\n"+trade_msg+": " + travelTrade.trade;
       });
     });
     console.log(msg);

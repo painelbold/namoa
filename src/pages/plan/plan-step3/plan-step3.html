@@ -14,14 +14,14 @@
 
 
 <ion-content padding>
-  <h4>{{ 'Meu plano' | translate }}</h4>
-  <p>{{ 'Título' | translate }}: {{tp.title}}</p>
+  <h4>{{ 'MEU PLANO' | translate }}</h4>
+  <p>{{ 'TÍTULO' | translate }}: {{tp.title}}</p>
     <ion-list>
         <ion-item *ngFor="let item of tradesList">
           <ion-label>
-            <p>{{ 'trade' | translate }}: {{item.trade}}<p>
-            <p>{{ 'Categoria' | translate }}: {{visualizarCategoria(item.categoryType)}}</p>
-            <p>{{ 'Período' | translate }}: {{item.startDateTrader | date:'dd/MM'}} até {{item.endDateTrader | date:'dd/MM'}}</p>
+            <p>{{ 'TRADE' | translate }}: {{item.trade}}<p>
+            <p>{{ 'CATEGORIA' | translate }}: {{visualizarCategoria(item.categoryType)}}</p>
+            <p>{{ 'PERÍODO' | translate }}: {{item.startDateTrader | date:'dd/MM'}} {{ 'ATÉ' | translate }} {{item.endDateTrader | date:'dd/MM'}}</p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -37,7 +37,7 @@
           type="button"
           >
           <ion-icon name="arrow-dropleft"></ion-icon>
-          {{ 'Anterior' | translate }}
+          {{ 'ANTERIOR' | translate }}
       </button>
         <button
         ion-button
@@ -47,7 +47,7 @@
         class="submit-btn"
         type="button"
         (click)="confirm()"
-        id="proximo" > {{ 'Confirmar' | translate }}
+        id="proximo" > {{ 'CONFIRMAR' | translate }}
             <ion-icon name="arrow-dropright"></ion-icon>
         </button>
       </ion-buttons>

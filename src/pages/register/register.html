@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="register-content" padding>
-    <h4>Registrar</h4>
+    <h4>>{{ 'REGISTRAR' | translate }}</h4>
     <div class="register-box">
         <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
             <ion-item-group inset>
@@ -58,7 +58,7 @@
             block
             outline
             type="submit"
-            [disabled]="!registerForm.valid">{{ 'Registrar' | translate }}</button>
+            [disabled]="!registerForm.valid">{{ 'REGISTRAR' | translate }}</button>
         </form>
     </div>
 </ion-content>
