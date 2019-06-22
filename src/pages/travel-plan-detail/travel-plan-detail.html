@@ -39,31 +39,38 @@
         </ion-card-header>
         <ion-list>
           <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
-            <ion-label item-content>
-              <p>{{ 'CIDADE:' | translate }} {{trade.city}}</p>
-              <p>{{ 'CATEGORIA:' | translate }}: {{trade.catDescricao}}</p>
-              <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
-            </ion-label>
-            <div item-end class="btn-container">
-              <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
-                <ion-icon name="star-outline"></ion-icon>
-              </button>
-              <button ion-button small clear class="btn-side" color="namoa-color">
-                <ion-icon name="checkmark-circle"></ion-icon>
-              </button>
-            </div>
+
+              <ion-label item-content style="width: 100%;float:left;">
+                <p>{{ 'CIDADE:' | translate }} {{trade.city}}</p>
+                <p>{{ 'CATEGORIA' | translate }}: {{trade.catDescricao}}</p>
+                <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
+              </ion-label>
+
+              <div item-end class="btn-container">
+                <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
+                  <ion-icon name="star-outline"></ion-icon>
+                </button>
+
+                <button *ngIf="!trade.fui" ion-button small clear class="btn-side" color="namoa-color" (click)="informarFui(trade,1)">
+                  <ion-icon name="checkmark-circle"></ion-icon>
+                </button>
+
+                <button *ngIf="!trade.fui" ion-button small clear class="btn-side" color="namoa-color" (click)="informarFui(trade,0)">
+                  <ion-icon name="close-circle"></ion-icon>
+                </button>
+
+                <button *ngIf="trade.fui==='1'" ion-button small clear class="btn-side" color="namoa-color" disabled>
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                </button>
+
+                <button *ngIf="trade.fui==='0'" ion-button small clear class="btn-side" color="namoa-color" disabled>
+                    <ion-icon name="close-circle"></ion-icon>
+                </button>
+              </div>
+
+
             
           </ion-item>
-
-
-            <ion-item>
-                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarFui(trade,1)">
-                  Fui
-                </button>
-                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarNaoFui(trade,0)">
-                  Não Fui
-                </button>
-            </ion-item>
 
         </ion-list>
         <hr class="divider">
@@ -80,30 +87,36 @@
           </ion-card-header>
           <ion-list>
             <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
-              <ion-label item-content>
-                <p>{{ 'CIDADE' | translate }}: {{trade.city}}</p>
-                <p>{{ 'TRADE' | translate }}: {{trade.trade}}</p>
-                <p>{{ 'CATEGORIA:' | translate }}: {{trade.catDescricao}}</p>
-                <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
-              </ion-label>
-              <div item-end class="btn-container">
-                <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
-                  <ion-icon name="star-outline"></ion-icon>
-                </button>
-                <button ion-button small clear class="btn-side" color="namoa-color">
-                  <ion-icon name="checkmark-circle"></ion-icon>
-                </button>
-              </div>
-              </ion-item>
 
-            
-            <ion-item>
-                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarFui(trade,1)">
-                  Fui
-                </button>
-                <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarNaoFui(trade,0)">
-                  Não Fui
-                </button>
+                <ion-label item-content style="width: 100%;float:left;">
+                  <p>{{ 'CIDADE' | translate }}: {{trade.city}}</p>
+                  <p>{{ 'TRADE' | translate }}: {{trade.trade}}</p>
+                  <p>{{ 'CATEGORIA' | translate }}: {{trade.catDescricao}}</p>
+                  <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
+                </ion-label>                
+                    
+                <div item-end class="btn-container">
+                  <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
+                    <ion-icon name="star-outline"></ion-icon>
+                  </button>
+
+                  <button *ngIf="!trade.fui" ion-button small clear class="btn-side" color="namoa-color" (click)="informarFui(trade,1)">
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                  </button>
+                  <button *ngIf="!trade.fui" ion-button small clear class="btn-side" color="namoa-color" (click)="informarFui(trade,0)">
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+
+                  <button *ngIf="trade.fui==='1'" ion-button small clear class="btn-side" color="namoa-color" disabled>
+                      <ion-icon name="checkmark-circle"></ion-icon>
+                  </button>
+
+                  <button *ngIf="trade.fui==='0'" ion-button small clear class="btn-side" color="namoa-color" disabled>
+                      <ion-icon name="close-circle"></ion-icon>
+                  </button>
+                </div>
+
+
             </ion-item>
 
 
@@ -122,30 +135,37 @@
               </ion-card-header>
               <ion-list>
                 <ion-item *ngFor="let trade of item.tt" class="trade-item" class="item-text-wrap">
-                  <ion-label item-content>
+
+                  <ion-label item-content style="width: 100%;float:left;">
                     <p>{{ 'CIDADE' | translate }}: {{trade.city}}</p>
                     <p>{{ 'Trade' | translate }}: {{trade.trade}}</p>
-                    <p>{{ 'CATEGORIA:' | translate }}: {{trade.catDescricao}}</p>
-                    <p *ngIf="item.tt.length > 1">Orçamento: {{trade.avgPrice | currency:"BRL"}}</p>
-                  </ion-label>
+                    <p>{{ 'CATEGORIA' | translate }}: {{trade.catDescricao}}</p>
+                    <p *ngIf="item.tt.length > 1">{{ 'ORÇAMENTO' | translate }}: {{trade.avgPrice | currency:"BRL"}}</p>
+                  </ion-label>                 
+
                   <div item-end class="btn-container">
                     <button ion-button small clear class="btn-side" color="namoa-color" (click)="openModal(item.date, trade.trade)">
                       <ion-icon name="star-outline"></ion-icon>
                     </button>
-                    <button ion-button small clear class="btn-side" color="namoa-color">
+
+                    <button *ngIf="!trade.fui" ion-button small clear class="btn-side" color="namoa-color" (click)="informarFui(trade,1)">
                       <ion-icon name="checkmark-circle"></ion-icon>
                     </button>
+                    <button *ngIf="!trade.fui" ion-button small clear class="btn-side" color="namoa-color" (click)="informarFui(trade,0)">
+                      <ion-icon name="close-circle"></ion-icon>
+                    </button>
+
+
+                    <button *ngIf="trade.fui==='1'" ion-button small clear class="btn-side" color="namoa-color" disabled>
+                        <ion-icon name="checkmark-circle"></ion-icon>
+                    </button>
+
+                    <button *ngIf="trade.fui==='0'" ion-button small clear class="btn-side" color="namoa-color" disabled>
+                        <ion-icon name="close-circle"></ion-icon>
+                    </button>
+
                   </div>
 
-                </ion-item>
-                
-                <ion-item>
-                    <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarFui(trade,1)">
-                      Fui
-                    </button>
-                    <button ion-button small clear style="float:right;" color="namoa-color" (click)="informarNaoFui(trade,0)">
-                      Não Fui
-                    </button>
                 </ion-item>
 
 
@@ -158,4 +178,5 @@
 
   </ion-list>
   <p>{{ 'ORÇAMENTO TOTAL' | translate }}: {{formatter.format(orcamentoTotal)}}</p>
+  <p>{{ 'ORÇAMENTO EFETIVO' | translate }}: {{formatter.format(orcamentoEfetivo)}}</p>
 </ion-content>

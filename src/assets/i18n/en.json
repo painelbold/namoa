@@ -292,6 +292,10 @@
 "ERRO NA REMOÇÃO DO PLANO DE VIAGEM.":"Error removing travel plan",
 "PLANO DE VIAGEM REMOVIDO.":"Travel plan removed",
 "ERRO AO COMPARTILHAR PLANO NO WHATSAPP.":"Error sharing plan in WhatsApp",
-"ERRO AO COMPARTILHAR PLANO NO WHATSAPP. PLANO DE VIAGEM REMOVIDO.":"Error sharing plan in WhatsApp. Trip plan removed."
+"ERRO AO COMPARTILHAR PLANO NO WHATSAPP. PLANO DE VIAGEM REMOVIDO.":"Error sharing plan in WhatsApp. Trip plan removed.",
+
+"ORÇAMENTO EFETIVO":"Spent budget",
+"EU FUI":"I went to this trade",
+"EU NÃO FUI":"I did not go to this trade"
 
 }

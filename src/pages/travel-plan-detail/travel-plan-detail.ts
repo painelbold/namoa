@@ -42,8 +42,11 @@ export class TravelPlanDetailPage {
   tradesPlanPrevDays: Array<{ date: Date; tt: Array<TravelTrade> }>;
 
   orcamentoTotal: number;
+  orcamentoEfetivo: number = 0;
   loading: Loading;
   formatter: Intl.NumberFormat;
+
+  listaTradeFui: any = [];
 
   call: number = 0;
 
@@ -84,10 +87,31 @@ export class TravelPlanDetailPage {
         this.getOrcamentoTotal();
         this.loading.dismiss();
         subscribe.unsubscribe();
-
-        console.log("this.tradeList",this.tradeList);
-        console.log("this.tradesPlan",this.tradesPlan);
       });
+
+
+      var payloadGP = {
+        "plano_trade_id_app": this.travelPlan.key
+      }
+      let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+      let options = new RequestOptions({ headers: headers });
+      this.http.post('http://namoa.vivainovacao.com/api/home/getListaFui/',
+                        payloadGP, options).map(res => res.json()).subscribe(data => {
+
+              this.listaTradeFui = data;
+
+              var atPLTR = this.tradesPlan[0].tt;
+              atPLTR.map(item=>{
+
+                var ret = this.listaTradeFui.filter(el=> el.plano_trade_id_app === item.key)
+
+                if(ret.length>0){
+                  item.fui = ret[0].status
+                }
+              })
+
+              this.getOrcamentoEfetivo();
+      })  
 
       this.http.get('http://namoa.vivainovacao.com/api/home/tipoCategorias/').map(res => res.json()).subscribe(data => {
           localStorage.setItem("categorias", JSON.stringify(data[0]));
@@ -204,13 +228,62 @@ export class TravelPlanDetailPage {
   }
 
   informarFui(dados,status){
-    console.log("dados Fui",dados)
-    console.log("status Fui",status)
+    
+    var title_alert = "";
+    var message_alert = "";
 
-
-
+    if(status===1){
+        this.translate.get("EU FUI").subscribe(value => { title_alert = value });
+        this.translate.get("EU FUI?").subscribe(value => { message_alert = value });
+    }else{
+        this.translate.get("EU NÃO FUI").subscribe(value => { title_alert = value });
+        this.translate.get("EU NÃO FUI?").subscribe(value => { message_alert = value });
+    }
 
     
+    let alert = this.alertCtrl.create({
+      message: message_alert,
+      buttons: [
+        {
+          text: "Cancelar",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          }
+        },
+        {
+          text: "Confirmar",
+          handler: () => {
+
+              var payload_fui = {
+                "trade": dados.trade,
+                "tipoCategoria": dados.categoryType,
+                "categoria": dados.category,
+                "cidade": dados.city,
+                "startDateTrader": dados.startDateTrader,
+                "endDateTrader": dados.endDateTrader,
+                "usuario": localStorage.getItem("loggedUserKey"),
+                "custo_previsto": dados.avgPrice,
+                "custo_efetivo": dados.avgPrice,
+                "status": status,
+                "plano_trade_id_app": dados.key,
+                "travel_plan_id_app": this.travelPlan.key
+              }
+              let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+              let options = new RequestOptions({ headers: headers });
+
+              this.http.post('http://namoa.vivainovacao.com/api/home/informarfui/',
+                              payload_fui, options).map(res => res.json()).subscribe(data => {
+                                console.log("data FUI",data)
+
+              })
+
+          }
+        }
+      ]
+    });
+    alert.present();
+
   }
 
 
@@ -229,6 +302,16 @@ export class TravelPlanDetailPage {
     this.tradesPlan.map(i => {
       i.tt.map(j => {
         this.orcamentoTotal += j.avgPrice;
+      });
+    });
+  }
+
+  getOrcamentoEfetivo() {
+    this.tradesPlan.map(i => {
+      i.tt.map(j => {
+        if(j.fui==="1"){
+          this.orcamentoEfetivo += j.avgPrice;
+        }
       });
     });
   }

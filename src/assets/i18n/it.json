@@ -285,13 +285,15 @@
 "DIA":"Giorno",
 "CIDADE":"Città",
 "CATEGORIA":"Categoria",
-
 "DIAS ANTERIORES":"Giorni precedenti",
 "EDITAR PLANO":"Modifica piano",
 "CARREGANDO DETALHES DO PLANO":"Caricamento dei dettagli del piano",
 "ERRO NA REMOÇÃO DO PLANO DE VIAGEM.":"Errore durante la rimozione del piano di viaggio",
 "PLANO DE VIAGEM REMOVIDO.":"Piano di viaggio rimosso",
 "ERRO AO COMPARTILHAR PLANO NO WHATSAPP.":"Errore durante la condivisione del piano in WhatsApp",
-"ERRO AO COMPARTILHAR PLANO NO WHATSAPP. PLANO DE VIAGEM REMOVIDO.":"Errore durante la condivisione del piano in WhatsApp. Piano di viaggio rimosso."
+"ERRO AO COMPARTILHAR PLANO NO WHATSAPP. PLANO DE VIAGEM REMOVIDO.":"Errore durante la condivisione del piano in WhatsApp. Piano di viaggio rimosso.",
+"ORÇAMENTO EFETIVO":"Budget speso",
+"EU FUI":"Sono andato a questo trade",
+"EU NÃO FUI":"Non sono andato a questo mestiere"
 
 }
