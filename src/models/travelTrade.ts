@@ -11,4 +11,5 @@ export class TravelTrade{
     publishDate: any;
     avgPrice: number;
     catDescricao: string;
+    fui: string;
 }
