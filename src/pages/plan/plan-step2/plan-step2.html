@@ -28,8 +28,9 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
-          <ion-label>{{ 'CIDADE' | translate }}</ion-label>
+      <ion-item
+        *ngIf="step2Form.controls['estado'].valid">
+        <ion-label>{{ 'CIDADE' | translate }}</ion-label>
           <ion-select formControlName="city">
             
             <ion-option *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" required>
@@ -43,8 +44,8 @@
           </ion-select>
       </ion-item>
 
-
-      <ion-item>
+      <ion-item
+        *ngIf="step2Form.controls['city'].valid">
           <ion-label>{{ 'CATEGORIA' | translate }}</ion-label>
           <ion-select formControlName="categoryType" (ionChange)="getCategoria($event);" id="tpCategoria" name="tpCategoria">
             <ion-option *ngFor="let t of tpCategoria" value="{{t.id}}" required>
@@ -81,8 +82,9 @@
           </ion-select>
           </ion-item>
 
-          <ion-item>
-          <ion-label>{{ 'DATA DE INÍCIO' | translate }}</ion-label>
+          <ion-item
+            *ngIf="step2Form.controls['trade'].valid">
+            <ion-label>{{ 'DATA DE INÍCIO' | translate }}</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY"
             [min]="minDate"
             [max]="tp.endDateTrip"
@@ -91,7 +93,8 @@
             required
             ></ion-datetime>
           </ion-item>
-          <ion-item>
+          <ion-item
+            *ngIf="step2Form.controls['startDateTrader'].valid">
             <ion-label>{{ 'DATA FINAL' | translate }}</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY"
             [min]="minEndDate"

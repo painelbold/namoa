@@ -124,9 +124,9 @@ export class PlanStep2Page {
     //this.getSugestoes();
     // this.getTrade();
     this.minDate = this.tp.startDateTrip;
-    this.step2Form.patchValue({
-      startDateTrader: this.minDate
-    });
+    // this.step2Form.patchValue({
+    //   startDateTrader: this.minDate
+    // });
     this.minEndDate = this.minDate;
     this.tradesList = new Array<TravelTrade>();
     this.addTradesList = new Array<TravelTrade>();
@@ -165,7 +165,7 @@ export class PlanStep2Page {
           let elementMax = 0;
 
           newSugestoes.map(item => {
-            if (cidades.includes(item.cidade) && item.valor > elementMax) {
+            if (cidades.indexOf(item.cidade) > -1 && item.valor > elementMax) {
               elementMax = item.valor;
               this.optionSugestao.push(item);
             }
