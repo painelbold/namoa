@@ -100,8 +100,8 @@ export class PlanStep2Page {
   }
 
   private populateDropdowns() {
-    
-    
+
+
     this.estados = [];
     this.cidades = [];
     this.tpCategoria = [];
@@ -121,7 +121,7 @@ export class PlanStep2Page {
 
     this.getEstado();
     this.getTipoCategoria();
-    this.getSugestoes();
+    //this.getSugestoes();
     // this.getTrade();
     this.minDate = this.tp.startDateTrip;
     this.step2Form.patchValue({
@@ -143,50 +143,50 @@ export class PlanStep2Page {
       payload_questionario, options).map(res => res.json()).subscribe(data => {
         
           //CONVERTENDO LISTA EM ARRAY COM DADOS
-          var new_city_choices = data.city_choices;
-          var newSugestoes = [];
-          var chavesCidades = Object.keys(new_city_choices);
-          // var valueCidades = Object.values(new_city_choices); 
+          let new_city_choices = data.city_choices;
+          let newSugestoes = [];
+          let chavesCidades = Object.keys(new_city_choices);
+          let cidades = [];
+          this.optionSugestao = [];
 
-          for(var loop = 0; loop < chavesCidades.length; loop++){
-              
-              var elemento = {
+          for (let loop = 0; loop < chavesCidades.length; loop++) {
+            let elemento = {
                 cidade: chavesCidades[loop],
                 valor: data.city_choices[chavesCidades[loop]]
-              }
+              };
               newSugestoes.push(elemento);
           }
 
+          for (let loop = 0; loop < this.cidades.length; loop++) {
+            cidades.push(this.cidades[loop]['nome_cidade']);
+          }
+
           //PEGANDO VALOR MAIOR DA SUGESTAO
-          var elementMax = 0;
+          let elementMax = 0;
 
           newSugestoes.map(item => {
-            if(item.valor>elementMax){
+            if (cidades.includes(item.cidade) && item.valor > elementMax) {
               elementMax = item.valor;
               this.optionSugestao.push(item);
             }
-          })
+          });
 
           //VERIFICÇÃO DE SUGESTÃO DE TRADE
+          let new_trade_choices = data.trade_choices;
+          let newSugestoesTrade = [];
+          let chavesTrade = Object.keys(new_trade_choices);
 
-          var new_trade_choices = data.trade_choices;
-          var newSugestoesTrade = [];
-          var chavesTrade = Object.keys(new_trade_choices);
-          // var valueTrade = Object.values(new_trade_choices); 
-
-          for(var loop = 0; loop < chavesTrade.length; loop++){
-              var elementoTrade = {
-                trade: chavesTrade[loop],
-                valor: data.trade_choices[chavesTrade[loop]]
-              }
-              newSugestoesTrade.push(elementoTrade);
+          for(let loop = 0; loop < chavesTrade.length; loop++){
+            let elementoTrade = {
+              trade: chavesTrade[loop],
+              valor: data.trade_choices[chavesTrade[loop]]
+            };
+            newSugestoesTrade.push(elementoTrade);
           }
 
-          // console.log("newSugestoesTrade",newSugestoesTrade)
-
           //PEGANDO VALOR MAIOR DA SUGESTAO
-          var elementMaxTrade = 0;
-          
+          let elementMaxTrade = 0;
+
           newSugestoesTrade.map(itemT => {
             if(itemT.valor>elementMaxTrade){
               elementMaxTrade = itemT.valor;
@@ -195,13 +195,13 @@ export class PlanStep2Page {
             }
           })
 
+
       })
   }
 
   getTradeSugestao(id){
 
       this.http.get('http://namoa.vivainovacao.com/api/home/getTrade/'+id).map(res => res.json()).subscribe(data => {
-          // console.log("data",data[0]);
           this.resultTrade = data[0];
       },err =>{
           this.getTradeSugestao(id);
@@ -213,7 +213,6 @@ export class PlanStep2Page {
       this.createLoading();
 
       this.http.get('http://namoa.vivainovacao.com/api/home/estado/').map(res => res.json()).subscribe(data => {
-          // console.log("data",data[0]);
           this.estados = data[0];
           this.loading.dismiss();
       },err =>{
@@ -225,15 +224,15 @@ export class PlanStep2Page {
 
   getCidades(estado){
 
-    if(estado!=""){
-
-    this.createLoading();
+    if (estado != "") {
+      this.createLoading();
       this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
-          this.cidades = data[0];
-          this.loading.dismiss();
+            this.cidades = data[0];
+            this.getSugestoes();
+            this.loading.dismiss();
       },err =>{
-          this.loading.dismiss();
-          this.getCidades(estado);
+            this.loading.dismiss();
+            this.getCidades(estado);
       })
     }
 
@@ -253,11 +252,7 @@ export class PlanStep2Page {
   getCategoria(tipo){
 
     this.createLoading();
-
-    // console.log("Estado Selecionado",tipo);
-
     this.http.get('http://namoa.vivainovacao.com/api/home/categorias/'+tipo).map(res => res.json()).subscribe(data => {
-        // console.log("data",data[0]);
         this.categoria = data[0];
         this.loading.dismiss();
     }, err =>{
@@ -274,10 +269,8 @@ export class PlanStep2Page {
       this.createLoading();
       
       this.http.get('http://namoa.vivainovacao.com/api/home/trade/'+encodeURI(this.step2Form.value.city)+'/'+subcategoria).map(res => res.json()).subscribe(data => {
-            // console.log("data TRADE",data[0]);
             this.trade = data[0];
             this.loading.dismiss();
-            // console.log("this.trade",this.trade)
         },err =>{
             this.loading.dismiss();
             this.getTrade(subcategoria);
@@ -316,15 +309,9 @@ export class PlanStep2Page {
   addTrade() {
     this.travelTrade = this.step2Form.value;
 
-    
-    // this.travelTrade.avgPrice = this.tradePrice[
-    //   Math.floor(Math.random() * this.tradePrice.length)
-    // ];
-    // console.log("this.trade",this.trade)
     var tradePrice = this.trade.filter(el => el.descricao === this.travelTrade.trade)
     this.travelTrade.avgPrice = (parseInt(tradePrice[0].min_value)+ parseInt(tradePrice[0].max_value))/2;
 
-    // console.log("this.travelTrade.avgPrice",this.travelTrade.avgPrice)
     this.addTradesList.push(this.travelTrade);
     this.tradesList.push(this.travelTrade);
     this.travelTrade = new TravelTrade();

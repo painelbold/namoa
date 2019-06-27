@@ -68,15 +68,13 @@
         *ngIf="step2Form.controls['category'].valid">
             <ion-label>{{ 'TRADE' | translate }}</ion-label>
             <ion-select formControlName="trade" id="trade" name="trade" required>
+<!--              <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{sugestaoTrade.descricao}}" required>-->
+<!--                {{ 'SUGESTÃO' | translate }}: {{sugestaoTrade.descricao}}-->
+<!--              </ion-option>-->
 
-              <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{sugestaoTrade.descricao}}" required>
-                {{ 'SUGESTÃO' | translate }}: {{sugestaoTrade.descricao}}
-              </ion-option>
-
-              <ion-option value="Restaurante Amado" required>
-                {{ 'PATROCINADO' | translate }}: Restaurante Amado
-              </ion-option>
-
+<!--              <ion-option value="Restaurante Amado" required>-->
+<!--                {{ 'PATROCINADO' | translate }}: Restaurante Amado-->
+<!--              </ion-option>-->
               <ion-option *ngFor="let t of trade" value="{{t.descricao}}" required>
                 {{t.descricao}}
               </ion-option>
