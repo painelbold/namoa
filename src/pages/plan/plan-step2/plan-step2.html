@@ -31,16 +31,11 @@
       <ion-item
         *ngIf="step2Form.controls['estado'].valid">
         <ion-label>{{ 'CIDADE' | translate }}</ion-label>
-          <ion-select formControlName="city">
-            
-            <ion-option *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" required>
-              {{ 'SUGESTÃO' | translate }}: {{sugestao.cidade}}
-            </ion-option>
-            
+          <ion-select text-wrap="inherit" formControlName="city">
+            <ion-option text-wrap *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" disabled ="{{ sugestao.valor == '-1' }}" required>{{ 'SUGESTÃO' | translate }}: {{sugestao.cidade}}</ion-option>
             <ion-option *ngFor="let c of cidades" value="{{c.nome_cidade}}" required>
               {{c.nome_cidade}}
             </ion-option>
-
           </ion-select>
       </ion-item>
 
@@ -68,15 +63,12 @@
         <ion-item
         *ngIf="step2Form.controls['category'].valid">
             <ion-label>{{ 'TRADE' | translate }}</ion-label>
-            <ion-select formControlName="trade" id="trade" name="trade" required>
-<!--              <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{sugestaoTrade.descricao}}" required>-->
-<!--                {{ 'SUGESTÃO' | translate }}: {{sugestaoTrade.descricao}}-->
-<!--              </ion-option>-->
-
-<!--              <ion-option value="Restaurante Amado" required>-->
-<!--                {{ 'PATROCINADO' | translate }}: Restaurante Amado-->
-<!--              </ion-option>-->
-              <ion-option *ngFor="let t of trade" value="{{t.descricao}}" required>
+            <ion-select text-wrap="inherit" formControlName="trade" id="trade" name="trade" required>
+              <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{ sugestaoTrade.descricao }}" disabled ="{{ sugestaoTrade.id == '-1' }}"  required>
+                {{ 'SUGESTÃO' | translate }}: {{ sugestaoTrade.descricao }}
+              </ion-option>
+              <ion-option disabled value="Restaurante Amado" disabled ="{{ true }}" required>{{ 'PATROCINADO' | translate }}: Não há trade patrocinado para essa subcategoria nesta cidade. Seja o primeiro.</ion-option>
+              <ion-option *ngFor="let t of trade" value="{{ t.descricao }}" required>
                 {{t.descricao}}
               </ion-option>
           </ion-select>

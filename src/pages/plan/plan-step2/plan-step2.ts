@@ -165,11 +165,15 @@ export class PlanStep2Page {
           let elementMax = 0;
 
           newSugestoes.map(item => {
-            if (cidades.indexOf(item.cidade) > -1 && item.valor > elementMax) {
+            if ((cidades.indexOf(item.cidade) > -1) && (item.valor > elementMax)) {
               elementMax = item.valor;
               this.optionSugestao.push(item);
             }
           });
+
+          if (!this.optionSugestao.length) {
+            this.optionSugestao.push({cidade: 'Não há sugestão de cidade para esse estado.', valor: '-1'});
+          }
 
           //VERIFICÇÃO DE SUGESTÃO DE TRADE
           let new_trade_choices = data.trade_choices;
@@ -200,12 +204,12 @@ export class PlanStep2Page {
   }
 
   getTradeSugestao(id){
-
-      this.http.get('http://namoa.vivainovacao.com/api/home/getTrade/'+id).map(res => res.json()).subscribe(data => {
-          this.resultTrade = data[0];
-      },err =>{
-          this.getTradeSugestao(id);
-      });
+      this.resultTrade = [{id: '-1', descricao: 'Não há sugestão de trade para essa subcategoria nesta cidade.'}];
+      // this.http.get('http://namoa.vivainovacao.com/api/home/getTrade/'+id).map(res => res.json()).subscribe(data => {
+      //     this.resultTrade = data[0];
+      // },err =>{
+      //     this.getTradeSugestao(id);
+      // });
 
   }
 
