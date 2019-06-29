@@ -40,6 +40,8 @@ export class PlanStep2Page {
   formTitle: string;
   loading: Loading;
 
+  ver_outros: number = 0;
+
   minDate: any;
   minEndDate: any;
 
@@ -313,8 +315,12 @@ export class PlanStep2Page {
   addTrade() {
     this.travelTrade = this.step2Form.value;
 
-    var tradePrice = this.trade.filter(el => el.descricao === this.travelTrade.trade)
-    this.travelTrade.avgPrice = (parseInt(tradePrice[0].min_value)+ parseInt(tradePrice[0].max_value))/2;
+    if(this.travelTrade.trade=="outros"){
+        this.travelTrade.avgPrice = this.travelTrade.valor_medio;
+    }else{
+        var tradePrice = this.trade.filter(el => el.descricao === this.travelTrade.trade)
+        this.travelTrade.avgPrice = (parseInt(tradePrice[0].min_value)+ parseInt(tradePrice[0].max_value))/2;
+    }
 
     this.addTradesList.push(this.travelTrade);
     this.tradesList.push(this.travelTrade);
@@ -337,6 +343,16 @@ export class PlanStep2Page {
       
   }
 
+  verificaTrade(optTrade){
+
+    if(optTrade==="outros"){
+      this.ver_outros = 1;
+    }else{
+      this.ver_outros = 0;
+    }
+
+  }
+
   createForm() {
     
     this.step2Form = this.formBuilder.group({
@@ -346,7 +362,9 @@ export class PlanStep2Page {
       category: ["", Validators.required],
       trade: ["", Validators.required],
       startDateTrader: ["", Validators.required],
-      endDateTrader: ["", Validators.required]
+      endDateTrader: ["", Validators.required],
+      outros: [""],
+      valor_medio: [""]
     });
   }
 

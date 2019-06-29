@@ -12,4 +12,6 @@ export class TravelTrade{
     avgPrice: number;
     catDescricao: string;
     fui: string;
+    outros: string;
+    valor_medio: string;
 }

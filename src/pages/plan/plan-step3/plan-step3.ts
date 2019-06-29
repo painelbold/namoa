@@ -114,7 +114,10 @@ export class PlanStep3Page {
                    "estado" : item.estado ,
                    "trade" : item.trade ,
                    "avgPrice" : item.avgPrice ,
-                   "usuario" : localStorage.getItem('loggedUserKey')
+                   "usuario" : localStorage.getItem('loggedUserKey'),
+                   "outros": item.outros,
+                   "valor_medio": item.valor_medio
+
               }
 
               // console.log("payload_tradeList",payload_tradeList)

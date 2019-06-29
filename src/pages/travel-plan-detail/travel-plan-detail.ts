@@ -349,7 +349,7 @@ export class TravelPlanDetailPage {
 
     if (tt) {
       tt.map(item => {
-        sum += item.avgPrice;
+        sum += parseFloat(item.avgPrice);
       });
       return sum;
     }
@@ -358,7 +358,7 @@ export class TravelPlanDetailPage {
   getOrcamentoTotal() {
     this.tradesPlan.map(i => {
       i.tt.map(j => {
-        this.orcamentoTotal += j.avgPrice;
+        this.orcamentoTotal += parseFloat(j.avgPrice);
       });
     });
   }
@@ -367,7 +367,7 @@ export class TravelPlanDetailPage {
     this.tradesPlan.map(i => {
       i.tt.map(j => {
         if(j.fui==="1"){
-          this.orcamentoEfetivo += j.avgPrice;
+          this.orcamentoEfetivo += parseFloat(j.avgPrice);
         }
       });
     });
