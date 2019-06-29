@@ -11,5 +11,5 @@
   <ion-tabs tabsPlacement ="top" class="tabs-icon-top">
       <ion-tab class="tab" [root]="step1TAB" [tabTitle]="'PASSO 1' | translate" tabIcon="copy" [enabled]="getEnableStep1()" [rootParams]="editTravelPlan"></ion-tab>
       <ion-tab class="tab" [root]="step2TAB" [tabTitle]="'PASSO 2' | translate" tabIcon="person" [enabled]="getEnableStep2()"></ion-tab>
-      <ion-tab class="tab" [root]="step3TAB" [tabTitle]="'PASSO 3' | translate" tabIcon="list-box" [enabled]="getEnableStep3()"></ion-tab>
+      <ion-tab class="tab" [root]="step3TAB" [tabTitle]="'PASSO 3' | translate" tabIcon="list-box" [enabled]="getEnableStep3()" [rootParams]="editTravelPlan"></ion-tab>
     </ion-tabs>
