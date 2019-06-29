@@ -73,6 +73,8 @@ export class PlanStep3Page {
     this.createLoading();
     this.tpProvider.save(this.tp, localStorage.getItem('loggedUserKey'))
     .then((result:any)=>{
+      this.navParams.data = this.tp;
+
       if(this.removeTradesList.length > 0){
         this.tptProvider.deleteList(this.removeTradesList, result);
       }
@@ -84,7 +86,7 @@ export class PlanStep3Page {
               "startDateTrip" : this.tp.startDateTrip,
               "endDateTrip" : this.tp.endDateTrip,
               "usuario" : localStorage.getItem('loggedUserKey')
-          }
+          };
           // console.log("payload_plano",payload_plano);
           let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
           let options = new RequestOptions({ headers: headers });
@@ -112,7 +114,10 @@ export class PlanStep3Page {
                    "estado" : item.estado ,
                    "trade" : item.trade ,
                    "avgPrice" : item.avgPrice ,
-                   "usuario" : localStorage.getItem('loggedUserKey')
+                   "usuario" : localStorage.getItem('loggedUserKey'),
+                   "outros": item.outros,
+                   "valor_medio": item.valor_medio
+
               }
 
               // console.log("payload_tradeList",payload_tradeList)
@@ -122,22 +127,16 @@ export class PlanStep3Page {
               this.http.post('http://namoa.vivainovacao.com/api/home/createTrade/',
                           payload_tradeList, options
               ).map(res => res.json()).subscribe(data => {
-
-                  // console.log("data retorno trade List insert",data[0])
-                  
                   this.toastController.create({message: "Plano criado com sucesso", duration: 2000, position: "bottom"}).present();
-                  this.app.nav.setRoot(TravelPlansListPage);
-
               })
 
             })
 
-
           });
 
+      });
 
-        
-      })
+      this.app.nav.setRoot(TravelPlansListPage);
       this.loading.dismiss();
     })
     .catch((error) => {

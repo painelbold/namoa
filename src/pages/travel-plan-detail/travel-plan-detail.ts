@@ -349,7 +349,7 @@ export class TravelPlanDetailPage {
 
     if (tt) {
       tt.map(item => {
-        sum += item.avgPrice;
+        sum += parseFloat(item.avgPrice);
       });
       return sum;
     }
@@ -358,7 +358,7 @@ export class TravelPlanDetailPage {
   getOrcamentoTotal() {
     this.tradesPlan.map(i => {
       i.tt.map(j => {
-        this.orcamentoTotal += j.avgPrice;
+        this.orcamentoTotal += parseFloat(j.avgPrice);
       });
     });
   }
@@ -367,7 +367,7 @@ export class TravelPlanDetailPage {
     this.tradesPlan.map(i => {
       i.tt.map(j => {
         if(j.fui==="1"){
-          this.orcamentoEfetivo += j.avgPrice;
+          this.orcamentoEfetivo += parseFloat(j.avgPrice);
         }
       });
     });
@@ -470,7 +470,7 @@ export class TravelPlanDetailPage {
 
   sharePlanWhatsapp() {
 
-    var msg_load = "";
+    let msg_load = "";
     this.translate.get("ERRO AO COMPARTILHAR PLANO NO WHATSAPP.").subscribe(value => { msg_load = value });
     
     this.socialsharing
@@ -491,25 +491,37 @@ export class TravelPlanDetailPage {
   }
 
   getShareMessage() {
-    let msg: string = '';
-    var title_msg = '';
-    var periodo_msg = '';
-    var prog_msg = '';
-    var prox_msg = '';
+    let msg: string;
+    let title_msg = '';
+    let periodo_msg = '';
+    let prog_msg = '';
+    let prox_msg = '';
+    let hoje = this.getProgramacaoHoje();
+    let proximo = this.getProgramacaoProxDias();
 
     this.translate.get("PLANO DE VIAGEM").subscribe(value => { title_msg = value });
     this.translate.get("PERÍODO").subscribe(value => { periodo_msg = value });
     this.translate.get("PROGRAMAÇÃO").subscribe(value => { prog_msg = value });
     this.translate.get("PRÓXIMOS DIAS").subscribe(value => { prox_msg = value });
 
-    msg = "*"+title_msg+"*\n\n_"+periodo_msg+": " +
+    msg = "*" + title_msg + "*\n\n_" + periodo_msg + ": " +
       moment(this.travelPlan.startDateTrip).format("D/MM/YYYY") +
       " - " +
       moment(this.travelPlan.endDateTrip).format("D/MM/YYYY") +
-      "_\n\n*"+prog_msg+":*\n\n_Hoje_:\n " +
-      this.getProgramacaoHoje() +
-      "\n\n_"+prox_msg+"_: " + this.getProgramacaoProxDias();
-    console.log(msg);
+      "_\n\n*" + prog_msg + ":*\n";
+
+    if (hoje.length || proximo.length) {
+      if (hoje.length) {
+        msg += "\n_Hoje_:\n " + hoje + "\n";
+      }
+      if (proximo.length) {
+        msg += "\n_" + prox_msg + "_: " + proximo + "\n";
+      }
+    } else {
+      msg += "\n_Sem Programação_\n";
+    }
+
+    console.log('getShareMessage', msg);
     return msg;
   }
 
@@ -531,6 +543,7 @@ export class TravelPlanDetailPage {
         msg += "\n"+trade_msg+": " + travelTrade.trade;
       })
     );
+    console.log('getProgramacaoHoje', msg);
     return msg;
   }
 
@@ -556,7 +569,7 @@ export class TravelPlanDetailPage {
         msg += "\n"+trade_msg+": " + travelTrade.trade;
       });
     });
-    console.log(msg);
+    console.log('getProgramacaoProxDias', msg);
     return msg;
   }
 }

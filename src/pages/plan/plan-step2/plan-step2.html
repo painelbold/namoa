@@ -28,23 +28,19 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
-          <ion-label>{{ 'CIDADE' | translate }}</ion-label>
-          <ion-select formControlName="city">
-            
-            <ion-option *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" required>
-              {{ 'SUGESTÃO' | translate }}: {{sugestao.cidade}}
-            </ion-option>
-            
+      <ion-item
+        *ngIf="step2Form.controls['estado'].valid">
+        <ion-label>{{ 'CIDADE' | translate }}</ion-label>
+          <ion-select text-wrap="inherit" formControlName="city">
+            <ion-option text-wrap *ngFor="let sugestao of optionSugestao" value="{{sugestao.cidade}}" disabled ="{{ sugestao.valor == '-1' }}" required>{{ 'SUGESTÃO' | translate }}: {{sugestao.cidade}}</ion-option>
             <ion-option *ngFor="let c of cidades" value="{{c.nome_cidade}}" required>
               {{c.nome_cidade}}
             </ion-option>
-
           </ion-select>
       </ion-item>
 
-
-      <ion-item>
+      <ion-item
+        *ngIf="step2Form.controls['city'].valid">
           <ion-label>{{ 'CATEGORIA' | translate }}</ion-label>
           <ion-select formControlName="categoryType" (ionChange)="getCategoria($event);" id="tpCategoria" name="tpCategoria">
             <ion-option *ngFor="let t of tpCategoria" value="{{t.id}}" required>
@@ -67,24 +63,35 @@
         <ion-item
         *ngIf="step2Form.controls['category'].valid">
             <ion-label>{{ 'TRADE' | translate }}</ion-label>
-            <ion-select formControlName="trade" id="trade" name="trade" required>
-
-              <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{sugestaoTrade.descricao}}" required>
-                {{ 'SUGESTÃO' | translate }}: {{sugestaoTrade.descricao}}
+            <ion-select text-wrap="inherit" formControlName="trade" id="trade" name="trade" (ionChange)="verificaTrade($event);" required>
+              <ion-option *ngFor="let sugestaoTrade of resultTrade" value="{{ sugestaoTrade.descricao }}" disabled ="{{ sugestaoTrade.id == '-1' }}"  required>
+                {{ 'SUGESTÃO' | translate }}: {{ sugestaoTrade.descricao }}
               </ion-option>
-
-              <ion-option value="Restaurante Amado" required>
-                {{ 'PATROCINADO' | translate }}: Restaurante Amado
-              </ion-option>
-
-              <ion-option *ngFor="let t of trade" value="{{t.descricao}}" required>
+              <ion-option disabled value="Restaurante Amado" disabled ="{{ true }}" required>{{ 'PATROCINADO' | translate }}: Não há trade patrocinado para essa subcategoria nesta cidade. Seja o primeiro.</ion-option>
+              <ion-option *ngFor="let t of trade" value="{{ t.descricao }}" required>
                 {{t.descricao}}
               </ion-option>
+
+              <ion-option value="outros" required>
+                Outros
+              </ion-option>
+
           </ion-select>
           </ion-item>
 
-          <ion-item>
-          <ion-label>{{ 'DATA DE INÍCIO' | translate }}</ion-label>
+          <ion-item *ngIf="ver_outros===1">
+            <ion-label floating>Outros</ion-label>
+            <ion-input type="text" formControlName="outros"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="ver_outros===1">
+            <ion-label floating>Valor Médio</ion-label>
+            <ion-input type="text" formControlName="valor_medio"></ion-input>
+          </ion-item>
+
+          <ion-item
+            *ngIf="step2Form.controls['trade'].valid">
+            <ion-label>{{ 'DATA DE INÍCIO' | translate }}</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY"
             [min]="minDate"
             [max]="tp.endDateTrip"
@@ -93,7 +100,8 @@
             required
             ></ion-datetime>
           </ion-item>
-          <ion-item>
+          <ion-item
+            *ngIf="step2Form.controls['startDateTrader'].valid">
             <ion-label>{{ 'DATA FINAL' | translate }}</ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY"
             [min]="minEndDate"
