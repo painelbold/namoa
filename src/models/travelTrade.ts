@@ -9,9 +9,9 @@ export class TravelTrade{
     category: string;
     trade: string;
     publishDate: any;
-    avgPrice: number;
+    avgPrice: any;
     catDescricao: string;
     fui: string;
     outros: string;
-    valor_medio: string;
+    valor_medio: any;
 }
