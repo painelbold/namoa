@@ -105,3 +105,8 @@
 .login-content .logo-row{
     margin-top:20%;
 }
+
+ion-app.platform-ios12 ion-content { 
+    pointer-events: auto; 
+}
+
