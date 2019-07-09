@@ -201,7 +201,7 @@ export class PlanStep2Page {
             }
           })
 
-
+          this.loading.dismiss()
       })
   }
 
@@ -235,7 +235,6 @@ export class PlanStep2Page {
       this.http.get('http://namoa.vivainovacao.com/api/home/filtercidades/'+estado).map(res => res.json()).subscribe(data => {
             this.cidades = data[0];
             this.getSugestoes();
-            this.loading.dismiss();
       },err =>{
             this.loading.dismiss();
             this.getCidades(estado);

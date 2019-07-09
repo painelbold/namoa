@@ -45,13 +45,28 @@ export class PlanStep3Page {
     translate: TranslateService
    ) {
 
-    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
-    translate.use(localStorage.getItem('idioma') || 'pt');
-    
+    this.tradesList = new Array<TravelTrade>();
+    var itensTrade = JSON.parse(localStorage.getItem("traveltrades"));
+    itensTrade.map(item => this.tradesList.push(item))
+
     this.tp = JSON.parse(localStorage.getItem("travelplan"));
-    this.tradesList = JSON.parse(localStorage.getItem("traveltrades"));
     this.addTradesList = JSON.parse(localStorage.getItem("addTradesList"));
     this.removeTradesList = JSON.parse(localStorage.getItem("removeTradesList"));
+
+    translate.setDefaultLang(localStorage.getItem('idioma') || 'pt');
+    translate.use(localStorage.getItem('idioma') || 'pt');
+  }
+
+  ionViewWillEnter(){
+
+    this.tradesList = new Array<TravelTrade>();
+    var itensTrade = JSON.parse(localStorage.getItem("traveltrades"));
+    itensTrade.map(item => this.tradesList.push(item))
+
+    this.tp = JSON.parse(localStorage.getItem("travelplan"));
+    this.addTradesList = JSON.parse(localStorage.getItem("addTradesList"));
+    this.removeTradesList = JSON.parse(localStorage.getItem("removeTradesList"));
+
   }
 
   createLoading(){
