@@ -46,7 +46,7 @@
     "cors": "^2.8.4",
     "enhanced-resolve": "^3.3.0",
     "es6-promise-plugin": "^4.2.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "firebase": "^5.2.0",
     "ionic-angular": "3.9.2",
     "ionic2-rating": "^1.2.2",
